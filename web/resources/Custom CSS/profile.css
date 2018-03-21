@@ -1,0 +1,17 @@
+.Cusnavb {
+    background-color: #0f0f0f;
+    margin-top: -50px;
+}
+
+.img {
+     height: 144px;
+     width: 144px;
+     margin-left: 15px;
+ }
+.text-input, .text-label{
+    font-size: 16px;
+    margin-left: 5px;
+}
+.panel-width{
+    width: 100px;
+}
