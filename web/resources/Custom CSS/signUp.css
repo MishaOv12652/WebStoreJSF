@@ -16,7 +16,17 @@
     /*right: 0;*/
     /*bottom:0;*/
 /*}*/
-.ui-growl {
-    
-    left:20px;
+@media only screen and (max-height: 768px) {
+    .ui-growl {
+        right: 0;
+        top: 400px;
+        position: absolute;
+    }
+}
+@media only screen and (max-height: 1050px) {
+    .ui-growl {
+        right: 0;
+        top: 600px;
+        position: absolute;
+    }
 }

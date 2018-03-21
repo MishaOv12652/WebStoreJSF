@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="74176b95-73dd-40a3-a06e-ffaf8910a2ee" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/NewSadna_war_exploded/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/out/artifacts/NewSadna_war_exploded/META-INF/MANIFEST.MF" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Controller/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/Controller/UserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/faces-config.xml" afterPath="$PROJECT_DIR$/web/WEB-INF/faces-config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/public/signUp.xhtml" afterPath="$PROJECT_DIR$/web/public/signUp.xhtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/NewSadna_war_exploded/WEB-INF/faces-config.xml" afterPath="$PROJECT_DIR$/out/artifacts/NewSadna_war_exploded/WEB-INF/faces-config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/NewSadna_war_exploded/resources/Custom CSS/signUp.css" afterPath="$PROJECT_DIR$/out/artifacts/NewSadna_war_exploded/resources/Custom CSS/signUp.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/resources/Custom CSS/signUp.css" afterPath="$PROJECT_DIR$/web/resources/Custom CSS/signUp.css" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -80,8 +78,8 @@
       <file leaf-file-name="signUp.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/resources/Custom CSS/signUp.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="19" column="4" lean-forward="false" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+            <state relative-caret-position="253">
+              <caret line="28" column="16" lean-forward="false" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -999,11 +997,18 @@
       <option name="project" value="LOCAL" />
       <updated>1521660950114</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="User Sign Up Works Need to Move growl Down">
+      <created>1521664615114</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1521664615114</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11424000" />
+    <option name="totallyTimeSpent" value="12140000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -1089,7 +1094,8 @@
     <MESSAGE value="SQL fro tables" />
     <MESSAGE value="User MVC Finised coding Need to test" />
     <MESSAGE value="Fixes Time Zone JDBC Problem" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixes Time Zone JDBC Problem" />
+    <MESSAGE value="User Sign Up Works Need to Move growl Down" />
+    <option name="LAST_COMMIT_MESSAGE" value="User Sign Up Works Need to Move growl Down" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1321,8 +1327,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/resources/Custom CSS/signUp.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="19" column="4" lean-forward="false" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+        <state relative-caret-position="253">
+          <caret line="28" column="16" lean-forward="false" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
           <folding />
         </state>
       </provider>
