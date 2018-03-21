@@ -8,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -17,25 +18,27 @@ import java.sql.SQLException;
 @SessionScoped
 public class UserController {
     private static final String PROFILE_PAGE_REDIRECT =
-            "/JSFR_war_exploded/secured/profile.xhtml?faces-redirect=true";
+            "/NewSadna_war_exploded/secured/profile.xhtml";
     private static final String LOGOUT_PAGE_REDIRECT =
             "/logout.xhtml?faces-redirect=true";
     private UserDBUtils userDBUtils;
 
-    public UserController(){
+    public UserController() {
         this.userDBUtils = new UserDBUtils();
     }
+
     //sign Up
-    public String signUp(User user){
+    public void signUp(User user) {
         try {
             this.userDBUtils.signUp(user);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful Registration", "You Have Registered Successfully"));
-            SessionUtils.getSession().setAttribute("userEmail",user.getEmail());
+            SessionUtils.getSession().setAttribute("userEmail", user.getEmail());
+            FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT);
         } catch (SQLException e) {
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Unsuccessful Registration", "Something Went Wrong On Registration"));
-            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return PROFILE_PAGE_REDIRECT;
     }
 }

@@ -10,3 +10,13 @@
     margin-top: 50px;
     margin-right: 245px;
 }
+
+/*.ui-growl {*/
+    /*position: fixed;*/
+    /*right: 0;*/
+    /*bottom:0;*/
+/*}*/
+.ui-growl {
+    
+    left:20px;
+}
