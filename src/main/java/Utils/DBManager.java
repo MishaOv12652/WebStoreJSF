@@ -27,7 +27,7 @@ public class DBManager {
             connProps.put("user",USERNAME);
             connProps.put("password",PASSWORD);
 
-            this.connection = DriverManager.getConnection("jdbc:mysql://" + HOST + "/" + DBNAME,connProps);
+            this.connection = DriverManager.getConnection("jdbc:mysql://" + HOST + "/" + DBNAME + "?useLegacyDatetimeCode=false&serverTimezone=Asia/Jerusalem",connProps);
             System.out.println("Connected Successfully To DataBase");
         }catch (SQLException e){
             System.out.format("Error occured when connecting to DB: %s\n", e.getMessage());
