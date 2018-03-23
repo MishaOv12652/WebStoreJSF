@@ -41,4 +41,20 @@ public class UserController {
             e.printStackTrace();
         }
     }
+
+    //login
+    public void login(User user){
+        try {
+            if(this.userDBUtils.login(user)){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful Login", "You Have Logged in Successfully"));
+                SessionUtils.getSession().setAttribute("userEmail", user.getEmail());
+                FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT);
+            }else{
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Unsuccessful Login", "Something Went Wrong On Login"));
+            }
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Unsuccessful Login", e.getMessage()));
+        }
+    }
 }

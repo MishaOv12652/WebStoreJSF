@@ -9,3 +9,18 @@
 label,h4{
     color: blue;
 }
+
+@media only screen and (max-height: 768px) {
+    .ui-growl {
+        right: 0;
+        top: 300px;
+        position: absolute;
+    }
+}
+@media only screen and (max-height: 1050px) {
+    .ui-growl {
+        right: 0;
+        top: 500px;
+        position: absolute;
+    }
+}
