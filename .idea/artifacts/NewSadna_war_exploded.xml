@@ -9,8 +9,8 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="PrimeFaces-6.1" />
-          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:6.0.6" />
           <element id="library" level="project" name="Maven: net.bootsfaces:bootsfaces:1.2.0" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:6.0.3" />
         </element>
       </element>
     </root>
