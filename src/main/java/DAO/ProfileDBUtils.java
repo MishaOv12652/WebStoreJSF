@@ -18,12 +18,13 @@ public class ProfileDBUtils {
         this.dbManager = new DBManager();
     }
 
-    public User loadProfile(String email) throws SQLException {
+    public User loadProfileInfo(String email) throws SQLException {
         String query = "SELECT * FROM dreambuy.user WHERE email=?";
         this.dbManager.Connect();
         try {
             Connection con = this.dbManager.getConnection();
             PreparedStatement statement = con.prepareStatement(query);
+            statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return new User(
@@ -43,9 +44,38 @@ public class ProfileDBUtils {
                         Integer.parseInt(resultSet.getString("credit_card_exp").split("/")[1])
                 );
             }
-        } finally {
+        }finally {
             this.dbManager.Disconnect();
         }
         return null;
+    }
+
+    public void updateProfileInfo(User user) throws SQLException{
+        String sql = "UPDATE dreambuy.user SET f_name=?, l_name = ?, email = ?, phone_number=?, password = ?" +
+                ",address = ?,city = ?,zip = ?,credit_card_number = ?,credit_card_exp = ?,credit_card_comp = ? WHERE email =?";
+        this.dbManager.Connect();
+        try{
+            Connection con = this.dbManager.getConnection();
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1, user.getFirstName());
+            statement.setString(2, user.getLastName());
+            statement.setString(3, user.getEmail());
+            statement.setString(4, Integer.toString(user.getPhoneStart()) + Integer.toString(user.getPhoneNum()));
+            statement.setString(5, user.getPassword());
+//            this.setCity(comUtil.getKeyByValue(this.cities,this.cityName));
+            statement.setString(6, user.getStreet() + Integer.toString(user.getStreetNum()));
+            statement.setInt(7, user.getCity());
+            statement.setInt(8, user.getZip());
+
+            statement.setLong(9, user.getCreditCardNumber());
+            statement.setString(10, Integer.toString(user.getCreditCardExpMonth()) + '/' + Integer.toString(user.getCreditCardExpYear()));
+//            CommonUtils comUtil = new CommonUtils();
+//            this.setCredit_card_comp(Integer.toString(comUtil.getKeyByValue(this.credit_companies,this.creditCompanyName)));
+            statement.setInt(11, user.getCreditCardComp());
+            statement.setString(12,user.getEmail());
+            statement.execute();
+        }finally {
+            this.dbManager.Disconnect();
+        }
     }
 }

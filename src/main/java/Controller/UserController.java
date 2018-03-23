@@ -18,7 +18,7 @@ import java.sql.SQLException;
 @SessionScoped
 public class UserController {
     private static final String PROFILE_PAGE_REDIRECT =
-            "/NewSadna_war_exploded/secured/profile.xhtml";
+            "/NewSadna_war_exploded/secured/profile-personal-info.xhtml";
     private static final String LOGOUT_PAGE_REDIRECT =
             "/logout.xhtml?faces-redirect=true";
     private UserDBUtils userDBUtils;

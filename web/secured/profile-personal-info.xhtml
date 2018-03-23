@@ -4,8 +4,258 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+>
+<f:metadata>
+    <f:event type="preRenderView" listener="#{profileController.loadProfileInfo}"/>
+</f:metadata>
+<h:head>
+    <title>Web Store</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../resources/imgs/dollar.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" href="../resources/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../resources/Custom%20CSS/profile.css"/>
+    <link rel="stylesheet" href="../resources/Custom%20CSS/navBar.css"/>
+</h:head>
+<h:body>
+    <b:navBar brandImg="https://png.icons8.com/office/30/000000/tea.png" brandImgStyle="padding-right: 10px;"
+              brandAlign="left" brand="Dreaming Buy And Sell" inverse="true" brandHref="#" fixed="top">
+        <h:form style="padding-top: 10px" styleClass="pull-left">
+            <h:panelGrid columns="5">
+                <h:panelGrid columns="2">
+                    <h:outputLabel style="font-size: 17px;color: grey" for="searchInput" value="Search:"/>
+                    <h:inputText style="padding-left: 10px" id="searchInput" value="#{item}"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2" style="padding-left: 10px;padding-right: 10px">
+                    <h:outputLabel style="font-size: 17px;color: grey;padding-left: 10px" for="categories"
+                                   value="Categorie:"/>
+                    <h:inputText id="categories" value="#{item}"/>
+                </h:panelGrid>
+                <h:commandButton style="padding-left: 10px" styleClass="btn btn-primary" value="Search"
+                                 actionListener="#{search}"/>
+            </h:panelGrid>
+        </h:form>
+
+        <b:navbarLinks styleClass="pull-right">
+            <b:dropMenu value="Hi #{user.firstName}">
+                <b:navLink value="Personal Info" href="profile-personal-info.xhtml"/>
+                <b:navLink value="Selling List" href="#"/>
+                <b:navLink value="Wish List" href="#"/>
+            </b:dropMenu>
+            <b:navLink value="home" iconAwesome="home" href="index.xhtml"/>
+            <b:navLink value="Sign Up" iconAwesome="user-plus" href="public/signUp.xhtml"/>
+            <b:navLink value="Login" iconAwesome="user" href="public/login.xhtml"/>
+        </b:navbarLinks>
+    </b:navBar>
+
+    <h:form id="form" style="padding-top:50px">
+        <h:panelGrid bodyrows="2">
+            <h:panelGrid columns="2">
+                <h2>Personal Information</h2>
+
+                <h:commandButton id="editButton" styleClass="btn btn-danger"
+                                 actionListener="#{profileController.toggleEditMode}"
+                                 value="#{profileController.editMode ? 'Save' : 'Edit'}">
+                    <f:ajax execute="form" render="form:info form:editButton"/>
+                </h:commandButton>
+
+            </h:panelGrid>
+            <h:panelGrid id="info" bodyrows="10">
+
+                <h:panelGrid columns="2" rendered="#{!profileController.editMode}">
+                    <h:outputLabel for="fName" value="First Name:"/>
+                    <h:outputText id="fName" value="#{user.firstName}" required="true"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2" rendered="#{profileController.editMode}">
+                    <h:outputLabel for="efName" value="First Name:"/>
+                    <h:inputText id="efName" value="#{user.firstName}" required="true"
+                                 requiredMessage="Enter Your Last Name"
+                                 validatorMessage="Please enter your last name in English only">
+                        <f:validateRegex pattern="^[A-Za-z][A-Za-z0-9]*$"/>
+                    </h:inputText>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2" rendered="#{!profileController.editMode}">
+                    <h:outputLabel for="lName" value="Last Name:"/>
+                    <h:outputText id="lName" value="#{user.lastName}"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2" rendered="#{profileController.editMode}">
+                    <h:outputLabel for="elName" value="Last Name:"/>
+                    <h:inputText id="elName" value="#{user.lastName}" required="true"
+                                 requiredMessage="Enter Your Last Name"
+                                 validatorMessage="Please enter your last name in English only">
+                        <f:validateRegex pattern="^[A-Za-z][A-Za-z0-9]*$"/>
+                    </h:inputText>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2" rendered="#{!profileController.editMode}">
+                    <h:outputLabel for="email" value="Email:"/>
+                    <h:outputText id="email" value="#{user.email}"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2" rendered="#{profileController.editMode}">
+                    <h:outputLabel for="eemail" value="Email:"/>
+                    <h:inputText id="eemail" value="#{user.email}" required="true"
+                                 requiredMessage="Enter Your Email"
+                                 validatorMessage="please enter a valid email">
+                        <f:validateRegex for="email" pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"/>
+                    </h:inputText>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2" rendered="#{!profileController.editMode}">
+                    <h:outputLabel for="phoneNum" value="Phone Number:"/>
+                    <h:outputText id="phoneNum" value="#{user.phoneStart + user.phoneNum}"/>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2" rendered="#{profileController.editMode}">
+                    <h:outputLabel for="ephoneNum" value="Phone Number:"/>
+                    <h:panelGrid id="ephoneNum" columns="2">
+                        <h:selectOneMenu id="phoneSt" value="#{user.phoneStart}">
+                            <f:selectItem itemValue="053" itemLabel="053"/>
+                            <f:selectItem itemValue="054" itemLabel="054"/>
+                            <f:selectItem itemValue="055" itemLabel="055"/>
+                            <f:selectItem itemValue="057" itemLabel="057"/>
+                        </h:selectOneMenu>
+                        <h:inputText id="phoneEn"
+                                     value="#{user.phoneNum}"
+                                     required="true"
+                                     requiredMessage="Enter Your Phone Number"
+                                     style="margin-left: 10px"
+                                     validatorMessage="please enter a valid phone number">
+                            >
+                            <f:validateLength minimum="7" maximum="7"/>
+                        </h:inputText>
+                    </h:panelGrid>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2" rendered="#{!profileController.editMode}">
+                    <h:outputLabel for="password" value="Password:"/>
+                    <h:outputText id="password" value="#{user.password}"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2" rendered="#{profileController.editMode}">
+                    <h:outputLabel for="epassword" value="Password:"/>
+                    <h:inputText id="epassword" value="#{user.password}"/>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2" rendered="#{!profileController.editMode}">
+                    <h:outputLabel for="city" value="City:"/>
+                    <h:outputText id="city" value="#{user.lastName}"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2" rendered="#{profileController.editMode}">
+                    <h:outputLabel for="ecity" value="City:"/>
+                    <h:selectOneMenu id="ecity" value="#{user.city}">
+                        <c:forEach items="#{user.cities.entrySet()}" var="city">
+                            <f:selectItem itemValue="#{city.key}" itemLabel="#{city.value}"/>
+                        </c:forEach>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+
+
+
+                <h:panelGrid columns="2" rendered="#{!profileController.editMode}">
+                    <h:outputLabel for="zip" value="Zip:"/>
+                    <h:outputText id="zip" value="#{user.zip}"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2" rendered="#{profileController.editMode}">
+                    <h:outputLabel for="ezip" value="Zip:"/>
+                    <h:inputText id="ezip" value="#{user.zip}" required="true"
+                                 requiredMessage="Enter Your zip Code"
+                                 validatorMessage="Please enter a valid zip code - numbers only">
+                        <!--<f:validateRegex pattern="^(0|[1-9][0-9]*)$"/>-->
+                    </h:inputText>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2" rendered="#{!profileController.editMode}">
+                    <h:outputLabel for="creditNum" value="Credit Card Number:"/>
+                    <h:outputText id="creditNum" value="#{user.creditCardNumber}"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2" rendered="#{profileController.editMode}">
+                    <h:outputLabel for="ecreditNum" value="Credit Card Number:"/>
+                    <h:inputText id="ecreditNum" value="#{user.creditCardNumber}" required="true"
+                                 requiredMessage="Enter Your Credit Card Number"
+                                 maxlength="12"
+                                 validatorMessage="Please Enter A valid Credit Card Number">
+                        <!--<f:validateRegex pattern="^(0|[1-9][0-9]*)$"/>-->
+                    </h:inputText>
+                </h:panelGrid>
+
+                <!--<h:panelGrid columns="2" rendered="#{!profileController.editMode}">-->
+                <!--<h:outputLabel for="street" value="Address: "/>-->
+                <!--<h:outputText id="street" value="#{user.street + ' ' + user.streetNum}"/>-->
+                <!--</h:panelGrid>-->
+                <!--<h:panelGrid columns="2" rendered="#{profileController.editMode}">-->
+                <!--<h:panelGrid columns="2">-->
+                <!--<h:panelGrid columns="2">-->
+                <!--<h:outputLabel for="estreet" value="Address:"/>-->
+                <!--<h:inputText value="#{user.street}" id="estreet" required="true"-->
+                <!--requiredMessage="Enter Your Street Name"-->
+                <!--validatorMessage="Please enter only the name of the street">-->
+                <!--<f:validateRegex pattern="^[a-zA-Z\s]*$"/>-->
+                <!--</h:inputText>-->
+                <!--</h:panelGrid>-->
+                <!--<h:panelGrid columns="2">-->
+                <!--<h:outputLabel for="estreetNum" value="Address:"/>-->
+                <!--<h:inputText value="#{user.streetNum}" id="estreetNum" required="true"-->
+                <!--requiredMessage="Enter Your Street Number"-->
+                <!--validatorMessage="Please enter only the Number of the street">-->
+                <!--&lt;!&ndash;<f:validateRegex pattern="^(0|[1-9][0-9]*)$"/>&ndash;&gt;-->
+                <!--</h:inputText>-->
+                <!--</h:panelGrid>-->
+                <!--</h:panelGrid>-->
+                <!--</h:panelGrid>-->
+                <!--<h:panelGrid columns="2" rendered="#{!profileController.editMode}">-->
+                <!--<h:outputLabel for="creditExp" value="Credit Card Experation Date"/>-->
+                <!--<h:outputText id="creditExp" value="#{user.creditCardExpMonth + '/' + user.creditCardExpYear}"/>-->
+                <!--</h:panelGrid>-->
+                <!--<h:panelGrid columns="3" rendered="#{profileController.editMode}">-->
+                <!--<h:panelGrid columns="2">-->
+                <!--<h:outputLabel for="expMo" value="Experation Month: "/>-->
+                <!--<h:selectOneMenu id="expMo" value="#{user.creditCardExpMonth}">-->
+                <!--<f:selectItem itemValue="1" itemLabel="1"/>-->
+                <!--<f:selectItem itemValue="2" itemLabel="2"/>-->
+                <!--<f:selectItem itemValue="3" itemLabel="3"/>-->
+                <!--<f:selectItem itemValue="4" itemLabel="4"/>-->
+                <!--<f:selectItem itemValue="5" itemLabel="5"/>-->
+                <!--<f:selectItem itemValue="6" itemLabel="6"/>-->
+                <!--<f:selectItem itemValue="7" itemLabel="7"/>-->
+                <!--<f:selectItem itemValue="8" itemLabel="8"/>-->
+                <!--<f:selectItem itemValue="9" itemLabel="9"/>-->
+                <!--<f:selectItem itemValue="10" itemLabel="10"/>-->
+                <!--<f:selectItem itemValue="11" itemLabel="11"/>-->
+                <!--<f:selectItem itemValue="12" itemLabel="12"/>-->
+                <!--</h:selectOneMenu>-->
+                <!--</h:panelGrid>-->
+                <!--/-->
+                <!--<h:panelGrid columns="2">-->
+                <!--<h:outputLabel for="expYe" value="Experation Year:"/>-->
+                <!--<h:selectOneMenu id="expYe" value="#{user.creditCardExpYear}">-->
+                <!--<f:selectItem itemValue="2018" itemLabel="2018"/>-->
+                <!--<f:selectItem itemValue="2019" itemLabel="2019"/>-->
+                <!--<f:selectItem itemValue="2020" itemLabel="2020"/>-->
+                <!--<f:selectItem itemValue="2021" itemLabel="2021"/>-->
+                <!--<f:selectItem itemValue="2022" itemLabel="2022"/>-->
+                <!--<f:selectItem itemValue="2023" itemLabel="2023"/>-->
+                <!--</h:selectOneMenu>-->
+                <!--</h:panelGrid>-->
+                <!--</h:panelGrid>-->
+
+                <h:panelGrid columns="2" rendered="#{!profileController.editMode}">
+                    <h:outputLabel for="creditComp" value="Credit Card Company:"/>
+                    <h:outputText id="creditComp" value="#{user.creditCardComp}"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2" rendered="#{profileController.editMode}">
+                    <h:outputLabel for="ecreditComp" value="Credit Card Company:"/>
+                    <h:selectOneMenu id="ecreditComp" value="#{user.creditCardComp}">
+                        <c:forEach items="#{user.creditCardCompanies.entrySet()}" var="comp">
+                            <f:selectItem itemValue="#{comp.key}" itemLabel="#{comp.value}"/>
+                        </c:forEach>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+            </h:panelGrid>
+        </h:panelGrid>
+
+    </h:form>
+
+</h:body>
 </html>
