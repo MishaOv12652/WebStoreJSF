@@ -38,11 +38,13 @@ public class ProfileController implements Serializable {
 
     public ProfileController() {
         this.profileDBUtils = new ProfileDBUtils();
+
+    }
+
+    public void loadConsts(){
         this.cities = CommonUtils.getConstLists("dreambuy.city", "name");
         this.creditCardCompanies = CommonUtils.getConstLists("dreambuy.credit_companies", "name");
     }
-
-
     public void loadProfileInfo() {
         HttpSession session = SessionUtils.getSession();
         try {
@@ -58,17 +60,23 @@ public class ProfileController implements Serializable {
 
     public void toggleEditMode() {
         this.editMode = !this.editMode;
-        if (this.editMode) {
-            this.updateProfile(this.currentProfile);
-        }
     }
 
-    private void updateProfile(User currentProfile) {
+    public void cancelEditMode() {
+        this.editMode = false;
+    }
+
+    public void updateProfile(User currentProfile) {
         try {
             this.profileDBUtils.updateProfileInfo(currentProfile);
+            this.editMode = false;
         } catch (SQLException e) {
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Update Profile Error", e.getMessage()));
         }
+    }
+
+    public String getConstValueByKey(Hashtable<Integer,String> hashtable, String key){
+        return CommonUtils.getValueByKeyFromHash(hashtable,key);
     }
 }

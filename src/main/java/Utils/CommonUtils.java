@@ -66,4 +66,8 @@ public class CommonUtils {
         manager.Disconnect();
         return -1;
     }
+
+    public static String getValueByKeyFromHash(Hashtable<Integer,String>hashtable,String key){
+        return hashtable.get(Integer.parseInt(key));
+    }
 }

@@ -32,10 +32,10 @@ public class ProfileDBUtils {
                         resultSet.getString("l_name"),
                         resultSet.getString("email"),
                         resultSet.getString("password"),
-                        new Integer(resultSet.getString("phone_number").substring(0, 1)),//phone start
-                        new Integer(Integer.toString(resultSet.getInt("phone_number")).substring(1)),//phone number
+                        new Integer(resultSet.getString("phone_number").substring(0, 2)),//phone start
+                        new Integer(Integer.toString(resultSet.getInt("phone_number")).substring(2)),//phone number
                         resultSet.getInt("city"),
-                        resultSet.getString("address").replaceAll("[^-?0-9]+", ""),
+                        resultSet.getString("address").replaceAll("[^A-Za-z]", ""),
                         Integer.parseInt(resultSet.getString("address").replaceAll("\\D+", "")),
                         resultSet.getInt("zip"),
                         resultSet.getLong("credit_card_number"),
