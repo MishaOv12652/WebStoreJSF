@@ -41,14 +41,12 @@
         </h:form>
 
         <b:navbarLinks styleClass="pull-right">
+            <b:navLink value="home" iconAwesome="home" href="../index.xhtml"/>
             <b:dropMenu value="Hi #{user.firstName}">
                 <b:navLink value="Personal Info" href="profile-personal-info.xhtml"/>
                 <b:navLink value="Selling List" href="#"/>
                 <b:navLink value="Wish List" href="#"/>
             </b:dropMenu>
-            <b:navLink value="home" iconAwesome="home" href="index.xhtml"/>
-            <b:navLink value="Sign Up" iconAwesome="user-plus" href="public/signUp.xhtml"/>
-            <b:navLink value="Login" iconAwesome="user" href="public/login.xhtml"/>
         </b:navbarLinks>
     </b:navBar>
 
@@ -282,6 +280,6 @@
         </h:panelGrid>
 
     </h:form>
-<p:growl sticky="false" life="3000" showDetail="true"/>
+<p:growl sticky="false" life="3000" showDetail="true" autoUpdate="true"/>
 </h:body>
 </html>
