@@ -2613,7 +2613,7 @@ User</ColNames>
     </column>
     <column id="543" parent="61" name="credit_card_exp">
       <Position>11</Position>
-      <DataType>varchar(6)|0</DataType>
+      <DataType>varchar(7)|0</DataType>
     </column>
     <column id="544" parent="61" name="zip">
       <Position>12</Position>

@@ -117,35 +117,38 @@ CREATE TABLE dreambuy.gpu_list
   gpu VARCHAR(25)
 );
 
-CREATE TABLE dreambuy.user
+-- auto-generated definition
+create table dreambuy.user
 (
-  id                 INT         NOT NULL AUTO_INCREMENT
-    PRIMARY KEY,
-  f_name             VARCHAR(20) NULL,
-  l_name             VARCHAR(20) NULL,
-  email              VARCHAR(30) NULL,
-  password           VARCHAR(20) NULL,
-  city               INT         NULL,
-  address            VARCHAR(50) NULL,
-  credit_card_number VARCHAR(20) NULL,
-  credit_card_comp   INT         NULL,
-  credit_card_exp    VARCHAR(6)  NULL,
-  phone_number       VARCHAR(10) NULL,
-  zip                INT         NULL,
-  CONSTRAINT User_email_uindex
-  UNIQUE (email),
-  CONSTRAINT user_city_id_fk
-  FOREIGN KEY (city) REFERENCES dreambuy.city (id),
-  CONSTRAINT user_credit_companies_id_fk
-  FOREIGN KEY (credit_card_comp) REFERENCES dreambuy.credit_companies (id)
-);
+  id int not null auto_increment
+    primary key,
+  email varchar(30) null,
+  f_name varchar(20) null,
+  l_name varchar(20) null,
+  password varchar(20) null,
+  phone_number varchar(10) null,
+  city int null,
+  address varchar(50) null,
+  credit_card_number varchar(20) null,
+  credit_card_comp int null,
+  credit_card_exp varchar(7) null,
+  zip int null,
+  constraint User_email_uindex
+  unique (email),
+  constraint user_city_id_fk
+  foreign key (city) references dreambuy.city (id),
+  constraint user_credit_companies_id_fk
+  foreign key (credit_card_comp) references dreambuy.credit_companies (id)
+)
+;
 
-CREATE INDEX user_city_id_fk
-  ON dreambuy.user (city);
+create index user_city_id_fk
+  on user (city)
+;
 
-CREATE INDEX user_credit_companies_id_fk
-  ON dreambuy.user (credit_card_comp);
-
+create index user_credit_companies_id_fk
+  on user (credit_card_comp)
+;
 -- auto-generated definition
 CREATE TABLE dreambuy.movie_specs
 (
