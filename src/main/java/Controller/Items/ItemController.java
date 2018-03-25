@@ -31,11 +31,11 @@ public class ItemController implements Serializable {
         this.itemDBUtils = new ItemDBUtils();
     }
 
-    //add item
-    public void addItem(Item item,String email) {
+    //add item for sale
+    public void addItemForSale(Item item,String email) {
         try {
             int idOfUser = CommonUtils.getUserIdByEmail(email);
-            int idOfItem = this.itemDBUtils.addItem(item, idOfUser);
+            int idOfItem = this.itemDBUtils.addItemForSale(item, idOfUser);
             if ( idOfItem == -1) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Item Wasn't Successfully added",
                         "The item " + item.getName() + " wasn't added for sale"));

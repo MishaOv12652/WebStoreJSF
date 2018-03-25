@@ -174,11 +174,15 @@
             <div class="row btn-group col-md-pull-3" style="margin-top: 100px;">
                 <h:button style="margin-top: 15px" styleClass="btn btn-danger pull-left" value="Back To Selling List"
                           outcome="profile-selling-items"/>
-                <!--<h:commandButton rendered="#{item.category eq 1}" actionListener="#{book.addBookForSale}" styleClass="btn btn-success col-md-offset-6" style="margin-top: 15px" value="Add Book For Sale" update="growl"/>-->
+                <h:commandButton rendered="#{item.category eq 1}"
+                                 actionListener="#{bookController.addBookForSale(book,user.email)}"
+                                 styleClass="btn btn-success pull-right" style="margin-top: 15px"
+                                 value="Add Book For Sale" update="growl"/>
                 <!--<h:commandButton rendered="#{item.category eq 2}" actionListener="#{cellPhone.addCellPhoneForSale}" styleClass="btn btn-success col-md-offset-6" style="margin-top: 15px" value="Add Cell Phone For Sale" update="growl"/>-->
                 <!--<h:commandButton rendered="#{item.category eq 3}" actionListener="#{comp.addComputerForSale}" styleClass="btn btn-success col-md-offset-6" style="margin-top: 15px" value="Add Computer Or Tablet For Sale" update="growl"/>-->
                 <!--<h:commandButton rendered="#{item.category eq 4}" actionListener="#{movie.addMovieForSale}" styleClass="btn btn-success col-md-offset-6" style="margin-top: 15px" value="Add Movie For Sale" update="growl"/>-->
-                <h:commandButton rendered="#{item.category eq 5}" actionListener="#{itemController.addItem(item, user.email)}"
+                <h:commandButton rendered="#{item.category eq 5}"
+                                 actionListener="#{itemController.addItemForSale(item, user.email)}"
                                  styleClass="btn btn-success pull-right" style="margin-top: 15px"
                                  value="Add Item For Sale" update="growl"/>
 

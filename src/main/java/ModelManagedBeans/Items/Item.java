@@ -26,7 +26,7 @@ public class Item implements Serializable{
     private int category;
     private int condition;
     private UploadedFile img;
-    private int itemSpecs;
+    private Integer itemSpecs;
     private int sellerId;
     private int numOfItems;
 
