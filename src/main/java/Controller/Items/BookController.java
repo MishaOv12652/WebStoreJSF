@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.sql.SQLException;
  */
 @ManagedBean
 @SessionScoped
+@RequestScoped
 @Getter
 @Setter
 public class BookController implements Serializable {
