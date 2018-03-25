@@ -1,10 +1,12 @@
 package ModelManagedBeans.Items;
 
 import Utils.CommonUtils;
+import Utils.SessionUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.model.UploadedFile;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.servlet.http.Part;
 import java.io.Serializable;
@@ -33,20 +35,22 @@ public class Item implements Serializable{
 
     public Item(){}
 
-    public Item(String name,float price, String itemDesc, int category, int condition, UploadedFile uploadedFile,int sellerId,int numOfItems){
+    public Item(String name,float price, String itemDesc, int category, int condition, UploadedFile uploadedFile,int numOfItems){
         this.name = name;
         this.price = price;
         this.itemDesc = itemDesc;
         this.category = category;
         this.condition = condition;
         this.img = uploadedFile;
-        this.sellerId = sellerId;
         this.numOfItems = numOfItems;
     }
 
-    public void loadConsts(){
+
+    @PostConstruct
+    public void init(){
         this.categories = CommonUtils.getConstLists("dreambuy.categories", "category_name");
         this.conditions = CommonUtils.getConstLists("dreambuy.product_condition", "condition");
+        this.category = 5;
     }
 
 }

@@ -17,7 +17,7 @@ public class ItemDBUtils {
         this.dbManager = new DBManager();
     }
 
-    public int addItem(Item item) throws SQLException {
+    public int addItem(Item item ,int idOfUser) throws SQLException {
         this.dbManager.Connect();
         String sql = "INSERT INTO dreambuy.products(name, price, item_desc, category, condition_id, seller_id,item_spec_id,numOfItems)" +
                 "VALUES (?,?,?,?,?,?,?,?)";
@@ -30,8 +30,8 @@ public class ItemDBUtils {
             stmt.setInt(4, item.getCategory());
             stmt.setInt(5, item.getCondition());
             //stmt.setBlob(6, item.getUploadedFile());
-            stmt.setInt(6, item.getSellerId());
-            stmt.setInt(7, -1);
+            stmt.setInt(6, idOfUser);
+            stmt.setObject(7, null);
             stmt.setInt(8, item.getNumOfItems());
 //            stmt.setInt(10,-1);
 //            stmt.setInt(11,-1);

@@ -10,7 +10,7 @@
       xmlns:p="http://primefaces.org/ui"
 >
 <f:metadata>
-    <f:event type="preRenderView" listener="#{item.loadConsts}"/>
+    <f:event type="preRenderView" listener="#{profileController.loadProfileInfo}"/>
 </f:metadata>
 <h:head>
 
@@ -34,12 +34,12 @@
             <h:panelGrid columns="5">
                 <h:panelGrid columns="2">
                     <h:outputLabel style="font-size: 17px;color: grey" for="searchInput" value="Search:"/>
-                    <h:inputText style="padding-left: 10px" id="searchInput" value="#{item}"/>
+                    <h:inputText style="padding-left: 10px;width: 100px" id="searchInput" value="#{item.category}"/>
                 </h:panelGrid>
                 <h:panelGrid columns="2" style="padding-left: 10px;padding-right: 10px">
                     <h:outputLabel style="font-size: 17px;color: grey;padding-left: 10px" for="categories"
                                    value="Categorie:"/>
-                    <h:inputText id="categories" value="#{item}"/>
+                    <h:inputText id="categories" style="width: 100px" value="#{item}"/>
                 </h:panelGrid>
                 <h:commandButton style="padding-left: 10px" styleClass="btn btn-primary" value="Search"
                                  actionListener="#{search}"/>
@@ -68,7 +68,7 @@
                         <h:selectOneMenu id="categories_item" value="#{item.category}">
                             <c:forEach items="#{item.categories.entrySet()}" var="category">
                                 <f:selectItem itemValue="#{category.key}" itemLabel="#{category.value}"/>
-                                <f:ajax event="change"  render="@form"/>
+                                <f:ajax event="change" render="@form"/>
                             </c:forEach>
                         </h:selectOneMenu>
 
@@ -137,7 +137,7 @@
 
             </h:panelGrid>
 
-            <h3>Product Specifics:</h3>
+            <h2>Product Specifics:</h2>
             <h:panelGrid id="product_specs">
                 <h:panelGrid bodyrows="7" styleClass="col-md-offset-4" rendered="#{item.category eq 1}">
                     <ui:insert name="computer">
@@ -171,11 +171,19 @@
 
             <h:inputTextarea styleClass="col-md-offset-4" style="width: 600px;height: 250px"
                              value="#{item.itemDesc}"/>
-            <!--<h:commandButton rendered="#{item.category eq 1}" actionListener="#{book.addBookForSale}" styleClass="btn btn-success col-md-offset-6" style="margin-top: 15px" value="Add Book For Sale" update="growl"/>-->
-            <!--<h:commandButton rendered="#{item.category eq 2}" actionListener="#{cellPhone.addCellPhoneForSale}" styleClass="btn btn-success col-md-offset-6" style="margin-top: 15px" value="Add Cell Phone For Sale" update="growl"/>-->
-            <!--<h:commandButton rendered="#{item.category eq 3}" actionListener="#{comp.addComputerForSale}" styleClass="btn btn-success col-md-offset-6" style="margin-top: 15px" value="Add Computer Or Tablet For Sale" update="growl"/>-->
-            <!--<h:commandButton rendered="#{item.category eq 4}" actionListener="#{movie.addMovieForSale}" styleClass="btn btn-success col-md-offset-6" style="margin-top: 15px" value="Add Movie For Sale" update="growl"/>-->
-            <h:commandButton rendered="#{item.category eq 5}" actionListener="#{itemController.addItem(item)}" styleClass="btn btn-success col-md-offset-6" style="margin-top: 15px" value="Add Item For Sale" update="growl"/>
+            <div class="row btn-group col-md-pull-3" style="margin-top: 100px;">
+                <h:button style="margin-top: 15px" styleClass="btn btn-danger pull-left" value="Back To Selling List"
+                          outcome="profile-selling-items"/>
+                <!--<h:commandButton rendered="#{item.category eq 1}" actionListener="#{book.addBookForSale}" styleClass="btn btn-success col-md-offset-6" style="margin-top: 15px" value="Add Book For Sale" update="growl"/>-->
+                <!--<h:commandButton rendered="#{item.category eq 2}" actionListener="#{cellPhone.addCellPhoneForSale}" styleClass="btn btn-success col-md-offset-6" style="margin-top: 15px" value="Add Cell Phone For Sale" update="growl"/>-->
+                <!--<h:commandButton rendered="#{item.category eq 3}" actionListener="#{comp.addComputerForSale}" styleClass="btn btn-success col-md-offset-6" style="margin-top: 15px" value="Add Computer Or Tablet For Sale" update="growl"/>-->
+                <!--<h:commandButton rendered="#{item.category eq 4}" actionListener="#{movie.addMovieForSale}" styleClass="btn btn-success col-md-offset-6" style="margin-top: 15px" value="Add Movie For Sale" update="growl"/>-->
+                <h:commandButton rendered="#{item.category eq 5}" actionListener="#{itemController.addItem(item, user.email)}"
+                                 styleClass="btn btn-success pull-right" style="margin-top: 15px"
+                                 value="Add Item For Sale" update="growl"/>
+
+            </div>
+
             <p:growl id="growl" showDetail="true" sticky="false" life="3000"/>
         </h:form>
 
