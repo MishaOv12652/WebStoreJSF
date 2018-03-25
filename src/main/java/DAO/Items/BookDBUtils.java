@@ -2,29 +2,33 @@ package DAO.Items;
 
 import ModelManagedBeans.Items.Book;
 import Utils.DBManager;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.*;
 
 /**
  * Created by Misha on 3/25/2018.
  */
-public class BookDBUtils extends ItemDBUtils{
+@Getter
+@Setter
+public class BookDBUtils extends ItemDBUtils {
     private DBManager dbManager;
 
-    public BookDBUtils(){
+    public BookDBUtils() {
         super();
+        //this.dbManager = new DBManager();
     }
-
 
 
     //add a book
-    public int addBookForSale(Book book,int sellerId) throws SQLException {
-        this.dbManager.Connect();
-        book.setItemSpecs(this.addBookSpecs(book,dbManager));
-        return this.addItemForSale(book,sellerId);
+    public int addBookForSale(Book book, int sellerId) throws SQLException {
+        book.setItemSpecs(this.addBookSpecs(book));
+        return this.addItemForSale(book, sellerId);
     }
 
-    private int addBookSpecs(Book book, DBManager dbManager) throws SQLException {
+    private int addBookSpecs(Book book) throws SQLException {
+        this.dbManager.Connect();
         String sql = "INSERT INTO dreambuy.books_specs(genre, series, age_lvl, author) " +
                 "VALUES (?,?,?,?)";
         try {
@@ -41,7 +45,7 @@ public class BookDBUtils extends ItemDBUtils{
             } else {
                 return -1;
             }
-        }finally {
+        } finally {
             dbManager.Disconnect();
         }
     }

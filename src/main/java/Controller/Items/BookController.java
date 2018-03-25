@@ -3,6 +3,8 @@ package Controller.Items;
 import DAO.Items.BookDBUtils;
 import ModelManagedBeans.Items.Book;
 import Utils.CommonUtils;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -17,7 +19,10 @@ import java.sql.SQLException;
  */
 @ManagedBean
 @SessionScoped
-public class BookController extends ItemController implements Serializable {
+@Getter
+@Setter
+public class BookController implements Serializable {
+    private Book book;
     private BookDBUtils bookDBUtils;
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
             "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";

@@ -4,8 +4,77 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <link rel="shortcut icon" type="image/x-icon" href="../../resources/imgs/dollar.png"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <link rel="stylesheet" href="../../resources/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" href="../../resources/Custom%20CSS/addItem.css"/>
+</h:head>
+<h:body>
+    <ui:composition>
+        <h:panelGrid columns="2" styleClass="col-md-offset-4">
+            <h:panelGrid bodyrows="3">
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="director" value="Director:">
+                        <h:selectOneMenu id="director" value="#{movie.director}">
+                            <c:forEach items="#{movie.directors.entrySet()}" var="director">
+                                <f:selectItem itemValue="#{director.key}" itemLabel="#{director.value}"/>
+                            </c:forEach>
+                        </h:selectOneMenu>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="movie_genre" value="Genre:">
+                        <h:selectOneMenu id="movie_genre" value="#{movie.genre}">
+                            <c:forEach items="#{movie.genres.entrySet()}" var="genre">
+                                <f:selectItem itemValue="#{genre.key}" itemLabel="#{genre.value}"/>
+                            </c:forEach>
+                        </h:selectOneMenu>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="actor" value="Actor:">
+                        <h:selectOneMenu id="actor" value="#{movie.knownActor}">
+                            <c:forEach items="#{movie.knownActors.entrySet()}" var="genre">
+                                <f:selectItem itemValue="#{genre.key}" itemLabel="#{genre.value}"/>
+                            </c:forEach>
+                        </h:selectOneMenu>
+                    </h:outputLabel>
+                </h:panelGrid>
+            </h:panelGrid>
+
+            <h:panelGrid bodyrows="3" style="margin-left: 15px">
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="movie_age_lvl" value="Age Level:">
+                        <h:selectOneMenu id="movie_age_lvl" value="#{movie.ageLvl}">
+                            <c:forEach items="#{movie.ageLvls.entrySet()}" var="age_lvl">
+                                <f:selectItem itemValue="#{age_lvl.key}" itemLabel="#{age_lvl.value}"/>
+                            </c:forEach>
+                        </h:selectOneMenu>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="length" value="Length Of The Movie:">
+                        <h:inputText id="length" value="#{movie.length}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="year" value="Year Of The Movie:">
+                        <h:inputText id="year" value="#{movie.year}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+            </h:panelGrid>
+        </h:panelGrid>
+
+    </ui:composition>
+
+</h:body>
 </html>

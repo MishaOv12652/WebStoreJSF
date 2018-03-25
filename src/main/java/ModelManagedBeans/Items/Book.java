@@ -7,6 +7,7 @@ import org.primefaces.model.UploadedFile;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.Hashtable;
 
@@ -16,6 +17,7 @@ import java.util.Hashtable;
 @Getter
 @Setter
 @ManagedBean
+@SessionScoped
 public class Book extends Item implements Serializable{
     private int id;
     private int author;
@@ -42,15 +44,12 @@ public class Book extends Item implements Serializable{
 
     @PostConstruct
     public void init() {
-        CommonUtils commonUtils = new CommonUtils();
         //get author hash from db
         this.authors = CommonUtils.getConstLists("dreambuy.known_authers", "auther_name");
         //get genres hash from db
         this.genres = CommonUtils.getConstLists("dreambuy.genres", "genre");
         //get ageLvl hash from db
         this.ageLevels = CommonUtils.getConstLists("dreambuy.age_lvl", "age_lvl");
-        //get user id from session
-        //this.userId = CommonUtils.getUserIdByEmail(SessionUtils.getSession().getAttribute("email").toString());
     }
 
 }
