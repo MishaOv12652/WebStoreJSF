@@ -22,7 +22,7 @@ public class Item implements Serializable{
     private String itemDesc;
     private int category;
     private int condition;
-    private UploadedFile uploadedFile;
+    private UploadedFile img;
     private int itemSpecs;
     private int sellerId;
     private int numOfItems;
@@ -38,7 +38,7 @@ public class Item implements Serializable{
         this.itemDesc = itemDesc;
         this.category = category;
         this.condition = condition;
-        this.uploadedFile = uploadedFile;
+        this.img = uploadedFile;
         this.sellerId = sellerId;
         this.numOfItems = numOfItems;
     }

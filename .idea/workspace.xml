@@ -2,12 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="74176b95-73dd-40a3-a06e-ffaf8910a2ee" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/Controller/Items/ItemController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/DAO/Items/ItemDBUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/c3b0bad8-c235-4f53-962a-aea40a859dee.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/c3b0bad8-c235-4f53-962a-aea40a859dee.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/secured/ItemCategoryPages/book.xhtml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/secured/ItemCategoryPages/cellphone.xhtml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/secured/ItemCategoryPages/computer.xhtml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/secured/ItemCategoryPages/movie.xhtml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/secured/ItemCategoryPages/other.xhtml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/secured/add-edit-item.xhtml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ModelManagedBeans/Items/Item.java" afterPath="$PROJECT_DIR$/src/main/java/ModelManagedBeans/Items/Item.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/secured/profile-selling-items.xhtml" afterPath="$PROJECT_DIR$/web/secured/profile-selling-items.xhtml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -57,8 +60,8 @@
       <file leaf-file-name="Item.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ModelManagedBeans/Items/Item.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="451">
-              <caret line="40" column="23" lean-forward="false" selection-start-line="40" selection-start-column="23" selection-end-line="40" selection-end-column="23" />
+            <state relative-caret-position="119">
+              <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -66,7 +69,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ItemDBUtils.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ItemDBUtils.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/DAO/Items/ItemDBUtils.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="736">
@@ -75,6 +78,26 @@
                 <element signature="imports" expanded="true" />
                 <marker date="1521954121418" expanded="true" signature="480:637" ph="INSERT INTO dreambuy.products... " />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="add-edit-item.xhtml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/secured/add-edit-item.xhtml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="24" column="66" lean-forward="false" selection-start-line="24" selection-start-column="59" selection-end-line="24" selection-end-column="66" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="profile-selling-items.xhtml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/secured/profile-selling-items.xhtml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2513">
+              <caret line="238" column="53" lean-forward="false" selection-start-line="238" selection-start-column="53" selection-end-line="238" selection-end-column="53" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -111,8 +134,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="jsf" />
         <option value="Class" />
+        <option value="jsf" />
       </list>
     </option>
   </component>
@@ -174,10 +197,16 @@
         <option value="$PROJECT_DIR$/web/secured/profile-selling-list.xhtml" />
         <option value="$PROJECT_DIR$/web/secured/profile-personal-info.xhtml" />
         <option value="$PROJECT_DIR$/web/resources/Custom CSS/profile.css" />
-        <option value="$PROJECT_DIR$/web/secured/profile-selling-items.xhtml" />
-        <option value="$PROJECT_DIR$/src/main/java/ModelManagedBeans/Items/Item.java" />
         <option value="$PROJECT_DIR$/src/main/java/DAO/Items/ItemDBUtils.java" />
         <option value="$PROJECT_DIR$/src/main/java/Controller/Items/ItemController.java" />
+        <option value="$PROJECT_DIR$/web/secured/ItemCategoryPages/other.xhtml" />
+        <option value="$PROJECT_DIR$/web/secured/ItemCategoryPages/movie.xhtml" />
+        <option value="$PROJECT_DIR$/web/secured/ItemCategoryPages/book.xhtml" />
+        <option value="$PROJECT_DIR$/web/secured/ItemCategoryPages/cellphone.xhtml" />
+        <option value="$PROJECT_DIR$/web/secured/ItemCategoryPages/computer.xhtml" />
+        <option value="$PROJECT_DIR$/web/secured/profile-selling-items.xhtml" />
+        <option value="$PROJECT_DIR$/src/main/java/ModelManagedBeans/Items/Item.java" />
+        <option value="$PROJECT_DIR$/web/secured/add-edit-item.xhtml" />
       </list>
     </option>
   </component>
@@ -189,9 +218,9 @@
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
-    <option name="FILTER_WARNINGS" value="true" />
-    <option name="FILTER_INFO" value="true" />
-    <option name="FILTER_DEBUG" value="true" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="false" />
+    <option name="FILTER_DEBUG" value="false" />
     <option name="CUSTOM_FILTER" />
   </component>
   <component name="ProjectFrameBounds">
@@ -286,6 +315,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="secured" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dreambuyandsell" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dreambuyandsell" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="secured" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ItemCategoryPages" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1249,11 +1300,18 @@
       <option name="project" value="LOCAL" />
       <updated>1521900623730</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add item of category other logic need to test">
+      <created>1521954411568</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1521954411568</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57953000" />
+    <option name="totallyTimeSpent" value="59619000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
@@ -1274,8 +1332,9 @@
       <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38625205" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38625205" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1312,7 +1371,6 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38625205" sideWeight="0.5" order="20" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="23" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32875264" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1349,7 +1407,8 @@
     <MESSAGE value="profile personal info show and update works need to fix the nav bars to all pages" />
     <MESSAGE value="little cosmetic fixes and need to check growls after login and signup" />
     <MESSAGE value="css adding" />
-    <option name="LAST_COMMIT_MESSAGE" value="css adding" />
+    <MESSAGE value="add item of category other logic need to test" />
+    <option name="LAST_COMMIT_MESSAGE" value="add item of category other logic need to test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1376,30 +1435,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.idea/sqldialects.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="3" column="86" lean-forward="false" selection-start-line="3" selection-start-column="81" selection-end-line="3" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/dreambuyandsell.time" />
-    <entry file="file://$PROJECT_DIR$/web/index.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ModelManagedBeans/Profile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/glassfish-4.1.1/glassfish/modules/web-core.jar!/org/apache/catalina/core/StandardWrapper.class" />
-    <entry file="jar://C:/Program Files/glassfish-4.1.1/glassfish/modules/javax.faces.jar!/com/sun/faces/renderkit/html_basic/HtmlBasicRenderer.class" />
     <entry file="jar://C:/Program Files/glassfish-4.1.1/glassfish/modules/javax.faces.jar!/com/sun/faces/facelets/compiler/UIInstructions.class" />
     <entry file="jar://C:/Program Files/glassfish-4.1.1/glassfish/modules/javax.faces.jar!/com/sun/faces/facelets/compiler/CommentInstruction.class" />
     <entry file="jar://C:/Program Files/glassfish-4.1.1/glassfish/modules/javax.faces.jar!/com/sun/faces/facelets/el/ELText.class" />
@@ -1527,14 +1562,6 @@
     <entry file="dbDummy://dbtable:/4105598f/c3b0bad8-c235-4f53-962a-aea40a859dee/dreambuy.computer_specs" />
     <entry file="dbDummy://dbtable:/4105598f/c3b0bad8-c235-4f53-962a-aea40a859dee/dreambuy.products" />
     <entry file="dbDummy://dbtable:/4105598f/c3b0bad8-c235-4f53-962a-aea40a859dee/dreambuy.categories" />
-    <entry file="file://$PROJECT_DIR$/web/secured/profile-selling-items.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3091">
-          <caret line="238" column="99" lean-forward="false" selection-start-line="238" selection-start-column="99" selection-end-line="238" selection-end-column="99" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/NewSadna.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1547,69 +1574,6 @@
         <state relative-caret-position="449">
           <caret line="51" column="19" lean-forward="false" selection-start-line="51" selection-start-column="19" selection-end-line="51" selection-end-column="19" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/secured/profile-personal-info.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16">
-          <caret line="43" column="64" lean-forward="false" selection-start-line="43" selection-start-column="64" selection-end-line="43" selection-end-column="64" />
-          <folding>
-            <marker date="1521919303169" expanded="true" signature="2861:17125" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="2896:17110" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="2950:4233" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="3116:3363" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="3446:4205" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="3529:3797" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="3909:4174" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="4420:4609" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="4716:5184" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="4874:5153" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="5293:5464" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="5571:6037" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="5727:6006" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="6146:6310" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="6417:6877" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="6566:6846" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="6986:7318" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="7120:7287" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="7426:8596" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="7562:8565" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="7644:7991" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="8042:8530" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="8705:8881" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="8964:9141" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="9250:9507" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="9357:9476" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="9614:10042" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="9747:10011" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="9841:9972" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="10151:10499" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="10277:10467" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="10608:11846" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="10654:11815" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="10704:11780" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="10847:11741" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="10932:11249" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="11366:11698" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="11955:12111" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="12218:12671" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="12359:12640" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="12780:13087" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="12914:13056" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="13194:13672" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="13364:13641" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="13471:13602" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="13781:13977" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="14084:14630" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="14265:14599" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="14738:15129" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="14888:15098" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="15237:17058" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="15389:17027" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="15466:16379" ph="..." />
-            <marker date="1521919303169" expanded="true" signature="16481:16992" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1648,16 +1612,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ModelManagedBeans/Items/Item.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="40" column="23" lean-forward="false" selection-start-line="40" selection-start-column="23" selection-end-line="40" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="dbDummy://dbtable:/5024cec0/c3b0bad8-c235-4f53-962a-aea40a859dee/dreambuy.products">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -1667,6 +1621,73 @@
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/DAO/Items/ItemDBUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="736">
+          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1521954121418" expanded="true" signature="480:637" ph="INSERT INTO dreambuy.products... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/secured/profile-personal-info.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="464">
+          <caret line="95" column="23" lean-forward="true" selection-start-line="52" selection-start-column="4" selection-end-line="95" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/secured/ItemCategoryPages/other.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/secured/ItemCategoryPages/movie.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/secured/ItemCategoryPages/book.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/secured/ItemCategoryPages/cellphone.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/secured/ItemCategoryPages/computer.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/secured/profile-selling-items.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2513">
+          <caret line="238" column="53" lean-forward="false" selection-start-line="238" selection-start-column="53" selection-end-line="238" selection-end-column="53" />
           <folding />
         </state>
       </provider>
@@ -1681,14 +1702,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/DAO/Items/ItemDBUtils.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ModelManagedBeans/Items/Item.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="736">
-          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+        <state relative-caret-position="119">
+          <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1521954121418" expanded="true" signature="480:637" ph="INSERT INTO dreambuy.products... " />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/secured/add-edit-item.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="24" column="66" lean-forward="false" selection-start-line="24" selection-start-column="59" selection-end-line="24" selection-end-column="66" />
+          <folding />
         </state>
       </provider>
     </entry>
