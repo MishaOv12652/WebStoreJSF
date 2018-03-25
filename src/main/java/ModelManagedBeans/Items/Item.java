@@ -1,5 +1,6 @@
 package ModelManagedBeans.Items;
 
+import Utils.CommonUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.model.UploadedFile;
@@ -41,6 +42,11 @@ public class Item implements Serializable{
         this.img = uploadedFile;
         this.sellerId = sellerId;
         this.numOfItems = numOfItems;
+    }
+
+    public void loadConsts(){
+        this.categories = CommonUtils.getConstLists("dreambuy.categories", "category_name");
+        this.conditions = CommonUtils.getConstLists("dreambuy.product_condition", "condition");
     }
 
 }
