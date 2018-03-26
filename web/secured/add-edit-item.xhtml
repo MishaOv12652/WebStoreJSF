@@ -162,28 +162,15 @@
 
             <h:inputTextarea styleClass="col-md-offset-4" style="width: 600px;height: 250px"
                              value="#{item.itemDesc}"/>
-            <h:panelGrid id="buttons" columns="2" class="row btn-group col-md-pull-3" style="margin-top: 100px;">
+            <h:panelGrid id="buttons" columns="2" class="row btn-group col-md-offset-5" style="margin-top: 100px;">
                 <h:button style="margin-top: 15px" styleClass="btn btn-danger pull-left" value="Back To Selling List"
                           outcome="profile-selling-items"/>
-                <h:commandButton rendered="#{item.category eq 1}"
-                                 actionListener="#{bookController.addBookForSale(book,user.email)}"
-                                 styleClass="btn btn-success pull-right" style="margin-top: 15px"
-                                 value="Add Book For Sale"/>
-                <h:commandButton rendered="#{item.category eq 2}"
-                                 actionListener="#{cellPhoneController.addCellPhoneForSale(cellPhone,user.email)}"
-                                 styleClass="btn btn-success pull-right" style="margin-top: 15px"
-                                 value="Add Cell Phone For Sale" update="growl"/>
-                <h:commandButton rendered="#{item.category eq 3}" actionListener="#{computerController.addComputerForSale(computer,user.email)}"
-                                 styleClass="btn btn-success col-md-offset-6" style="margin-top: 15px"
-                                 value="Add Computer Or Tablet For Sale" update="growl"/>
-                <h:commandButton rendered="#{item.category eq 4}" actionListener="#{movieController.addMovieForSale(movie,user.email)}"
-                                 styleClass="btn btn-success col-md-offset-6" style="margin-top: 15px"
-                                 value="Add Movie For Sale" update="growl"/>
+                <h:commandButton  actionListener="#{bookController.addBookForSale(book,user.email)}" styleClass="btn btn-success pull-right" style="margin-top: 15px" value="Add Book For Sale" update="growl @form"/>
+                <h:commandButton  actionListener="#{cellPhoneController.addCellPhoneForSale(cellPhone,user.email)}" styleClass="btn btn-success pull-right" style="margin-top: 15px" value="Add Cell Phone For Sale" update="growl @form"/>
+                <h:commandButton  actionListener="#{computerController.addComputerForSale(computer,user.email)}" styleClass="btn btn-success pull-right" style="margin-top: 15px" value="Add Computer Or Tablet For Sale" update="growl @form"/>
+                <h:commandButton  actionListener="#{movieController.addMovieForSale(movie,user.email)}" styleClass="btn btn-success pull-right" style="margin-top: 15px" value="Add Movie For Sale" update="growl @form"/>
+                <h:commandButton  actionListener="#{itemController.addItemForSale(item,user.email)}" styleClass="btn btn-success pull-right" style="margin-top: 15px" value="Add Item For Sale" update="growl @form"/>
 
-                <h:commandButton rendered="#{item.category eq 5}"
-                                 actionListener="#{itemController.addItemForSale(item, user.email)}"
-                                 styleClass="btn btn-success pull-right" style="margin-top: 15px"
-                                 value="Add Item For Sale" update="growl"/>
 
             </h:panelGrid>
 

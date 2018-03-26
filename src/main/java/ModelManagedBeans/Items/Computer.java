@@ -44,6 +44,21 @@ public class Computer extends Item implements Serializable {
         super();
     }
 
+    public Computer(String type, String model, int os, int cpu, double cpuSpeed, int memory, int gpu, int brand, double screenSize, int releaseYear, int hdd, int ssd){
+        this.type = type;
+        this.model = model;
+        this.os = os;
+        this.cpu = cpu;
+        this.cpuSpeed = cpuSpeed;
+        this.memory = memory;
+        this.gpu = gpu;
+        this.brand = brand;
+        this.screenSize = screenSize;
+        this.releaseYear = releaseYear;
+        this.hdd = hdd;
+        this.ssd = ssd;
+    }
+
     public Computer(String name, float price, String itemDesc, int category, int condition, UploadedFile uploadedFile, int numOfItems,
                     String type, String model, int os, int cpu, double cpuSpeed, int memory, int gpu, int brand, double screenSize, int releaseYear, int hdd, int ssd) {
         super(name, price, itemDesc, category, condition, uploadedFile, numOfItems);

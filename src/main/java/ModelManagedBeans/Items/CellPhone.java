@@ -43,6 +43,17 @@ public class CellPhone extends Item {
         super();
     }
 
+    public CellPhone(double screenSize, int ram, int brand, String model, int memoryCardType, int os, int storage, int batteryCapacity){
+        this.screenSize = screenSize;
+        this.ram = ram;
+        this.brand = brand;
+        this.model = model;
+        this.memoryCardType = memoryCardType;
+        this.os = os;
+        this.storage = storage;
+        this.batteryCapacity = batteryCapacity;
+    }
+
     public CellPhone(String name, float price, String itemDesc, int category, int condition, UploadedFile uploadedFile, int numOfItems,
                      double screenSize, int ram, int brand, String model, int memoryCardType, int os, int storage, int batteryCapacity) {
         super(name, price, itemDesc, category, condition, uploadedFile, numOfItems);

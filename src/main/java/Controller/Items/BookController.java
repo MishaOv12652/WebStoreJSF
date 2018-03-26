@@ -2,13 +2,13 @@ package Controller.Items;
 
 import DAO.Items.BookDBUtils;
 import ModelManagedBeans.Items.Book;
-import Utils.CommonUtils;
+import ModelManagedBeans.Items.Item;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -20,34 +20,26 @@ import java.sql.SQLException;
  */
 @ManagedBean
 @SessionScoped
-@RequestScoped
 @Getter
 @Setter
-public class BookController implements Serializable {
-    private Book book;
+public class BookController extends ItemController implements Serializable {
+    @ManagedProperty(value = "#{item}")
+    private Item itemBean;
+
     private BookDBUtils bookDBUtils;
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
             "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";
 
-    public BookController(){
+    public BookController() {
         this.bookDBUtils = new BookDBUtils();
     }
 
-    public void addBookForSale(Book book,String email){
+    public void addBookForSale(Book book, String email) {
+        Book bookWithItemSpecs = new Book(this.itemBean.getName(), this.itemBean.getPrice(), this.itemBean.getItemDesc()
+                , this.itemBean.getCategory(), this.itemBean.getCondition(), this.itemBean.getImg(), this.itemBean.getNumOfItems()
+                , book.getAuthor(), book.getGenre(), book.getSeries(), book.getAgeLvl());
         try {
-            int idOfUser = CommonUtils.getUserIdByEmail(email);
-            int idOfItem = this.bookDBUtils.addBookForSale(book, idOfUser);
-            if ( idOfItem == -1) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Book Wasn't Successfully added",
-                        "The Book " + book.getName() + " wasn't added for sale"));
-
-            }else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Item Added Successfully",
-                        "The Book " + book.getName() + " was added for sale"));
-                book.setId(idOfItem);
-                FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-                FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT_SELLING_LIST);
-            }
+            this.addItemForSale(bookWithItemSpecs, email, this.bookDBUtils);
         } catch (SQLException e) {
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Book Wasn't Successfully added",
@@ -55,5 +47,9 @@ public class BookController implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setItemBean(Item itemBean) {
+        this.itemBean = itemBean;
     }
 }

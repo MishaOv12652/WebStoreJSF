@@ -143,11 +143,11 @@ create table dreambuy.user
 ;
 
 create index user_city_id_fk
-  on user (city)
+  on dreambuy.user (city)
 ;
 
 create index user_credit_companies_id_fk
-  on user (credit_card_comp)
+  on dreambuy.user (credit_card_comp)
 ;
 -- auto-generated definition
 CREATE TABLE dreambuy.movie_specs

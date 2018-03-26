@@ -7,6 +7,7 @@ import org.primefaces.model.UploadedFile;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.Hashtable;
@@ -17,7 +18,6 @@ import java.util.Hashtable;
 @Getter
 @Setter
 @ManagedBean
-@SessionScoped
 public class Book extends Item implements Serializable{
     private int id;
     private int author;
@@ -32,6 +32,13 @@ public class Book extends Item implements Serializable{
 
     public Book(){
         super();
+    }
+
+    public Book(int author, int genre, String series, int ageLvl){
+        this.author = author;
+        this.genre = genre;
+        this.series = series;
+        this.ageLvl = ageLvl;
     }
 
     public Book(String name, float price, String itemDesc, int category, int condition, UploadedFile uploadedFile, int numOfItems, int author, int genre, String series, int ageLvl){

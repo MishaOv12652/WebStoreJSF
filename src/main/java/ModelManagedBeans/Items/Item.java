@@ -8,6 +8,9 @@ import org.primefaces.model.UploadedFile;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.servlet.http.Part;
 import java.io.Serializable;
 import java.util.Hashtable;
@@ -17,7 +20,8 @@ import java.util.Hashtable;
  */
 @Getter
 @Setter
-@ManagedBean
+@ManagedBean(name = "item")
+@SessionScoped
 public class Item implements Serializable{
     private int id;
     private String name;
