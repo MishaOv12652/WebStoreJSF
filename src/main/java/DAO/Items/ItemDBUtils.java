@@ -26,10 +26,12 @@ public class ItemDBUtils {
      */
     public int addItemForSale(Item item ,int idOfUser) throws SQLException {
         this.dbManager.Connect();
+        return this.addItemForSale(item,idOfUser,this.dbManager.getConnection());
+    }
+    protected int addItemForSale(Item item ,int idOfUser,Connection con) throws SQLException{
         String sql = "INSERT INTO dreambuy.products(name, price, item_desc, category, condition_id, seller_id,item_spec_id,numOfItems)" +
                 "VALUES (?,?,?,?,?,?,?,?)";
         try {
-            Connection con = this.dbManager.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, item.getName());
             stmt.setFloat(2, item.getPrice());
@@ -50,6 +52,5 @@ public class ItemDBUtils {
         } finally {
             this.dbManager.Disconnect();
         }
-
     }
 }

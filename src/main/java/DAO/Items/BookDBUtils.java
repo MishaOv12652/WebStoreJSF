@@ -1,6 +1,7 @@
 package DAO.Items;
 
 import ModelManagedBeans.Items.Book;
+import ModelManagedBeans.Items.Item;
 import Utils.DBManager;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,9 +23,15 @@ public class BookDBUtils extends ItemDBUtils {
 
 
     //add a book
-    public int addBookForSale(Book book, int sellerId) throws SQLException {
-        book.setItemSpecs(this.addBookSpecs(book));
-        return this.addItemForSale(book, sellerId);
+//    public int addBookForSale(Book book, int sellerId) throws SQLException {
+//        book.setItemSpecs(this.addBookSpecs(book));
+//        return this.addItemForSale(book, sellerId);
+//    }
+    @Override
+    public int addItemForSale(Item item,int sellerId) throws SQLException {
+        this.dbManager.Connect();
+        item.setItemSpecs(this.addBookSpecs((Book)item));
+        return this.addItemForSale((Book) item, sellerId,this.dbManager.getConnection());
     }
 
     private int addBookSpecs(Book book) throws SQLException {
