@@ -2,6 +2,7 @@ package DAO.Items;
 
 import ModelManagedBeans.Items.CellPhone;
 import ModelManagedBeans.Items.Computer;
+import ModelManagedBeans.Items.Item;
 import Utils.DBManager;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,22 +15,23 @@ import java.sql.*;
 @Getter
 @Setter
 public class ComputerDBUtils extends ItemDBUtils {
-    private DBManager dbManager;
 
     public ComputerDBUtils() {
         super();
     }
 
-    public int addComputerForSale(Computer computer, int sellerId) throws SQLException {
-        computer.setItemSpecs(this.addComputerSpecs(computer));
-        return this.addItemForSale(computer, sellerId);
+    @Override
+    public int addItemForSale(Item item, int sellerId) throws SQLException {
+        this.getDbManager().Connect();
+        item.setCompSpecs(this.addComputerSpecs((Computer) item));
+        return this.addItemForSale(item, sellerId, this.getDbManager().getConnection());
     }
 
     private int addComputerSpecs(Computer computer) throws SQLException {
-        Connection con = this.dbManager.getConnection();
+        Connection con = this.getDbManager().getConnection();
         String sql = "INSERT INTO dreambuy.computer_specs(type, os, cpu,cpu_speed," +
                 "ram,gpu,brand,screen_size,release_year,ssd,hdd,model) " + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-        try {
+
             PreparedStatement prpStmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             prpStmt.setString(1, computer.getType());
             prpStmt.setInt(2, computer.getOs());
@@ -54,8 +56,6 @@ public class ComputerDBUtils extends ItemDBUtils {
                 return -1;
             }
 
-        } finally {
-            this.dbManager.Disconnect();
-        }
+
     }
 }

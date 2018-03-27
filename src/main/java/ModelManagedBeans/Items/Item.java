@@ -30,7 +30,12 @@ public class Item implements Serializable{
     private int category;
     private int condition;
     private UploadedFile img;
-    private Integer itemSpecs;
+
+    private Integer bookSpecs;
+    private Integer movieSpecs;
+    private Integer cellSpecs;
+    private Integer compSpecs;
+
     private int sellerId;
     private int numOfItems;
 

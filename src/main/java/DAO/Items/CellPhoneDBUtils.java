@@ -2,6 +2,7 @@ package DAO.Items;
 
 
 import ModelManagedBeans.Items.CellPhone;
+import ModelManagedBeans.Items.Item;
 import Utils.DBManager;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,24 +15,25 @@ import java.sql.*;
 @Getter
 @Setter
 public class CellPhoneDBUtils extends ItemDBUtils {
-    private DBManager dbManager;
 
     public CellPhoneDBUtils() {
         super();
     }
 
-    public int addCellPhoneForSale(CellPhone cellPhone, int sellerId) throws SQLException {
-        cellPhone.setItemSpecs(this.addCellPhoneSpecs(cellPhone));
-        return this.addItemForSale(cellPhone, sellerId);
+    @Override
+    public int addItemForSale(Item item, int sellerId) throws SQLException {
+        this.getDbManager().Connect();
+        item.setCellSpecs(this.addCellPhoneSpecs((CellPhone) item));
+        return this.addItemForSale(item, sellerId,this.getDbManager().getConnection());
     }
 
     private int addCellPhoneSpecs(CellPhone cellPhone) throws SQLException {
-        this.dbManager.Connect();
+        this.getDbManager().Connect();
 
         String sql = "INSERT INTO dreambuy.cellphone_specs(screen_size, model, ram,brand," +
                 "mem_card_type,os,storage,battery_cap) " + "VALUES (?,?,?,?,?,?,?,?)";
-        try {
-            Connection con = this.dbManager.getConnection();
+
+            Connection con = this.getDbManager().getConnection();
             PreparedStatement prpStmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             prpStmt.setDouble(1, cellPhone.getScreenSize());
             prpStmt.setString(2, cellPhone.getModel());
@@ -49,8 +51,6 @@ public class CellPhoneDBUtils extends ItemDBUtils {
             } else {
                 return -1;
             }
-        } finally {
-            dbManager.Disconnect();
-        }
+
     }
 }

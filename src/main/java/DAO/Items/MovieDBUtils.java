@@ -1,5 +1,6 @@
 package DAO.Items;
 
+import ModelManagedBeans.Items.Item;
 import ModelManagedBeans.Items.Movie;
 import Utils.DBManager;
 import lombok.Getter;
@@ -13,23 +14,24 @@ import java.sql.*;
 @Getter
 @Setter
 public class MovieDBUtils extends ItemDBUtils {
-    private DBManager dbManager;
 
     public MovieDBUtils() {
         super();
     }
 
-    public int addMovieForSale(Movie movie, int sellerId) throws SQLException {
-        movie.setItemSpecs(this.addMovieSpecs(movie));
-        return this.addItemForSale(movie, sellerId);
+    @Override
+    public int addItemForSale(Item item, int sellerId) throws SQLException {
+        this.getDbManager().Connect();
+        item.setMovieSpecs(this.addMovieSpecs((Movie) item));
+        return this.addItemForSale(item, sellerId,this.getDbManager().getConnection());
     }
 
     private int addMovieSpecs(Movie movie) throws SQLException {
-        this.dbManager.Connect();
+        this.getDbManager().Connect();
         String sql = "INSERT INTO dreambuy.movie_specs(director, length, year,actor,age_lvl,genre) " +
                 "VALUES (?,?,?,?,?,?)";
-        try {
-            Connection connection = dbManager.getConnection();
+
+            Connection connection = this.getDbManager().getConnection();
             PreparedStatement prpStmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             prpStmt.setInt(1, movie.getDirector());
             prpStmt.setInt(2, movie.getLength());
@@ -47,9 +49,7 @@ public class MovieDBUtils extends ItemDBUtils {
                 //throw new SQLException("add book failed");
                 return -1;
             }
-        } finally {
-            dbManager.Disconnect();
-        }
+
     }
 }
 
