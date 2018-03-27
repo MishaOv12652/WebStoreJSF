@@ -14,6 +14,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by Misha on 24/03/2018.
@@ -25,6 +26,9 @@ import java.sql.SQLException;
 public class ItemController implements Serializable {
     private Item item;
     private ItemDBUtils itemDBUtils;
+
+    private ArrayList<? extends Item> itemsForSale;
+
 
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
             "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";
@@ -41,6 +45,14 @@ public class ItemController implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Item Wasn't Successfully added",
                     "The item " + item.getName() + " wasn't added for sale"));
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadListItemForSale(String email){
+        try {
+            this.itemsForSale = this.itemDBUtils.loadItemListForSale(email);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by Misha on 24/03/2018.
@@ -31,6 +32,28 @@ public class ItemDBUtils {
     public int addItemForSale(Item item ,int idOfUser) throws SQLException {
         this.dbManager.Connect();
         return this.addItemForSale(item,idOfUser,this.dbManager.getConnection());
+    }
+
+    public ArrayList<? extends Item> loadItemListForSale(String email) throws SQLException{
+        ArrayList<? extends Item> arrayOfItems = new ArrayList<>();
+        String query = "SELECT * FROM PRODUCTS WHERE email = ?";
+        this.dbManager.Connect();
+        Connection con = this.dbManager.getConnection();
+        PreparedStatement preparedStatement = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+        preparedStatement.setString(1,email);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            arrayOfItems.add(new Item(
+                    resultSet.getString("name"),
+                    resultSet.getFloat("price"),
+                    resultSet.getString("item_desc"),
+                    resultSet.getInt("category"),
+                    resultSet.getInt("condition_id"),
+                    resultSet.getBlob("img"),
+                    resultSet.getInt("numOfItems")
+            ));
+        }
+        return  null;
     }
     protected int addItemForSale(Item item ,int idOfUser,Connection con) throws SQLException{
         String sql = "INSERT INTO dreambuy.products(name, price, item_desc, category, condition_id, seller_id,numOfItems,book_spec_id,cellphone_spec_id,computer_spec_id,movie_spec_id)" +

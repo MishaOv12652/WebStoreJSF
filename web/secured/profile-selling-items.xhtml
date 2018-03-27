@@ -53,7 +53,7 @@
     <h:panelGrid rowClasses="2" style="margin-top: 50px">
         <h:form id="main">
             <h:form id="data">
-                <p:dataTable var="car" value="#{dtBasicView.cars}">
+                <p:dataTable var="item" value="#{itemController.itemsForSale}">
                     <f:facet name="header">
                         Items For Sale
                     </f:facet>
@@ -63,23 +63,23 @@
                         <!--</p:rowToggler>-->
                     </p:column>
                     <p:column headerText="Item Name">
-                        <h:outputText value="#{car.id}"/>
+                        <h:outputText value="#{item.name}"/>
                     </p:column>
 
                     <p:column headerText="Price">
-                        <h:outputText value="#{car.year}"/>
+                        <h:outputText value="#{item.price}"/>
                     </p:column>
 
                     <p:column headerText="Condition">
-                        <h:outputText value="#{car.id}"/>
+                        <h:outputText value="#{item.condition}"/>
                     </p:column>
 
                     <p:column headerText="Item Description">
-                        <h:outputText value="#{car.year}"/>
+                        <h:outputText value="#{item.itemDesc}"/>
                     </p:column>
 
                     <p:column headerText="Category">
-                        <h:outputText value="#{car.year}"/>
+                        <h:outputText value="#{item.category}"/>
                     </p:column>
 
                     <p:rowExpansion id="expand">
@@ -87,7 +87,7 @@
                         <p:panelGrid id="other" columns="2" columnClasses="label,value" style="width:300px"
                                      rendered="#{item.category eq 5}">
                             <f:facet name="header">
-                                <p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>
+                                <p:graphicImage name="demo/images/car/#{item.img}-big.gif"/>
                             </f:facet>
                         </p:panelGrid>
 

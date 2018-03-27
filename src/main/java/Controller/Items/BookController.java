@@ -26,6 +26,7 @@ public class BookController extends ItemController implements Serializable {
     @ManagedProperty(value = "#{item}")
     private Item itemBean;
 
+
     private BookDBUtils bookDBUtils;
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
             "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";
