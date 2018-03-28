@@ -52,4 +52,15 @@ public class ComputerController extends ItemController implements Serializable{
             e.printStackTrace();
         }
     }
+
+    public Computer loadComputerForSale(Integer id){
+        if(id != null){
+            try {
+                return this.computerDBUtils.loadComputerForSale(id);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 }

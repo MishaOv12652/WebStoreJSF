@@ -25,7 +25,6 @@ public class CellPhone extends Item {
     private int ram;
     private int brand;
     private String model;
-    private String Model;
     private int colour;
     private int memoryCardType;
     private int os;

@@ -83,7 +83,7 @@ public class ItemController implements Serializable {
         return CommonUtils.getValueByKeyFromHash(hashtable,key);
     }
     public void loadConsts(){
-        this.categories = CommonUtils.getConstLists("dreambuy.categories", "name");
+        this.categories = CommonUtils.getConstLists("dreambuy.categories", "category_name");
         this.conditions= CommonUtils.getConstLists("dreambuy.product_condition", "condition");
     }
 }

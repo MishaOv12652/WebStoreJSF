@@ -50,15 +50,15 @@ public class BookController extends ItemController implements Serializable {
         }
     }
 
-    public void loadBooksForSale(Integer id){
+    public Book loadBookForSale(Integer id){
         if(id != null){
             try {
-                this.book = this.bookDBUtils.loadBooksForSale(id);
+                return this.bookDBUtils.loadBooksForSale(id);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
         }
+        return null;
     }
 
     public void setItemBean(Item itemBean) {

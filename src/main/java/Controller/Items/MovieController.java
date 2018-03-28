@@ -50,4 +50,15 @@ public class MovieController extends ItemController implements Serializable{
             e.printStackTrace();
         }
     }
+
+    public Movie loadMovieForSale(Integer id){
+        if(id!=null){
+            try {
+                return this.movieDBUtils.loadMovieForSale(id);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 }

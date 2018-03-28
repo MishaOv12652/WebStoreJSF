@@ -55,7 +55,34 @@ public class ComputerDBUtils extends ItemDBUtils {
                 //throw new SQLException("add book failed");
                 return -1;
             }
+    }
 
+    public Computer loadComputerForSale(Integer id) throws SQLException {
+        this.getDbManager().Connect();
+        String sql = "SELECT * FROM dreambuy.computer_specs where id = ?";
+        Connection connection = this.getDbManager().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1,id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if(resultSet.next()){
+            Computer computer =  new Computer(
+                    resultSet.getString("type"),
+                    resultSet.getString("model"),
+                    resultSet.getInt("os"),
+                    resultSet.getInt("cpu"),
+                    resultSet.getDouble("cpu_speed"),
+                    resultSet.getInt("ram"),
+                    resultSet.getInt("gpu"),
+                    resultSet.getInt("brand"),
+                    resultSet.getDouble("screen_size"),
+                    resultSet.getInt("release_year"),
+                    resultSet.getInt("hdd"),
+                    resultSet.getInt("ssd")
+            );
+            this.getDbManager().Disconnect();
+            return computer;
 
+        }
+        return null;
     }
 }
