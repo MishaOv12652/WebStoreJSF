@@ -11,8 +11,9 @@
 >
 <f:metadata>
     <f:event type="preRenderView" listener="#{profileController.loadProfileInfo}"/>
-    <f:event type="preRenderView" listener="#{profileController.loadConsts}"/>
+    <f:event type="preRenderView" listener="#{itemController.loadConsts}"/>
     <f:event type="preRenderView" listener="#{itemController.loadListItemForSale(user.email)}"/>
+    <f:event type="preRenderView" listener="#{bookController.loadBooksForSale(itemController)}"/>
 </f:metadata>
 <h:head>
     <title>Web Store</title>
@@ -59,7 +60,7 @@
                         Items For Sale
                     </f:facet>
                     <p:column style="width:16px">
-                        <p:rowToggler/>
+                        <p:rowToggler />
                             <!--<p:ajax execute="data" render="data:expand"/>-->
                         <!--</p:rowToggler>-->
                     </p:column>
@@ -72,7 +73,7 @@
                     </p:column>
 
                     <p:column headerText="Condition">
-                        <h:outputText value="#{item.condition}"/>
+                        <h:outputText value="#{itemController.getConstValueByKey(itemController.conditions,item.condition)}"/>
                     </p:column>
 
                     <p:column headerText="Item Description">
@@ -80,7 +81,11 @@
                     </p:column>
 
                     <p:column headerText="Category">
-                        <h:outputText value="#{item.category}"/>
+                        <h:outputText value="#{itemController.getConstValueByKey(itemController.categories,item.category)}"/>
+                    </p:column>
+
+                    <p:column headerText="Inventory">
+                        <h:outputText value="#{item.numOfItems}"/>
                     </p:column>
 
                     <p:rowExpansion id="expand">
@@ -88,21 +93,23 @@
                         <p:panelGrid id="other" columns="2" columnClasses="label,value" style="width:300px"
                                      rendered="#{item.category eq 5}">
                             <f:facet name="header">
-                                <p:graphicImage name="demo/images/car/#{item.img}-big.gif"/>
+                                <h:outputText value="#{item.name}"/>
+                                <!--<p:graphicImage name="demo/images/car/#{item.img}-big.gif"/>-->
                             </f:facet>
                         </p:panelGrid>
 
                         <!--<p:panelGrid id="movies" columns="2" columnClasses="label,value" style="width:300px"-->
                                      <!--rendered="#{item.category eq 4}">-->
                             <!--<f:facet name="header">-->
-                                <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
+                                <!--<h:outputText value="book"/>-->
+                                <!--&lt;!&ndash;<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>&ndash;&gt;-->
                             <!--</f:facet>-->
 
                             <!--<h:outputLabel for="director" value="Director:"/>-->
-                            <!--<h:outputText id="director" value=""/>-->
+                            <!--<h:outputText id="director" value="director"/>-->
 
                             <!--<h:outputLabel for="Length" value="Length:"/>-->
-                            <!--<h:outputText id="Length" value=""/>-->
+                            <!--<h:outputText id="Length" value="Length"/>-->
 
 
                             <!--<h:outputLabel for="Year" value="Year:"/>-->
@@ -209,25 +216,26 @@
                             <!--</p:panelGrid>-->
                         <!--</p:panelGrid>-->
 
-                        <!--<p:panelGrid id="book" columns="2" columnClasses="label,value" style="width:300px"-->
-                                     <!--rendered="#{item.category eq 1}">-->
-                            <!--<f:facet name="header">-->
+                        <p:panelGrid id="book" columns="2" columnClasses="label,value" style="width:300px"
+                                     rendered="#{item.category eq 1}">
+                            <f:facet name="header">
+                                <h:outputText value="#{item.name}"/>
                                 <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
-                            <!--</f:facet>-->
+                            </f:facet>
 
-                            <!--<h:outputLabel for="director" value="Series:"/>-->
-                            <!--<h:outputText id="Series" value=""/>-->
+                            <h:outputLabel for="Series" value="Series:"/>
+                            <h:outputText id="Series" value="#{bookController.book.series}"/>
 
-                            <!--<h:outputLabel for="B_Genre" value="Genre:"/>-->
-                            <!--<h:outputText id="B_Genre" value=""/>-->
+                            <h:outputLabel for="B_Genre" value="Genre:"/>
+                            <h:outputText id="B_Genre" value="#{bookController.book.genre}"/>
 
 
-                            <!--<h:outputLabel for="Author" value="Author:"/>-->
-                            <!--<h:outputText id="Author" value=""/>-->
+                            <h:outputLabel for="Author" value="Author:"/>
+                            <h:outputText id="Author" value="#{bookController.book.author}"/>
 
-                            <!--<h:outputLabel for="B_Age_Level" value="Age Level:"/>-->
-                            <!--<h:outputText id="B_Age_Level" value=""/>-->
-                        <!--</p:panelGrid>-->
+                            <h:outputLabel for="B_Age_Level" value="Age Level:"/>
+                            <h:outputText id="B_Age_Level" value="#{bookController.book.ageLvl}"/>
+                        </p:panelGrid>
                     </p:rowExpansion>
                     <p:column headerText="Actions">
                        <p:panelGrid columns="2">

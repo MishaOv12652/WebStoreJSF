@@ -36,7 +36,6 @@ public class ItemDBUtils {
 
     public ArrayList<Item> loadItemListForSale(String email) throws SQLException {
         ArrayList<Item> arrayOfItems = new ArrayList<>();
-
         String query = "SELECT * FROM dreambuy.products WHERE seller_id = ?";
         this.dbManager.Connect();
         Connection con = this.dbManager.getConnection();
@@ -45,6 +44,7 @@ public class ItemDBUtils {
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             arrayOfItems.add(new Item(
+                    resultSet.getInt("id"),
                     resultSet.getString("name"),
                     resultSet.getFloat("price"),
                     resultSet.getString("item_desc"),
@@ -52,7 +52,11 @@ public class ItemDBUtils {
                     resultSet.getInt("condition_id"),
                     null,
 //                    resultSet.getBlob("img"),
-                    resultSet.getInt("numOfItems")
+                    resultSet.getInt("numOfItems"),
+                    resultSet.getInt("book_spec_id"),
+                    resultSet.getInt("movie_spec_id"),
+                    resultSet.getInt("cellphone_spec_id"),
+                    resultSet.getInt("computer_spec_id")
             ));
         }
        return arrayOfItems;

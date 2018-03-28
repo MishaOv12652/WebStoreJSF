@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 /**
  * Created by Misha on 24/03/2018.
@@ -26,6 +27,10 @@ import java.util.ArrayList;
 public class ItemController implements Serializable {
     private Item item;
     private ItemDBUtils itemDBUtils;
+
+    private Hashtable<Integer, String> categories;
+    private Hashtable<Integer, String> conditions;
+
 
     private ArrayList<Item> itemsForSale;
 
@@ -71,5 +76,14 @@ public class ItemController implements Serializable {
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
             FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT_SELLING_LIST);
         }
+    }
+
+
+    public String getConstValueByKey(Hashtable<Integer,String> hashtable, String key){
+        return CommonUtils.getValueByKeyFromHash(hashtable,key);
+    }
+    public void loadConsts(){
+        this.categories = CommonUtils.getConstLists("dreambuy.categories", "name");
+        this.conditions= CommonUtils.getConstLists("dreambuy.product_condition", "condition");
     }
 }

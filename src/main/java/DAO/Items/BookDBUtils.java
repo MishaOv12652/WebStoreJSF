@@ -43,6 +43,25 @@ public class BookDBUtils extends ItemDBUtils {
             } else {
                 return -1;
             }
+    }
 
+    public Book loadBooksForSale(Integer id) throws SQLException{
+        if(id != null){
+            this.getDbManager().Connect();
+            String sql = "SELECT * FROM dreambuy.books_specs where id = ?";
+            Connection connection = this.getDbManager().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return new Book(
+                        resultSet.getInt("author"),
+                        resultSet.getInt("genre"),
+                        resultSet.getString("series"),
+                        resultSet.getInt("age_lvl")
+                );
+            }
+        }
+        return null;
     }
 }
