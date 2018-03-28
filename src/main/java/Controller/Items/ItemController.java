@@ -27,7 +27,7 @@ public class ItemController implements Serializable {
     private Item item;
     private ItemDBUtils itemDBUtils;
 
-    private ArrayList<? extends Item> itemsForSale;
+    private ArrayList<Item> itemsForSale;
 
 
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =

@@ -1,6 +1,7 @@
 package DAO.Items;
 
 import ModelManagedBeans.Items.Item;
+import Utils.CommonUtils;
 import Utils.DBManager;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,39 +24,41 @@ public class ItemDBUtils {
     }
 
     /**
-     *
      * @param item
      * @param idOfUser
      * @return
      * @throws SQLException
      */
-    public int addItemForSale(Item item ,int idOfUser) throws SQLException {
+    public int addItemForSale(Item item, int idOfUser) throws SQLException {
         this.dbManager.Connect();
-        return this.addItemForSale(item,idOfUser,this.dbManager.getConnection());
+        return this.addItemForSale(item, idOfUser, this.dbManager.getConnection());
     }
 
-    public ArrayList<? extends Item> loadItemListForSale(String email) throws SQLException{
-        ArrayList<? extends Item> arrayOfItems = new ArrayList<>();
-        String query = "SELECT * FROM PRODUCTS WHERE email = ?";
+    public ArrayList<Item> loadItemListForSale(String email) throws SQLException {
+        ArrayList<Item> arrayOfItems = new ArrayList<>();
+
+        String query = "SELECT * FROM dreambuy.products WHERE seller_id = ?";
         this.dbManager.Connect();
         Connection con = this.dbManager.getConnection();
-        PreparedStatement preparedStatement = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
-        preparedStatement.setString(1,email);
+        PreparedStatement preparedStatement = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        preparedStatement.setInt(1, CommonUtils.getUserIdByEmail(email));
         ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()){
+        while (resultSet.next()) {
             arrayOfItems.add(new Item(
                     resultSet.getString("name"),
                     resultSet.getFloat("price"),
                     resultSet.getString("item_desc"),
                     resultSet.getInt("category"),
                     resultSet.getInt("condition_id"),
-                    resultSet.getBlob("img"),
+                    null,
+//                    resultSet.getBlob("img"),
                     resultSet.getInt("numOfItems")
             ));
         }
-        return  null;
+       return arrayOfItems;
     }
-    protected int addItemForSale(Item item ,int idOfUser,Connection con) throws SQLException{
+
+    protected int addItemForSale(Item item, int idOfUser, Connection con) throws SQLException {
         String sql = "INSERT INTO dreambuy.products(name, price, item_desc, category, condition_id, seller_id,numOfItems,book_spec_id,cellphone_spec_id,computer_spec_id,movie_spec_id)" +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         try {
@@ -68,10 +71,10 @@ public class ItemDBUtils {
             //stmt.setBlob(6, item.getUploadedFile());
             stmt.setInt(6, idOfUser);
             stmt.setInt(7, item.getNumOfItems());
-            stmt.setObject(8,item.getBookSpecs());
+            stmt.setObject(8, item.getBookSpecs());
             stmt.setObject(9, item.getCellSpecs());
-            stmt.setObject(10,item.getCompSpecs());
-            stmt.setObject(11,item.getMovieSpecs());
+            stmt.setObject(10, item.getCompSpecs());
+            stmt.setObject(11, item.getMovieSpecs());
 
             stmt.execute();
             ResultSet generatedKey = stmt.getGeneratedKeys();
