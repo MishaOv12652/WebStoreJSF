@@ -88,7 +88,11 @@ public class Computer extends Item implements Serializable {
         this.storageCaps = CommonUtils.getConstLists("dreambuy.storage_capacity", "capacity");
         //get brand cont list
         this.brandList = CommonUtils.getConstLists("dreambuy.cellphone_brands", "brand");
-
-
     }
+
+    @Override
+    public String getConstValueByKey(Hashtable<Integer,String> hashtable, String key){
+        return CommonUtils.getValueByKeyFromHash(hashtable,key);
+    }
+
 }

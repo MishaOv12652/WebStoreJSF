@@ -52,4 +52,15 @@ public class CellPhoneController extends ItemController implements Serializable 
         }
     }
 
+    public CellPhone loadCellPhoneForSale(Integer id){
+        if(id != null){
+            try {
+                return this.cellPhoneDBUtils.loadCellPhoneForSale(id);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
 }

@@ -26,6 +26,7 @@ public class BookController extends ItemController implements Serializable {
     @ManagedProperty(value = "#{item}")
     private Item itemBean;
 
+    private Book book;
     private BookDBUtils bookDBUtils;
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
             "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";
@@ -47,6 +48,17 @@ public class BookController extends ItemController implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Book loadBookForSale(Integer id){
+        if(id != null){
+            try {
+                return this.bookDBUtils.loadBooksForSale(id);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
     public void setItemBean(Item itemBean) {

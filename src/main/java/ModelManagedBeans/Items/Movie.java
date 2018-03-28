@@ -67,4 +67,10 @@ public class Movie extends Item implements Serializable {
         //get genres hash from db
         this.genres = CommonUtils.getConstLists("dreambuy.genres", "genre");
     }
+
+    @Override
+    public String getConstValueByKey(Hashtable<Integer,String> hashtable, String key){
+        return CommonUtils.getValueByKeyFromHash(hashtable,key);
+    }
+
 }

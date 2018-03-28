@@ -51,6 +51,30 @@ public class CellPhoneDBUtils extends ItemDBUtils {
             } else {
                 return -1;
             }
+    }
 
+    public CellPhone loadCellPhoneForSale(Integer id) throws SQLException {
+        this.getDbManager().Connect();
+        String sql = "SELECT * FROM dreambuy.cellphone_specs where id = ?";
+        Connection connection = this.getDbManager().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1,id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if(resultSet.next()){
+            CellPhone cellPhone =  new CellPhone(
+                    resultSet.getDouble("screen_size"),
+                    resultSet.getInt("ram"),
+                    resultSet.getInt("brand"),
+                    resultSet.getString("model"),
+                    resultSet.getInt("mem_card_type"),
+                    resultSet.getInt("os"),
+                    resultSet.getInt("storage"),
+                    resultSet.getInt("battery_cap")
+            );
+            this.getDbManager().Disconnect();
+            return cellPhone;
+
+        }
+        return null;
     }
 }

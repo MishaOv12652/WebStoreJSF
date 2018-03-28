@@ -3,6 +3,7 @@ package DAO.Items;
 import ModelManagedBeans.Items.Item;
 import ModelManagedBeans.Items.Movie;
 import Utils.DBManager;
+import com.sun.org.apache.regexp.internal.RE;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -49,7 +50,30 @@ public class MovieDBUtils extends ItemDBUtils {
                 //throw new SQLException("add book failed");
                 return -1;
             }
+    }
 
+    public Movie loadMovieForSale(Integer id) throws SQLException {
+        this.getDbManager().Connect();
+        String sql = "SELECT * FROM dreambuy.movie_specs WHERE id = ?";
+        Connection connection = this.getDbManager().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1,id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if(resultSet.next()){
+            Movie movie = new Movie(
+                    resultSet.getInt("director"),//director
+                    resultSet.getInt("length"),//length
+                    resultSet.getInt("year"),//year
+                    resultSet.getInt("age_lvl"),//age_lvl
+                    resultSet.getInt("actor"),//actor
+                    resultSet.getInt("genre")//genre
+
+            );
+            this.getDbManager().Disconnect();
+            return movie;
+        }
+        this.getDbManager().Disconnect();
+        return null;
     }
 }
 

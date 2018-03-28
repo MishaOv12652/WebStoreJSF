@@ -54,12 +54,29 @@ public class Item implements Serializable{
         this.numOfItems = numOfItems;
     }
 
-
+    public Item(int id,String name,float price, String itemDesc, int category, int condition, UploadedFile uploadedFile,int numOfItems,Integer bookSpecs,Integer movieSpecs,Integer cellSpecs,Integer compSpecs){
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.itemDesc = itemDesc;
+        this.category = category;
+        this.condition = condition;
+        this.img = uploadedFile;
+        this.numOfItems = numOfItems;
+        this.bookSpecs = bookSpecs;
+        this.movieSpecs = movieSpecs;
+        this.cellSpecs = cellSpecs;
+        this.compSpecs = compSpecs;
+    }
     @PostConstruct
     public void init(){
         this.categories = CommonUtils.getConstLists("dreambuy.categories", "category_name");
         this.conditions = CommonUtils.getConstLists("dreambuy.product_condition", "condition");
         this.category = 5;
+    }
+
+    public String getConstValueByKey(Hashtable<Integer,String> hashtable, String key){
+        return CommonUtils.getValueByKeyFromHash(hashtable,key);
     }
 
 }

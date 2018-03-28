@@ -25,7 +25,6 @@ public class CellPhone extends Item {
     private int ram;
     private int brand;
     private String model;
-    private String Model;
     private int colour;
     private int memoryCardType;
     private int os;
@@ -79,6 +78,11 @@ public class CellPhone extends Item {
         this.storageTypes = CommonUtils.getConstLists("dreambuy.storage_type", "storage_type");
         //get hash of storage capacity options
         this.storageCaps = CommonUtils.getConstLists("dreambuy.storage_capacity", "capacity");
+    }
+
+    @Override
+    public String getConstValueByKey(Hashtable<Integer,String> hashtable, String key){
+        return CommonUtils.getValueByKeyFromHash(hashtable,key);
     }
 
 }
