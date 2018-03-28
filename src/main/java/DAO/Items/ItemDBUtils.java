@@ -83,7 +83,9 @@ public class ItemDBUtils {
                     resultSet.getInt("book_spec_id"),
                     resultSet.getInt("movie_spec_id"),
                     resultSet.getInt("cellphone_spec_id"),
-                    resultSet.getInt("computer_spec_id")
+                    resultSet.getInt("computer_spec_id"),
+                    CommonUtils.getConstLists("dreambuy.product_condition", "condition"),
+                    CommonUtils.getConstLists("dreambuy.categories", "category_name")
             );
             this.dbManager.Disconnect();
             return item;

@@ -37,7 +37,7 @@ public class ItemController implements Serializable {
 
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
             "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";
-    //    private static final String EDIT_ITEM_PAGE = "/NewSadna_war_exploded/secured/add-edit-item?faces-redirect=true";
+//    private static final String EDIT_ITEM_PAGE = "/NewSadna_war_exploded/secured/add-edit-item?faces-redirect=true";
     private static final String EDIT_ITEM_PAGE = "/secured/add-edit-item.xhtml";
 
     public ItemController() {
@@ -88,9 +88,14 @@ public class ItemController implements Serializable {
 
             Map<String, Object> requestMap = externalContext.getRequestMap();
             requestMap.put("item", this.item);
+//            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+//            FacesContext.getCurrentInstance().getExternalContext().redirect(EDIT_ITEM_PAGE);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         return EDIT_ITEM_PAGE;
     }
 
