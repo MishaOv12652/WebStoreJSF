@@ -24,6 +24,7 @@
 <h:body>
     <b:navBar brandImg="https://png.icons8.com/office/30/000000/tea.png" brandImgStyle="padding-right: 10px;"
               brandAlign="left" brand="Dreaming Buy And Sell" inverse="true" brandHref="#" fixed="top">
+
         <h:form style="padding-top: 10px" styleClass="pull-left">
             <h:panelGrid columns="5">
                 <h:panelGrid columns="2">
@@ -51,7 +52,6 @@
     </b:navBar>
 
     <h:panelGrid rowClasses="2" style="margin-top: 50px">
-
         <h:form id="data">
             <p:dataTable var="itemsForSale" value="#{itemController.itemsForSale}">
                 <f:facet name="header">
@@ -84,6 +84,10 @@
 
                 <p:column headerText="Inventory">
                     <h:outputText value="#{itemsForSale.numOfItems}"/>
+                </p:column>
+
+                <p:column headerText="Actions">
+                    <p:commandButton action="#{itemController.loadItemForSale(itemsForSale.id)}" value="Update"/>
                 </p:column>
 
                 <p:rowExpansion id="expand">
@@ -215,7 +219,6 @@
                             <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
                         </f:facet>
 
-
                         <h:column>
 
                             <h:panelGrid columns="2">
@@ -293,10 +296,7 @@
                     </h:dataTable>
 
                 </p:rowExpansion>
-                <p:column headerText="Actions">
-                    <h:commandLink action="#{itemController.loadItemForSale(itemsForSale.id)}" value="Update"/>
-                    <p:commandLink value="Delete"/>
-                </p:column>
+
             </p:dataTable>
         </h:form>
 

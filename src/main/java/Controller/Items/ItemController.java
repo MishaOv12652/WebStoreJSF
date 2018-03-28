@@ -10,6 +10,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -25,7 +26,8 @@ import java.util.Map;
 @Getter
 @Setter
 @ManagedBean
-@RequestScoped
+@ViewScoped
+
 public class ItemController implements Serializable {
     private Item item;
     private ItemDBUtils itemDBUtils;
@@ -35,7 +37,8 @@ public class ItemController implements Serializable {
 
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
             "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";
-    private static final String EDIT_ITEM_PAGE = "/NewSadna_war_exploded/secured/add-edit-item.xhtml";
+    //    private static final String EDIT_ITEM_PAGE = "/NewSadna_war_exploded/secured/add-edit-item?faces-redirect=true";
+    private static final String EDIT_ITEM_PAGE = "/secured/add-edit-item.xhtml";
 
     public ItemController() {
         this.itemDBUtils = new ItemDBUtils();
@@ -78,21 +81,17 @@ public class ItemController implements Serializable {
         }
     }
 
-    public void loadItemForSale(int id) {
+    public String loadItemForSale(int id) {
         try {
             this.item = this.getItemDBUtils().loadItemForSale(id);
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 
             Map<String, Object> requestMap = externalContext.getRequestMap();
             requestMap.put("item", this.item);
-            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-            FacesContext.getCurrentInstance().getExternalContext().redirect(EDIT_ITEM_PAGE);
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        //return EDIT_ITEM_PAGE;
+        return EDIT_ITEM_PAGE;
     }
 
 
