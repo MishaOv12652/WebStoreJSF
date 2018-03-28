@@ -54,7 +54,7 @@
     <h:panelGrid rowClasses="2" style="margin-top: 50px">
         <h:form id="main">
             <h:form id="data">
-                <p:dataTable var="item" value="#{itemController.itemsForSale}">
+                <p:dataTable var="itemsForSale" value="#{itemController.itemsForSale}">
                     <f:facet name="header">
                         Items For Sale
                     </f:facet>
@@ -62,46 +62,46 @@
                         <p:rowToggler/>
                     </p:column>
                     <p:column headerText="Item Name">
-                        <h:outputText value="#{item.name}"/>
+                        <h:outputText value="#{itemsForSale.name}"/>
                     </p:column>
 
                     <p:column headerText="Price">
-                        <h:outputText value="#{item.price}"/>
+                        <h:outputText value="#{itemsForSale.price}"/>
                     </p:column>
 
                     <p:column headerText="Condition">
                         <h:outputText
-                                value="#{itemController.getConstValueByKey(itemController.conditions,item.condition)}"/>
+                                value="#{itemController.getConstValueByKey(itemController.conditions,itemsForSale.condition)}"/>
                     </p:column>
 
                     <p:column headerText="Item Description" style="width: 350px">
-                        <h:outputText value="#{item.itemDesc}"/>
+                        <h:outputText value="#{itemsForSale.itemDesc}"/>
                     </p:column>
 
                     <p:column headerText="Category">
                         <h:outputText
-                                value="#{itemController.getConstValueByKey(itemController.categories,item.category)}"/>
+                                value="#{itemController.getConstValueByKey(itemController.categories,itemsForSale.category)}"/>
                     </p:column>
 
                     <p:column headerText="Inventory">
-                        <h:outputText value="#{item.numOfItems}"/>
+                        <h:outputText value="#{itemsForSale.numOfItems}"/>
                     </p:column>
 
                     <p:rowExpansion id="expand">
 
                         <p:panelGrid id="other" columns="2" columnClasses="label,value" style="width:300px"
-                                     rendered="#{item.category eq 5}">
+                                     rendered="#{itemsForSale.category eq 5}">
                             <f:facet name="header">
-                                <h:outputText value="#{item.name}"/>
+                                <h:outputText value="#{itemsForSale.name}"/>
                                 <!--<p:graphicImage name="demo/images/car/#{item.img}-big.gif"/>-->
                             </f:facet>
                         </p:panelGrid>
 
 
-                        <h:dataTable id="movies" rendered="#{item.category eq 4}"
-                                     value="#{movieController.loadMovieForSale(item.movieSpecs)}" var="movieForsale">
+                        <h:dataTable id="movies" rendered="#{itemsForSale.category eq 4}"
+                                     value="#{movieController.loadMovieForSale(itemsForSale.movieSpecs)}" var="movieForsale">
                             <f:facet name="header">
-                                <h:outputText value="#{item.name}"/>
+                                <h:outputText value="#{itemsForSale.name}"/>
                                 <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
                             </f:facet>
 
@@ -135,12 +135,12 @@
                         </h:dataTable>
 
                         <h:dataTable id="comp" bodyrows="2"
-                                     rendered="#{item.category eq 3}"
-                                     value="#{computerController.loadComputerForSale(item.compSpecs)}"
+                                     rendered="#{itemsForSale.category eq 3}"
+                                     value="#{computerController.loadComputerForSale(itemsForSale.compSpecs)}"
                                      var="computerForSale">
 
                             <f:facet name="header">
-                                <h:outputText value="#{item.name}"/>
+                                <h:outputText value="#{itemsForSale.name}"/>
                                 <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
                             </f:facet>
 
@@ -196,12 +196,12 @@
 
 
                         <h:dataTable id="cell" bodyrows="2"
-                                     rendered="#{item.category eq 2}"
-                                     value="#{cellPhoneController.loadCellPhoneForSale(item.cellSpecs)}"
+                                     rendered="#{itemsForSale.category eq 2}"
+                                     value="#{cellPhoneController.loadCellPhoneForSale(itemsForSale.cellSpecs)}"
                                      var="cellPhone">
 
                                 <f:facet name="header">
-                                    <h:outputText value="#{item.name}"/>
+                                    <h:outputText value="#{itemsForSale.name}"/>
                                     <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
                                 </f:facet>
 
@@ -245,10 +245,10 @@
                             </h:column>
                         </h:dataTable>
 
-                        <h:dataTable id="books" rendered="#{item.category eq 1}"
-                                     value="#{bookController.loadBookForSale(item.bookSpecs)}" var="bookForsale">
+                        <h:dataTable id="books" rendered="#{itemsForSale.category eq 1}"
+                                     value="#{bookController.loadBookForSale(itemsForSale.bookSpecs)}" var="bookForsale">
                             <f:facet name="header">
-                                <h:outputText value="#{item.name}"/>
+                                <h:outputText value="#{itemsForSale.name}"/>
                                 <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
                             </f:facet>
                             <h:column>
