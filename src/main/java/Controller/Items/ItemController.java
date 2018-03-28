@@ -28,10 +28,6 @@ public class ItemController implements Serializable {
     private Item item;
     private ItemDBUtils itemDBUtils;
 
-    private Hashtable<Integer, String> categories;
-    private Hashtable<Integer, String> conditions;
-
-
     private ArrayList<Item> itemsForSale;
 
 
@@ -79,11 +75,5 @@ public class ItemController implements Serializable {
     }
 
 
-    public String getConstValueByKey(Hashtable<Integer,String> hashtable, String key){
-        return CommonUtils.getValueByKeyFromHash(hashtable,key);
-    }
-    public void loadConsts(){
-        this.categories = CommonUtils.getConstLists("dreambuy.categories", "category_name");
-        this.conditions= CommonUtils.getConstLists("dreambuy.product_condition", "condition");
-    }
+
 }

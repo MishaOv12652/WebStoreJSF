@@ -11,7 +11,6 @@
 >
 <f:metadata>
     <f:event type="preRenderView" listener="#{profileController.loadProfileInfo}"/>
-    <f:event type="preRenderView" listener="#{itemController.loadConsts}"/>
     <f:event type="preRenderView" listener="#{itemController.loadListItemForSale(user.email)}"/>
 </f:metadata>
 <h:head>
@@ -71,7 +70,7 @@
 
                     <p:column headerText="Condition">
                         <h:outputText
-                                value="#{itemController.getConstValueByKey(itemController.conditions,itemsForSale.condition)}"/>
+                                value="#{item.getConstValueByKey(item.conditions,itemsForSale.condition)}"/>
                     </p:column>
 
                     <p:column headerText="Item Description" style="width: 350px">
@@ -80,7 +79,7 @@
 
                     <p:column headerText="Category">
                         <h:outputText
-                                value="#{itemController.getConstValueByKey(itemController.categories,itemsForSale.category)}"/>
+                                value="#{item.getConstValueByKey(item.categories,itemsForSale.category)}"/>
                     </p:column>
 
                     <p:column headerText="Inventory">
@@ -99,7 +98,8 @@
 
 
                         <h:dataTable id="movies" rendered="#{itemsForSale.category eq 4}"
-                                     value="#{movieController.loadMovieForSale(itemsForSale.movieSpecs)}" var="movieForsale">
+                                     value="#{movieController.loadMovieForSale(itemsForSale.movieSpecs)}"
+                                     var="movieForsale">
                             <f:facet name="header">
                                 <h:outputText value="#{itemsForSale.name}"/>
                                 <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
@@ -109,7 +109,7 @@
                             <h:column>
                                 <h:panelGrid columns="2">
                                     <h:outputLabel for="director" value="Director:"/>
-                                    <h:outputText id="director" value="#{movieForsale.director}"/>
+                                    <h:outputText id="director" value="#{movie.getConstValueByKey(movie.directors,movieForsale.director)}"/>
 
                                     <h:outputLabel for="Length" value="Length:"/>
                                     <h:outputText id="Length" value="#{movieForsale.length}"/>
@@ -123,13 +123,13 @@
                             <h:column>
                                 <h:panelGrid columns="2">
                                     <h:outputLabel for="Famous_Actor" value="Famous Actor:"/>
-                                    <h:outputText id="Famous_Actor" value="#{movieForsale.knownActor}"/>
+                                    <h:outputText id="Famous_Actor" value="#{movie.getConstValueByKey(movie.knownActors,movieForsale.knownActor)}"/>
 
                                     <h:outputLabel for="Age_Level" value="Age Level:"/>
-                                    <h:outputText id="Age_Level" value="#{movieForsale.ageLvl}"/>
+                                    <h:outputText id="Age_Level" value="#{movie.getConstValueByKey(movie.ageLvls,movieForsale.ageLvl)}"/>
 
                                     <h:outputLabel for="Genre" value="Genre:"/>
-                                    <h:outputText id="Genre" value="#{movieForsale.genre}"/>
+                                    <h:outputText id="Genre" value="#{movie.getConstValueByKey(movie.genres,movieForsale.genre)}"/>
                                 </h:panelGrid>
                             </h:column>
                         </h:dataTable>
@@ -158,7 +158,7 @@
                                     <h:outputText id="Model" value="#{computerForSale.model}"/>
 
                                     <h:outputLabel for="Brand" value="Brand:"/>
-                                    <h:outputText id="Brand" value="#{computerForSale.brand}"/>
+                                    <h:outputText id="Brand" value="#{computer.getConstValueByKey(computer.brandList,computerForSale.brand)}"/>
 
                                     <h:outputLabel for="Ram" value="Ram:"/>
                                     <h:outputText id="Ram" value="#{computerForSale.memory}"/>
@@ -171,23 +171,23 @@
                             <h:column>
                                 <h:panelGrid columns="2">
                                     <h:outputLabel for="CPU" value="CPU:"/>
-                                    <h:outputText id="CPU" value="#{computerForSale.cpu}"/>
+                                    <h:outputText id="CPU" value="#{computer.getConstValueByKey(computer.cpuList,computerForSale.cpu)}"/>
 
                                     <h:outputLabel for="cpuSpeed" value="CPU Speed:"/>
                                     <h:outputText id="cpuSpeed" value="#{computerForSale.cpuSpeed}"/>
 
                                     <h:outputLabel for="GPU" value="GPU:"/>
-                                    <h:outputText id="GPU" value="#{computerForSale.gpu}"/>
+                                    <h:outputText id="GPU" value="#{computer.getConstValueByKey(computer.gpuList,computerForSale.gpu)}"/>
 
 
                                     <h:outputLabel for="OS" value="OS:"/>
-                                    <h:outputText id="OS" value="#{computerForSale.os}"/>
+                                    <h:outputText id="OS" value="#{computer.getConstValueByKey(computer.osSys,computerForSale.os)}"/>
 
                                     <h:outputLabel for="HDD" value="HDD:"/>
-                                    <h:outputText id="HDD" value="#{computerForSale.hdd}"/>
+                                    <h:outputText id="HDD" value="#{computer.getConstValueByKey(computer.storageCaps,computerForSale.hdd)}"/>
 
                                     <h:outputLabel for="SSD" value="SSD:"/>
-                                    <h:outputText id="SSD" value="#{computerForSale.ssd}"/>
+                                    <h:outputText id="SSD" value="#{computer.getConstValueByKey(computer.storageCaps,computerForSale.ssd)}"/>
 
 
                                 </h:panelGrid>
@@ -198,29 +198,30 @@
                         <h:dataTable id="cell" bodyrows="2"
                                      rendered="#{itemsForSale.category eq 2}"
                                      value="#{cellPhoneController.loadCellPhoneForSale(itemsForSale.cellSpecs)}"
-                                     var="cellPhone">
+                                     var="cellPhoneForSale">
 
-                                <f:facet name="header">
-                                    <h:outputText value="#{itemsForSale.name}"/>
-                                    <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
-                                </f:facet>
+                            <f:facet name="header">
+                                <h:outputText value="#{itemsForSale.name}"/>
+                                <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
+                            </f:facet>
 
 
                             <h:column>
 
                                 <h:panelGrid columns="2">
                                     <h:outputLabel for="cell_Screen_Size" value="Screen Size:"/>
-                                    <h:outputText id="cell_Screen_Size" value="#{cellPhone.screenSize}"/>
+                                    <h:outputText id="cell_Screen_Size" value="#{cellPhoneForSale.screenSize}"/>
 
                                     <h:outputLabel for="cell_Brand" value="Brand:"/>
-                                    <h:outputText id="cell_Brand" value="#{cellPhone.brand}"/>
+                                    <h:outputText id="cell_Brand"
+                                                  value="#{cellPhone.getConstValueByKey(cellPhone.brands,cellPhoneForSale.brand)}"/>
 
 
                                     <h:outputLabel for="cell_Model" value="Model:"/>
-                                    <h:outputText id="cell_Model" value="#{cellPhone.model}"/>
+                                    <h:outputText id="cell_Model" value="#{cellPhoneForSale.model}"/>
 
                                     <h:outputLabel for="cell_Ram" value="Ram:"/>
-                                    <h:outputText id="cell_Ram" value="#{cellPhone.ram}"/>
+                                    <h:outputText id="cell_Ram" value="#{cellPhoneForSale.ram}"/>
 
 
                                 </h:panelGrid>
@@ -229,46 +230,52 @@
                             <h:column>
                                 <h:panelGrid columns="2">
                                     <h:outputLabel for="cell_OS" value="OS:"/>
-                                    <h:outputText id="cell_OS" value="#{cellPhone.os}"/>
+                                    <h:outputText id="cell_OS" value="#{cellPhone.getConstValueByKey(cellPhone.osSys,cellPhoneForSale.os)}"/>
 
                                     <h:outputLabel for="Storage" value="Storage:"/>
-                                    <h:outputText id="Storage" value="#{cellPhone.storage}"/>
+                                    <h:outputText id="Storage" value="#{cellPhone.getConstValueByKey(cellPhone.storageCaps,cellPhoneForSale.storage)}"/>
 
 
                                     <h:outputLabel for="Battery_Capacity" value="Battery Capacity:"/>
-                                    <h:outputText id="Battery_Capacity" value="#{cellPhone.batteryCapacity}"/>
+                                    <h:outputText id="Battery_Capacity" value="#{cellPhoneForSale.batteryCapacity}"/>
 
                                     <h:outputLabel for="Memory" value="Memory Card Type:"/>
-                                    <h:outputText id="Memory" value="#{cellPhone.memoryCardType}"/>
+                                    <h:outputText id="Memory" value="#{cellPhone.getConstValueByKey(cellPhone.storageTypes,cellPhoneForSale.memoryCardType)}"/>
 
                                 </h:panelGrid>
                             </h:column>
                         </h:dataTable>
 
                         <h:dataTable id="books" rendered="#{itemsForSale.category eq 1}"
-                                     value="#{bookController.loadBookForSale(itemsForSale.bookSpecs)}" var="bookForsale">
+                                     value="#{bookController.loadBookForSale(itemsForSale.bookSpecs)}"
+                                     var="bookForsale">
                             <f:facet name="header">
                                 <h:outputText value="#{itemsForSale.name}"/>
                                 <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
                             </f:facet>
+
                             <h:column>
-                                <h:outputText value="Series:"/>
-                                <h:outputText id="Series" value="#{bookForsale.series}"/>
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="Series:"/>
+                                    <h:outputText id="Series" value="#{bookForsale.series}"/>
+
+                                    <h:outputText value="Genre:"/>
+                                    <h:outputText id="B_Genre"
+                                                  value="#{book.getConstValueByKey(book.genres,bookForsale.genre)}"/>
+                                </h:panelGrid>
+
                             </h:column>
 
                             <h:column>
-                                <h:outputText value="Genre:"/>
-                                <h:outputText id="B_Genre" value="#{bookForsale.genre}"/>
-                            </h:column>
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="Age Level:"/>
+                                    <h:outputText id="B_Age_Level"
+                                                  value="#{book.getConstValueByKey(book.ageLevels,bookForsale.ageLvl)}"/>
 
-                            <h:column>
-                                <h:outputText value="Age Level:"/>
-                                <h:outputText id="B_Age_Level" value="#{bookForsale.ageLvl}"/>
-                            </h:column>
-
-                            <h:column>
-                                <h:outputText value="Author:"/>
-                                <h:outputText id="Author" value="#{bookForsale.author}"/>
+                                    <h:outputText value="Author:"/>
+                                    <h:outputText id="Author"
+                                                  value="#{book.getConstValueByKey(book.authors,bookForsale.author)}"/>
+                                </h:panelGrid>
                             </h:column>
                         </h:dataTable>
 

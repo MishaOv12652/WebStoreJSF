@@ -80,4 +80,9 @@ public class CellPhone extends Item {
         this.storageCaps = CommonUtils.getConstLists("dreambuy.storage_capacity", "capacity");
     }
 
+    @Override
+    public String getConstValueByKey(Hashtable<Integer,String> hashtable, String key){
+        return CommonUtils.getValueByKeyFromHash(hashtable,key);
+    }
+
 }

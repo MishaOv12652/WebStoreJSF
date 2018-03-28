@@ -75,4 +75,8 @@ public class Item implements Serializable{
         this.category = 5;
     }
 
+    public String getConstValueByKey(Hashtable<Integer,String> hashtable, String key){
+        return CommonUtils.getValueByKeyFromHash(hashtable,key);
+    }
+
 }

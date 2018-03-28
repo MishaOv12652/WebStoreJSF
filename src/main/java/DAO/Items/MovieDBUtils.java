@@ -64,8 +64,8 @@ public class MovieDBUtils extends ItemDBUtils {
                     resultSet.getInt("director"),//director
                     resultSet.getInt("length"),//length
                     resultSet.getInt("year"),//year
-                    resultSet.getInt("actor"),//age_lvl
-                    resultSet.getInt("age_lvl"),//actor
+                    resultSet.getInt("age_lvl"),//age_lvl
+                    resultSet.getInt("actor"),//actor
                     resultSet.getInt("genre")//genre
 
             );

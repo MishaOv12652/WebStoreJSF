@@ -59,4 +59,10 @@ public class Book extends Item implements Serializable{
         this.ageLevels = CommonUtils.getConstLists("dreambuy.age_lvl", "age_lvl");
     }
 
+    @Override
+    public String getConstValueByKey(Hashtable<Integer,String> hashtable, String key){
+        return CommonUtils.getValueByKeyFromHash(hashtable,key);
+    }
+
+
 }
