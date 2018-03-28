@@ -59,7 +59,38 @@ public class ItemDBUtils {
                     resultSet.getInt("computer_spec_id")
             ));
         }
-       return arrayOfItems;
+        return arrayOfItems;
+    }
+
+    public Item loadItemForSale(int id) throws SQLException {
+        String query = "SELECT * FROM dreambuy.products WHERE id = ?";
+        this.dbManager.Connect();
+        Connection con = this.dbManager.getConnection();
+        PreparedStatement preparedStatement = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if(resultSet.next()){
+            Item item = new Item(
+                    resultSet.getInt("id"),
+                    resultSet.getString("name"),
+                    resultSet.getFloat("price"),
+                    resultSet.getString("item_desc"),
+                    resultSet.getInt("category"),
+                    resultSet.getInt("condition_id"),
+                    null,
+//                    resultSet.getBlob("img"),
+                    resultSet.getInt("numOfItems"),
+                    resultSet.getInt("book_spec_id"),
+                    resultSet.getInt("movie_spec_id"),
+                    resultSet.getInt("cellphone_spec_id"),
+                    resultSet.getInt("computer_spec_id")
+            );
+            this.dbManager.Disconnect();
+            return item;
+        }
+        this.dbManager.Disconnect();
+        return null;
+
     }
 
     protected int addItemForSale(Item item, int idOfUser, Connection con) throws SQLException {
