@@ -69,7 +69,7 @@ public class ItemDBUtils {
         PreparedStatement preparedStatement = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
-        if(resultSet.next()){
+        if (resultSet.next()) {
             Item item = new Item(
                     resultSet.getInt("id"),
                     resultSet.getString("name"),
@@ -123,5 +123,27 @@ public class ItemDBUtils {
         } finally {
             this.dbManager.Disconnect();
         }
+    }
+
+    public void updateItemForSale(Item item) throws SQLException {
+        this.dbManager.Connect();
+        String sql = "UPDATE dreambuy.products SET name=?, price=?, item_desc=?, category=?, condition_id=?," +
+                "numOfItems=?,book_spec_id=?,cellphone_spec_id=?,computer_spec_id=?,movie_spec_id=? WHERE id=?";
+        Connection connection = this.dbManager.getConnection();
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, item.getName());
+        stmt.setFloat(2, item.getPrice());
+        stmt.setString(3, item.getItemDesc());
+        stmt.setInt(4, item.getCategory());
+        stmt.setInt(5, item.getCondition());
+        //stmt.setBlob(6, item.getUploadedFile());
+        stmt.setInt(6, item.getNumOfItems());
+        stmt.setObject(7, item.getBookSpecs());
+        stmt.setObject(8, item.getCellSpecs());
+        stmt.setObject(9, item.getCompSpecs());
+        stmt.setObject(10, item.getMovieSpecs());
+        stmt.setInt(11, item.getId());
+        stmt.execute();
+        this.dbManager.Disconnect();
     }
 }
