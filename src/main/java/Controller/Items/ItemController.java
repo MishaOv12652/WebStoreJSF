@@ -6,10 +6,10 @@ import Utils.CommonUtils;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -26,8 +26,8 @@ import java.util.Map;
 @Getter
 @Setter
 @ManagedBean
+//@SessionScoped
 @ViewScoped
-
 public class ItemController implements Serializable {
     private Item item;
     private ItemDBUtils itemDBUtils;
@@ -36,9 +36,8 @@ public class ItemController implements Serializable {
 
 
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
-                                "/NewSadna_war_exploded/secured/profile-selling-items.xhtml?faces-redirect=true";
-//    private static final String EDIT_ITEM_PAGE = "/NewSadna_war_exploded/secured/add-edit-item?faces-redirect=true";
-    private static final String EDIT_ITEM_PAGE = "/secured/edit-item.xhtml";
+            "/NewSadna_war_exploded/secured/profile-selling-items.xhtml?faces-redirect=true";
+    private static final String EDIT_ITEM_PAGE = "/secured/edit-item";
 
 
     public ItemController() {
@@ -66,6 +65,29 @@ public class ItemController implements Serializable {
         }
     }
 
+    public String loadItemForSale(int id) {
+        try {
+            this.item = this.getItemDBUtils().loadItemForSale(id);
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            Map<String, Object> requestMap = externalContext.getRequestMap();
+            requestMap.put("item", this.item);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return EDIT_ITEM_PAGE;
+    }
+
+    public void updateItemForSale(Item item) {
+        try {
+           //this.updateItemForSale(item, this.itemDBUtils);
+            this.itemDBUtils.updateItemForSale(item);
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+            FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT_SELLING_LIST);
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     protected void addItemForSale(Item item, String email, ItemDBUtils itemDBUtils) throws SQLException, IOException {
         int idOfUser = CommonUtils.getUserIdByEmail(email);
         int idOfItem = itemDBUtils.addItemForSale(item, idOfUser);
@@ -82,30 +104,7 @@ public class ItemController implements Serializable {
         }
     }
 
-    public String loadItemForSale(int id) {
-        try {
-            this.item = this.getItemDBUtils().loadItemForSale(id);
-            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-
-            Map<String, Object> requestMap = externalContext.getRequestMap();
-            requestMap.put("item", this.item);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return EDIT_ITEM_PAGE;
-    }
-
-    public void updateItemForSale(Item item){
-        try {
-            this.itemDBUtils.updateItemForSale(item);
-            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-            FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT_SELLING_LIST);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        return PROFILE_PAGE_REDIRECT_SELLING_LIST;
-
+    protected void updateItemForSale(Item item, ItemDBUtils itemDBUtils) throws SQLException {
+        itemDBUtils.updateItemForSale(item);
     }
 }

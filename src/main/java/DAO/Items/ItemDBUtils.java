@@ -34,6 +34,13 @@ public class ItemDBUtils {
         return this.addItemForSale(item, idOfUser, this.dbManager.getConnection());
     }
 
+    public void updateItemForSale(Item item) throws SQLException {
+        this.dbManager.Connect();
+        Connection connection = this.dbManager.getConnection();
+        this.updateItemForSale(item,connection);
+
+    }
+
     public ArrayList<Item> loadItemListForSale(String email) throws SQLException {
         ArrayList<Item> arrayOfItems = new ArrayList<>();
         String query = "SELECT * FROM dreambuy.products WHERE seller_id = ?";
@@ -125,11 +132,9 @@ public class ItemDBUtils {
         }
     }
 
-    public void updateItemForSale(Item item) throws SQLException {
-        this.dbManager.Connect();
+    protected void updateItemForSale(Item item, Connection connection) throws SQLException {
         String sql = "UPDATE dreambuy.products SET name=?, price=?, item_desc=?, category=?, condition_id=?," +
                 "numOfItems=?,book_spec_id=?,cellphone_spec_id=?,computer_spec_id=?,movie_spec_id=? WHERE id=?";
-        Connection connection = this.dbManager.getConnection();
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setString(1, item.getName());
         stmt.setFloat(2, item.getPrice());

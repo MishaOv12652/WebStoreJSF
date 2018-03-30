@@ -40,6 +40,19 @@ public class Book extends Item implements Serializable{
         this.series = series;
         this.ageLvl = ageLvl;
     }
+//    public Book(Book book){
+//
+//    }
+    public Book(int id, int author, int genre, String series, int ageLvl,  Hashtable<Integer, String> authors,  Hashtable<Integer, String> genres,  Hashtable<Integer, String> ageLevels){
+        this.id = id;
+        this.author = author;
+        this.genre = genre;
+        this.series = series;
+        this.ageLvl = ageLvl;
+        this.authors = authors;
+        this.genres = genres;
+        this.ageLevels = ageLevels;
+    }
 
     public Book(String name, float price, String itemDesc, int category, int condition, UploadedFile uploadedFile, int numOfItems, int author, int genre, String series, int ageLvl){
         super(name,price, itemDesc, category, condition, uploadedFile, numOfItems);

@@ -58,6 +58,7 @@
 
     <div class="jumbotron">
         <h:form id="form">
+            <h:inputHidden value="#{item.bookSpecs}"/>
             <h2>Product Detail:</h2>
             <h:inputHidden value="#{item.id}"/>
             <h:panelGrid bodyrows="8" styleClass="col-md-offset-5">
@@ -165,7 +166,7 @@
             <h:panelGrid id="buttons" columns="2" class="row btn-group col-md-offset-5" style="margin-top: 100px;">
                 <h:button style="margin-top: 15px" styleClass="btn btn-danger pull-left" value="Back To Selling List"
                           outcome="profile-selling-items"/>
-
+                <h:commandButton  rendered="#{item.category eq 1}" actionListener="#{bookController.updateBookForSale(item,book)}" styleClass="btn btn-success pull-right" style="margin-top: 15px" value="Update Book" update="growl @form"/>
                 <h:commandButton  rendered="#{item.category eq 5}" actionListener="#{itemController.updateItemForSale(item)}" styleClass="btn btn-success pull-right" style="margin-top: 15px" value="Update Item" update="growl @form"/>
 
 
