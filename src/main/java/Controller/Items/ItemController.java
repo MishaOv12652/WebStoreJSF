@@ -36,9 +36,9 @@ public class ItemController implements Serializable {
 
 
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
-                                "/secured/profile-selling-items.xhtml?faces-redirect=true";
+                                "/NewSadna_war_exploded/secured/profile-selling-items.xhtml?faces-redirect=true";
 //    private static final String EDIT_ITEM_PAGE = "/NewSadna_war_exploded/secured/add-edit-item?faces-redirect=true";
-    private static final String EDIT_ITEM_PAGE = "/secured/edit-item.xhtml?faces-redirect=true";
+    private static final String EDIT_ITEM_PAGE = "/secured/edit-item.xhtml";
 
 
     public ItemController() {
@@ -89,20 +89,23 @@ public class ItemController implements Serializable {
 
             Map<String, Object> requestMap = externalContext.getRequestMap();
             requestMap.put("item", this.item);
-//            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-//            FacesContext.getCurrentInstance().getExternalContext().redirect(EDIT_ITEM_PAGE);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return EDIT_ITEM_PAGE;
     }
 
-    public String updateItemForSale(Item item){
+    public void updateItemForSale(Item item){
         try {
             this.itemDBUtils.updateItemForSale(item);
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+            FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT_SELLING_LIST);
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return PROFILE_PAGE_REDIRECT_SELLING_LIST;
+//        return PROFILE_PAGE_REDIRECT_SELLING_LIST;
+
     }
 }
