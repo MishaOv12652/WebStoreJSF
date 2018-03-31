@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <link rel="shortcut icon" type="image/x-icon" href="../../resources/imgs/dollar.png"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <link rel="stylesheet" href="../../resources/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" href="../../resources/Custom%20CSS/addItem.css"/>
+</h:head>
+<h:body>
+    <ui:composition>
+        <h:inputHidden value="#{computer.id}"/>
+        <h:panelGrid columns="2" styleClass="col-md-offset-4">
+            <h:panelGrid bodyrows="6">
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="type" value="Type:">
+                        <h:selectOneMenu id="type" value="#{computer.type}">
+                            <f:selectItem itemLabel="" itemValue="none"/>
+                            <f:selectItem itemLabel="Laptop" itemValue="laptop"/>
+                            <f:selectItem itemLabel="Home PC" itemValue="home_pc"/>
+                            <f:selectItem itemLabel="Tablet" itemValue="tablet"/>
+                        </h:selectOneMenu>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="comp_model" value="Model:">
+                        <h:inputText id="comp_model" value="#{computer.model}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="comp_os" value="OS:">
+                        <h:selectOneMenu id="comp_os" value="#{computer.os}">
+                            <c:forEach items="#{computer.osSys.entrySet()}" var="os">
+                                <f:selectItem itemValue="#{os.key}" itemLabel="#{os.value}"/>
+                            </c:forEach>
+                        </h:selectOneMenu>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="cpu_type" value="CPU Type:">
+                        <h:selectOneMenu id="cpu_type" value="#{computer.cpu}">
+                            <c:forEach items="#{computer.cpuList.entrySet()}" var="cpu">
+                                <f:selectItem itemValue="#{cpu.key}" itemLabel="#{cpu.value}"/>
+                            </c:forEach>
+                        </h:selectOneMenu>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="comp_ram" value="RAM:">
+                        <h:inputText id="comp_ram" value="#{computer.memory}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="hdd" value="HDD Capacity:">
+                        <h:selectOneMenu id="hdd" value="#{computer.hdd}">
+                            <c:forEach items="#{computer.storageCaps.entrySet()}" var="sto">
+                                <f:selectItem itemValue="#{sto.key}" itemLabel="#{sto.value}"/>
+                            </c:forEach>
+                        </h:selectOneMenu>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+            </h:panelGrid>
+
+            <h:panelGrid bodyrows="6" style="margin-left: 10px">
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="comp_brand" value="Brand:">
+                        <h:selectOneMenu id="comp_brand" value="#{computer.brand}">
+                            <c:forEach items="#{computer.brandList.entrySet()}" var="brand">
+                                <f:selectItem itemValue="#{brand.key}" itemLabel="#{brand.value}"/>
+                            </c:forEach>
+                        </h:selectOneMenu>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="comp_screen_size" value="Screen Size:">
+                        <h:inputText id="comp_screen_size" value="#{computer.screenSize}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="comp_screen_size" value="Realse Year:">
+                        <h:inputText id="comp_releas_year" value="#{computer.releaseYear}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="cpu_speed" value="CPU Speed:">
+                        <h:inputText id="cpu_speed" value="#{computer.cpuSpeed}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="comp_gpu" value="GPU:">
+                        <h:selectOneMenu id="comp_gpu" value="#{computer.gpu}">
+                            <c:forEach items="#{computer.gpuList.entrySet()}" var="gpu">
+                                <f:selectItem itemValue="#{gpu.key}" itemLabel="#{gpu.value}"/>
+                            </c:forEach>
+                        </h:selectOneMenu>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="sdd" value="SSD Capacity:">
+                        <h:selectOneMenu id="sdd" value="#{computer.ssd}">
+                            <c:forEach items="#{computer.storageCaps.entrySet()}" var="sto">
+                                <f:selectItem itemValue="#{sto.key}" itemLabel="#{sto.value}"/>
+                            </c:forEach>
+                        </h:selectOneMenu>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+            </h:panelGrid>
+        </h:panelGrid>
+    </ui:composition>
+
+</h:body>
+</html>

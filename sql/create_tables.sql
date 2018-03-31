@@ -143,11 +143,11 @@ create table dreambuy.user
 ;
 
 create index user_city_id_fk
-  on user (city)
+  on dreambuy.user (city)
 ;
 
 create index user_credit_companies_id_fk
-  on user (credit_card_comp)
+  on dreambuy.user (credit_card_comp)
 ;
 -- auto-generated definition
 CREATE TABLE dreambuy.movie_specs
@@ -282,9 +282,10 @@ CREATE TABLE dreambuy.products
   condition_id       INT              NULL,
   img                BLOB             NULL,
   seller_id          INT              NULL,
-  book_specs_id      INT DEFAULT '-1' NULL,
-  movie_specs_id     INT              NULL,
-  cellphone_specs_id INT              NULL,
+  book_spec_id      INT DEFAULT '-1' NULL,
+  movie_spec_id     INT              NULL,
+  cellphone_spec_id INT              NULL,
+  computer_spec_id INT              NULL,
   CONSTRAINT products_categories_id_fk
   FOREIGN KEY (category) REFERENCES dreambuy.categories (id),
   CONSTRAINT products_product_condition_id_fk
@@ -292,11 +293,13 @@ CREATE TABLE dreambuy.products
   CONSTRAINT products_user_id_fk
   FOREIGN KEY (seller_id) REFERENCES dreambuy.user (id),
   CONSTRAINT products_books_specs_id_fk
-  FOREIGN KEY (book_specs_id) REFERENCES dreambuy.books_specs (id),
+  FOREIGN KEY (book_spec_id) REFERENCES dreambuy.books_specs (id),
   CONSTRAINT products_movie_specs_id_fk
-  FOREIGN KEY (movie_specs_id) REFERENCES dreambuy.movie_specs (id),
+  FOREIGN KEY (movie_spec_id) REFERENCES dreambuy.movie_specs (id),
   CONSTRAINT products_cellphone_specs_id_fk
-  FOREIGN KEY (cellphone_specs_id) REFERENCES dreambuy.cellphone_specs (id)
+  FOREIGN KEY (cellphone_spec_id) REFERENCES dreambuy.cellphone_specs (id),
+  CONSTRAINT products_computer_specs_id_fk
+  FOREIGN KEY (computer_spec_id) REFERENCES dreambuy.computer_specs (id)
 );
 
 CREATE INDEX products_categories_id_fk
@@ -309,13 +312,16 @@ CREATE INDEX products_user_id_fk
   ON dreambuy.products (seller_id);
 
 CREATE INDEX products_books_specs_id_fk
-  ON dreambuy.products (book_specs_id);
+  ON dreambuy.products (book_spec_id);
 
 CREATE INDEX products_movie_specs_id_fk
-  ON dreambuy.products (movie_specs_id);
+  ON dreambuy.products (movie_spec_id);
 
 CREATE INDEX products_cellphone_specs_id_fk
-  ON dreambuy.products (cellphone_specs_id);
+  ON dreambuy.products (cellphone_spec_id);
+
+CREATE INDEX products_computer_specs_id_fk
+  ON dreambuy.products (computer_spec_id);
 
 
 
