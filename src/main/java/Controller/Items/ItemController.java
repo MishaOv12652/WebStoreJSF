@@ -99,6 +99,7 @@ public class ItemController implements Serializable {
         }
     }
 
+
     protected void addItemForSale(Item item, String email, ItemDBUtils itemDBUtils) throws SQLException, IOException {
         int idOfUser = CommonUtils.getUserIdByEmail(email);
         int idOfItem = itemDBUtils.addItemForSale(item, idOfUser);
@@ -112,6 +113,16 @@ public class ItemController implements Serializable {
             item.setId(idOfItem);
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
             FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT_SELLING_LIST);
+        }
+    }
+
+    public void deleteItemForSale(Integer id){
+        try {
+            this.itemDBUtils.deleteItemForSale(id);
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+            FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT_SELLING_LIST);
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
         }
     }
 

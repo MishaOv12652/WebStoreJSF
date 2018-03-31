@@ -151,4 +151,14 @@ public class ItemDBUtils {
         stmt.execute();
         this.dbManager.Disconnect();
     }
+
+    public void deleteItemForSale(Integer id) throws SQLException {
+        String sql = "DELETE FROM dreambuy.products WHERE id=?";
+        this.dbManager.Connect();
+        Connection connection = this.dbManager.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1,id);
+        preparedStatement.execute();
+        this.dbManager.Disconnect();
+    }
 }
