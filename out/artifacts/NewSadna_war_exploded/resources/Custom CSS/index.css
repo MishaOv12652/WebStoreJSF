@@ -7,3 +7,18 @@
     margin-top: 50px;
     margin-right: 245px;
 }
+
+@media only screen and (max-height: 768px) {
+    .ui-growl {
+        right: 0;
+        top: 300px;
+        position: absolute;
+    }
+}
+@media only screen and (max-height: 1050px) {
+    .ui-growl {
+        right: 0;
+        top: 860px;
+        position: absolute;
+    }
+}

@@ -1,9 +1,6 @@
 package Utils;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
 
 /**
@@ -70,4 +67,5 @@ public class CommonUtils {
     public static String getValueByKeyFromHash(Hashtable<Integer,String>hashtable,String key){
         return hashtable.get(Integer.parseInt(key));
     }
+
 }

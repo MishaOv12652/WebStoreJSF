@@ -31,3 +31,17 @@
         position: absolute;
     }
 }
+
+
+.table-header{
+    border-bottom: 1px solid gray;
+    background: none repeat scroll 0 0 #0775d3;
+    padding: 10px;
+    color: #ffffff;
+    /*font-family: Tahoma,Verdana,Segoe,sans-serif;*/
+    /*width: 72%;*/
+}
+
+.table-width{
+    width:85%
+}
