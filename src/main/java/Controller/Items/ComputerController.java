@@ -80,4 +80,13 @@ public class ComputerController extends ItemController implements Serializable{
         }
         return EDIT_ITEM_PAGE;
     }
+
+    public void updateComputerForSale(Item item, Computer computer) {
+        try {
+            this.computerDBUtils.updateCOmputerSpecs(computer);
+            this.updateItemForSale(item);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

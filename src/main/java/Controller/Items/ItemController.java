@@ -79,6 +79,18 @@ public class ItemController implements Serializable {
 
     public void updateItemForSale(Item item) {
         try {
+            if(item.getBookSpecs()==0){
+                item.setBookSpecs(null);
+            }
+            if(item.getMovieSpecs()==0){
+                item.setMovieSpecs(null);
+            }
+            if(item.getCellSpecs()==0){
+                item.setCellSpecs(null);
+            }
+            if(item.getCompSpecs()==0){
+                item.setCompSpecs(null);
+            }
             this.itemDBUtils.updateItemForSale(item);
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
             FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT_SELLING_LIST);
@@ -103,7 +115,4 @@ public class ItemController implements Serializable {
         }
     }
 
-    protected void updateItemForSale(Item item, ItemDBUtils itemDBUtils) throws SQLException {
-        itemDBUtils.updateItemForSale(item);
-    }
 }

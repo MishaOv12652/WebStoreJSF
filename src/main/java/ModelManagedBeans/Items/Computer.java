@@ -19,7 +19,7 @@ import java.util.Hashtable;
 @Getter
 @Setter
 public class Computer extends Item implements Serializable {
-
+    private int id;
     private String type;
     private String model;
     private int os;
@@ -44,8 +44,9 @@ public class Computer extends Item implements Serializable {
         super();
     }
 
-    public Computer(String type, String model, int os, int cpu, double cpuSpeed, int memory, int gpu, int brand, double screenSize,
+    public Computer(int id,String type, String model, int os, int cpu, double cpuSpeed, int memory, int gpu, int brand, double screenSize,
                     int releaseYear, int hdd, int ssd) {
+        this.id = id;
         this.type = type;
         this.model = model;
         this.os = os;

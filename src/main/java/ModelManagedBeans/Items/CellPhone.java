@@ -20,7 +20,7 @@ import java.util.Hashtable;
 @Getter
 @Setter
 public class CellPhone extends Item {
-
+    private int id;
     private double screenSize;
     private int ram;
     private int brand;
@@ -42,7 +42,8 @@ public class CellPhone extends Item {
         super();
     }
 
-    public CellPhone(double screenSize, int ram, int brand, String model, int memoryCardType, int os, int storage, int batteryCapacity){
+    public CellPhone(int id,double screenSize, int ram, int brand, String model, int memoryCardType, int os, int storage, int batteryCapacity){
+        this.id = id;
         this.screenSize = screenSize;
         this.ram = ram;
         this.brand = brand;

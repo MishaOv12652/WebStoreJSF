@@ -1,5 +1,6 @@
 package DAO.Items;
 
+import ModelManagedBeans.Items.Book;
 import ModelManagedBeans.Items.Item;
 import ModelManagedBeans.Items.Movie;
 import Utils.CommonUtils;
@@ -78,6 +79,23 @@ public class MovieDBUtils extends ItemDBUtils {
         }
         this.getDbManager().Disconnect();
         return null;
+    }
+
+    public void updateMovieSpecs(Movie movie) throws SQLException {
+        this.getDbManager().Connect();
+        String sql = "UPDATE dreambuy.movie_specs SET director=?, length=?, year=?,actor=?,age_lvl=?,genre=?" +
+                " WHERE id=?";
+        Connection connection = this.getDbManager().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, movie.getDirector());
+        preparedStatement.setInt(2, movie.getLength());
+        preparedStatement.setInt(3, movie.getYear());
+        preparedStatement.setInt(4, movie.getKnownActor());
+        preparedStatement.setInt(5, movie.getAgeLvl());
+        preparedStatement.setInt(6, movie.getGenre());
+        preparedStatement.setInt(7, movie.getId());
+        preparedStatement.execute();
+        this.getDbManager().Disconnect();
     }
 }
 

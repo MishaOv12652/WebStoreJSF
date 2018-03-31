@@ -1,6 +1,7 @@
 package DAO.Items;
 
 
+import ModelManagedBeans.Items.Book;
 import ModelManagedBeans.Items.CellPhone;
 import ModelManagedBeans.Items.Item;
 import Utils.CommonUtils;
@@ -81,5 +82,24 @@ public class CellPhoneDBUtils extends ItemDBUtils {
 
         }
         return null;
+    }
+
+    public void updateCellPhoneSpecs(CellPhone cellPhone) throws SQLException {
+        this.getDbManager().Connect();
+        String sql = "UPDATE dreambuy.cellphone_specs SET screen_size=?, model=?, ram=?,brand=?," +
+                "mem_card_type=?,os=?,storage=?,battery_cap=? WHERE id=?";
+        Connection connection = this.getDbManager().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setDouble(1, cellPhone.getScreenSize());
+        preparedStatement.setString(2, cellPhone.getModel());
+        preparedStatement.setInt(3, cellPhone.getRam());
+        preparedStatement.setInt(4, cellPhone.getBrand());
+        preparedStatement.setInt(5, cellPhone.getMemoryCardType());
+        preparedStatement.setInt(6, cellPhone.getOs());
+        preparedStatement.setInt(7, cellPhone.getStorage());
+        preparedStatement.setInt(8, cellPhone.getBatteryCapacity());
+        preparedStatement.setInt(9, cellPhone.getId());
+        preparedStatement.execute();
+        this.getDbManager().Disconnect();
     }
 }

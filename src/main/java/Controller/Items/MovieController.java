@@ -1,6 +1,7 @@
 package Controller.Items;
 
 import DAO.Items.MovieDBUtils;
+import ModelManagedBeans.Items.Book;
 import ModelManagedBeans.Items.Item;
 import ModelManagedBeans.Items.Movie;
 import Utils.CommonUtils;
@@ -77,5 +78,14 @@ public class MovieController extends ItemController implements Serializable{
             }
         }
         return EDIT_ITEM_PAGE;
+    }
+
+    public void updateMovieForSale(Item item, Movie movie) {
+        try {
+            this.movieDBUtils.updateMovieSpecs(movie);
+            this.updateItemForSale(item);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -80,4 +80,13 @@ public class CellPhoneController extends ItemController implements Serializable 
         return EDIT_ITEM_PAGE;
     }
 
+    public void updateCellPhoneForSale(Item item, CellPhone cellPhone) {
+        try {
+            this.cellPhoneDBUtils.updateCellPhoneSpecs(cellPhone);
+            this.updateItemForSale(item);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

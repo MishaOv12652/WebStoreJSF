@@ -19,6 +19,7 @@ import java.util.Hashtable;
 @Getter
 @SessionScoped
 public class Movie extends Item implements Serializable {
+    private int id;
     private int director;
     private int length;
     private int year;
@@ -36,7 +37,8 @@ public class Movie extends Item implements Serializable {
         super();
     }
 
-    public Movie( int director, int length, int year, int ageLvl, int knownActor, int genre){
+    public Movie( int id,int director, int length, int year, int ageLvl, int knownActor, int genre){
+        this.id = id;
         this.director = director;
         this.length = length;
         this.year = year;

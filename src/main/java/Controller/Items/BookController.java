@@ -82,7 +82,6 @@ public class BookController extends ItemController implements Serializable {
     public void updateBookForSale(Item item, Book book) {
         try {
             this.bookDBUtils.updateBookSpecs(book);
-
             this.updateItemForSale(item);
         } catch (SQLException e) {
             e.printStackTrace();
