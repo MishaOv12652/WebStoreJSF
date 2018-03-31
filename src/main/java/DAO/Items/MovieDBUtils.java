@@ -1,7 +1,9 @@
 package DAO.Items;
 
+import ModelManagedBeans.Items.Book;
 import ModelManagedBeans.Items.Item;
 import ModelManagedBeans.Items.Movie;
+import Utils.CommonUtils;
 import Utils.DBManager;
 import com.sun.org.apache.regexp.internal.RE;
 import lombok.Getter;
@@ -61,19 +63,50 @@ public class MovieDBUtils extends ItemDBUtils {
         ResultSet resultSet = preparedStatement.executeQuery();
         if(resultSet.next()){
             Movie movie = new Movie(
+                    resultSet.getInt("id"),
                     resultSet.getInt("director"),//director
                     resultSet.getInt("length"),//length
                     resultSet.getInt("year"),//year
                     resultSet.getInt("age_lvl"),//age_lvl
                     resultSet.getInt("actor"),//actor
-                    resultSet.getInt("genre")//genre
-
+                    resultSet.getInt("genre"),//genre
+                    CommonUtils.getConstLists("dreambuy.directors", "name"),
+                    CommonUtils.getConstLists("dreambuy.actors", "name"),
+                    CommonUtils.getConstLists("dreambuy.age_lvl", "age_lvl"),
+                    CommonUtils.getConstLists("dreambuy.genres", "genre")
             );
             this.getDbManager().Disconnect();
             return movie;
         }
         this.getDbManager().Disconnect();
         return null;
+    }
+
+    public void updateMovieSpecs(Movie movie) throws SQLException {
+        this.getDbManager().Connect();
+        String sql = "UPDATE dreambuy.movie_specs SET director=?, length=?, year=?,actor=?,age_lvl=?,genre=?" +
+                " WHERE id=?";
+        Connection connection = this.getDbManager().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, movie.getDirector());
+        preparedStatement.setInt(2, movie.getLength());
+        preparedStatement.setInt(3, movie.getYear());
+        preparedStatement.setInt(4, movie.getKnownActor());
+        preparedStatement.setInt(5, movie.getAgeLvl());
+        preparedStatement.setInt(6, movie.getGenre());
+        preparedStatement.setInt(7, movie.getId());
+        preparedStatement.execute();
+        this.getDbManager().Disconnect();
+    }
+
+    public void deleteMovieForSale(Integer id) throws SQLException {
+        this.getDbManager().Connect();
+        String sql = "DELETE FROM dreambuy.movie_specs WHERE id=?";
+        Connection connection = this.getDbManager().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1,id);
+        preparedStatement.execute();
+        this.getDbManager().Disconnect();
     }
 }
 

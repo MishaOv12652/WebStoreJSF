@@ -24,6 +24,7 @@
 <h:body>
     <b:navBar brandImg="https://png.icons8.com/office/30/000000/tea.png" brandImgStyle="padding-right: 10px;"
               brandAlign="left" brand="Dreaming Buy And Sell" inverse="true" brandHref="#" fixed="top">
+
         <h:form style="padding-top: 10px" styleClass="pull-left">
             <h:panelGrid columns="5">
                 <h:panelGrid columns="2">
@@ -51,249 +52,271 @@
     </b:navBar>
 
     <h:panelGrid rowClasses="2" style="margin-top: 50px">
-        <h:form id="main">
-            <h:form id="data">
-                <p:dataTable var="itemsForSale" value="#{itemController.itemsForSale}">
-                    <f:facet name="header">
-                        Items For Sale
-                    </f:facet>
-                    <p:column style="width:45px">
-                        <p:rowToggler/>
-                    </p:column>
-                    <p:column headerText="Item Name">
-                        <h:outputText value="#{itemsForSale.name}"/>
-                    </p:column>
+        <h:form id="data">
+            <p:dataTable var="itemsForSale" value="#{itemController.itemsForSale}">
+                <f:facet name="header">
+                    Items For Sale
+                </f:facet>
+                <p:column style="width:45px">
+                    <p:rowToggler/>
+                </p:column>
+                <p:column headerText="Item Name" style="width:200px;text-align: center">
+                    <h:outputText value="#{itemsForSale.name}"/>
+                </p:column>
 
-                    <p:column headerText="Price">
-                        <h:outputText value="#{itemsForSale.price}"/>
-                    </p:column>
+                <p:column headerText="Price" style="width:100px;text-align: center">
+                    <h:outputText value="#{itemsForSale.price}"/>
+                </p:column>
 
-                    <p:column headerText="Condition">
-                        <h:outputText
-                                value="#{item.getConstValueByKey(item.conditions,itemsForSale.condition)}"/>
-                    </p:column>
+                <p:column headerText="Condition" style="width:150px;text-align: center">
+                    <h:outputText
+                            value="#{item.getConstValueByKey(item.conditions,itemsForSale.condition)}"/>
+                </p:column>
 
-                    <p:column headerText="Item Description" style="width: 350px">
-                        <h:outputText value="#{itemsForSale.itemDesc}"/>
-                    </p:column>
+                <p:column headerText="Item Description" style="width: 500px">
+                    <h:outputText value="#{itemsForSale.itemDesc}"/>
+                </p:column>
 
-                    <p:column headerText="Category">
-                        <h:outputText
-                                value="#{item.getConstValueByKey(item.categories,itemsForSale.category)}"/>
-                    </p:column>
+                <p:column headerText="Category" style="width:150px;text-align: center">
+                    <h:outputText
+                            value="#{item.getConstValueByKey(item.categories,itemsForSale.category)}"/>
+                </p:column>
 
-                    <p:column headerText="Inventory">
-                        <h:outputText value="#{itemsForSale.numOfItems}"/>
-                    </p:column>
+                <p:column headerText="Inventory" style="width:100px;text-align: center">
+                    <h:outputText value="#{itemsForSale.numOfItems}"/>
+                </p:column>
 
-                    <p:rowExpansion id="expand">
+                <p:column headerText="Actions" style="width: 275px">
+                    <h:panelGrid columns="2" id="buttons" style="border: none">
+                        <h:commandButton styleClass="btn btn-success pull-left btn-group" rendered="#{itemsForSale.category eq 1}" action="#{bookController.loadBookForUpdate(itemsForSale.bookSpecs,itemsForSale.id)}" value="Update Book"/>
+                        <h:commandButton styleClass="btn btn-danger pull-right btn-group" rendered="#{itemsForSale.category eq 1}"  action="#{bookController.deleteBookForSale(itemsForSale.bookSpecs,itemsForSale.id)}" value="Delete Book"/>
 
-                        <p:panelGrid id="other" columns="2" columnClasses="label,value" style="width:300px"
-                                     rendered="#{itemsForSale.category eq 5}">
-                            <f:facet name="header">
-                                <h:outputText value="#{itemsForSale.name}"/>
-                                <!--<p:graphicImage name="demo/images/car/#{item.img}-big.gif"/>-->
-                            </f:facet>
-                        </p:panelGrid>
+                        <h:commandButton styleClass="btn btn-success pull-left btn-group" rendered="#{itemsForSale.category eq 2}" action="#{cellPhoneController.loadCellPhoneForUpdate(itemsForSale.cellSpecs,itemsForSale.id)}" value="Update Cellphone"/>
+                        <h:commandButton styleClass="btn btn-danger pull-right btn-group" rendered="#{itemsForSale.category eq 2}"  action="#{cellPhoneController.deleteCellPhoneForSale(itemsForSale.cellSpecs,itemsForSale.id)}" value="Delete Cellphone"/>
 
+                        <h:commandButton styleClass="btn btn-success pull-left btn-group" rendered="#{itemsForSale.category eq 3}" action="#{computerController.loadComputerForUpdate(itemsForSale.compSpecs,itemsForSale.id)}" value="Update Computer"/>
+                        <h:commandButton styleClass="btn btn-danger pull-right btn-group" rendered="#{itemsForSale.category eq 3}"  action="#{computerController.deleteComputerForSale(itemsForSale.compSpecs,itemsForSale.id)}" value="Delete Computer"/>
 
-                        <h:dataTable id="movies" rendered="#{itemsForSale.category eq 4}"
-                                     value="#{movieController.loadMovieForSale(itemsForSale.movieSpecs)}"
-                                     var="movieForsale">
-                            <f:facet name="header">
-                                <h:outputText value="#{itemsForSale.name}"/>
-                                <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
-                            </f:facet>
+                        <h:commandButton styleClass="btn btn-success pull-left btn-group" rendered="#{itemsForSale.category eq 4}" action="#{movieController.loadMovieForUpdate(itemsForSale.movieSpecs,itemsForSale.id)}" value="Update Movie"/>
+                        <h:commandButton styleClass="btn btn-danger pull-right btn-group" rendered="#{itemsForSale.category eq 4}"  action="#{movieController.deleteMovieForSale(itemsForSale.movieSpecs,itemsForSale.id)}" value="Delete Movie"/>
 
+                        <h:commandButton styleClass="btn btn-success pull-left btn-group" rendered="#{itemsForSale.category eq 5}" action="#{itemController.loadItemForSale(itemsForSale.id)}" value="Update Item"/>
+                        <h:commandButton styleClass="btn btn-danger pull-right btn-group" rendered="#{itemsForSale.category eq 5}"  action="#{itemController.deleteItemForSale(itemsForSale.id)}" value="Delete Item"/>
+                    </h:panelGrid>
 
-                            <h:column>
-                                <h:panelGrid columns="2">
-                                    <h:outputLabel for="director" value="Director:"/>
-                                    <h:outputText id="director" value="#{movie.getConstValueByKey(movie.directors,movieForsale.director)}"/>
+                </p:column>
 
-                                    <h:outputLabel for="Length" value="Length:"/>
-                                    <h:outputText id="Length" value="#{movieForsale.length}"/>
+                <p:rowExpansion id="expand">
 
-                                    <h:outputLabel for="Year" value="Year:"/>
-                                    <h:outputText id="Year" value="#{movieForsale.year}"/>
-                                </h:panelGrid>
-
-                            </h:column>
-
-                            <h:column>
-                                <h:panelGrid columns="2">
-                                    <h:outputLabel for="Famous_Actor" value="Famous Actor:"/>
-                                    <h:outputText id="Famous_Actor" value="#{movie.getConstValueByKey(movie.knownActors,movieForsale.knownActor)}"/>
-
-                                    <h:outputLabel for="Age_Level" value="Age Level:"/>
-                                    <h:outputText id="Age_Level" value="#{movie.getConstValueByKey(movie.ageLvls,movieForsale.ageLvl)}"/>
-
-                                    <h:outputLabel for="Genre" value="Genre:"/>
-                                    <h:outputText id="Genre" value="#{movie.getConstValueByKey(movie.genres,movieForsale.genre)}"/>
-                                </h:panelGrid>
-                            </h:column>
-                        </h:dataTable>
-
-                        <h:dataTable id="comp" bodyrows="2"
-                                     rendered="#{itemsForSale.category eq 3}"
-                                     value="#{computerController.loadComputerForSale(itemsForSale.compSpecs)}"
-                                     var="computerForSale">
-
-                            <f:facet name="header">
-                                <h:outputText value="#{itemsForSale.name}"/>
-                                <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
-                            </f:facet>
+                    <p:panelGrid id="other" columns="2" columnClasses="label,value" style="width:300px"
+                                 rendered="#{itemsForSale.category eq 5}">
+                        <f:facet name="header">
+                            <h:outputText value="#{itemsForSale.name}"/>
+                            <!--<p:graphicImage name="demo/images/car/#{item.img}-big.gif"/>-->
+                        </f:facet>
+                    </p:panelGrid>
 
 
-                            <h:column>
-
-                                <h:panelGrid columns="2">
-                                    <h:outputLabel for="Screen_Size" value="Screen Size:"/>
-                                    <h:outputText id="Screen_Size" value="#{computerForSale.screenSize}"/>
-
-                                    <h:outputLabel for="Type" value="Type:"/>
-                                    <h:outputText id="Type" value="#{computerForSale.type}"/>
-
-                                    <h:outputLabel for="Model" value="Model:"/>
-                                    <h:outputText id="Model" value="#{computerForSale.model}"/>
-
-                                    <h:outputLabel for="Brand" value="Brand:"/>
-                                    <h:outputText id="Brand" value="#{computer.getConstValueByKey(computer.brandList,computerForSale.brand)}"/>
-
-                                    <h:outputLabel for="Ram" value="Ram:"/>
-                                    <h:outputText id="Ram" value="#{computerForSale.memory}"/>
-
-                                    <h:outputLabel for="Release_Year" value="Release Year:"/>
-                                    <h:outputText id="Release_Year" value="#{computerForSale.releaseYear}"/>
-                                </h:panelGrid>
-                            </h:column>
-
-                            <h:column>
-                                <h:panelGrid columns="2">
-                                    <h:outputLabel for="CPU" value="CPU:"/>
-                                    <h:outputText id="CPU" value="#{computer.getConstValueByKey(computer.cpuList,computerForSale.cpu)}"/>
-
-                                    <h:outputLabel for="cpuSpeed" value="CPU Speed:"/>
-                                    <h:outputText id="cpuSpeed" value="#{computerForSale.cpuSpeed}"/>
-
-                                    <h:outputLabel for="GPU" value="GPU:"/>
-                                    <h:outputText id="GPU" value="#{computer.getConstValueByKey(computer.gpuList,computerForSale.gpu)}"/>
+                    <h:dataTable id="movies" rendered="#{itemsForSale.category eq 4}"
+                                 value="#{movieController.loadMovieForSale(itemsForSale.movieSpecs)}"
+                                 var="movieForsale">
+                        <f:facet name="header">
+                            <h:outputText value="#{itemsForSale.name}"/>
+                            <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
+                        </f:facet>
 
 
-                                    <h:outputLabel for="OS" value="OS:"/>
-                                    <h:outputText id="OS" value="#{computer.getConstValueByKey(computer.osSys,computerForSale.os)}"/>
+                        <h:column>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel for="director" value="Director:"/>
+                                <h:outputText id="director"
+                                              value="#{movie.getConstValueByKey(movie.directors,movieForsale.director)}"/>
 
-                                    <h:outputLabel for="HDD" value="HDD:"/>
-                                    <h:outputText id="HDD" value="#{computer.getConstValueByKey(computer.storageCaps,computerForSale.hdd)}"/>
+                                <h:outputLabel for="Length" value="Length:"/>
+                                <h:outputText id="Length" value="#{movieForsale.length}"/>
 
-                                    <h:outputLabel for="SSD" value="SSD:"/>
-                                    <h:outputText id="SSD" value="#{computer.getConstValueByKey(computer.storageCaps,computerForSale.ssd)}"/>
+                                <h:outputLabel for="Year" value="Year:"/>
+                                <h:outputText id="Year" value="#{movieForsale.year}"/>
+                            </h:panelGrid>
 
+                        </h:column>
 
-                                </h:panelGrid>
-                            </h:column>
-                        </h:dataTable>
+                        <h:column>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel for="Famous_Actor" value="Famous Actor:"/>
+                                <h:outputText id="Famous_Actor"
+                                              value="#{movie.getConstValueByKey(movie.knownActors,movieForsale.knownActor)}"/>
 
+                                <h:outputLabel for="Age_Level" value="Age Level:"/>
+                                <h:outputText id="Age_Level"
+                                              value="#{movie.getConstValueByKey(movie.ageLvls,movieForsale.ageLvl)}"/>
 
-                        <h:dataTable id="cell" bodyrows="2"
-                                     rendered="#{itemsForSale.category eq 2}"
-                                     value="#{cellPhoneController.loadCellPhoneForSale(itemsForSale.cellSpecs)}"
-                                     var="cellPhoneForSale">
+                                <h:outputLabel for="Genre" value="Genre:"/>
+                                <h:outputText id="Genre"
+                                              value="#{movie.getConstValueByKey(movie.genres,movieForsale.genre)}"/>
+                            </h:panelGrid>
+                        </h:column>
+                    </h:dataTable>
 
-                            <f:facet name="header">
-                                <h:outputText value="#{itemsForSale.name}"/>
-                                <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
-                            </f:facet>
+                    <h:dataTable id="comp" bodyrows="2"
+                                 rendered="#{itemsForSale.category eq 3}"
+                                 value="#{computerController.loadComputerForSale(itemsForSale.compSpecs)}"
+                                 var="computerForSale">
 
-
-                            <h:column>
-
-                                <h:panelGrid columns="2">
-                                    <h:outputLabel for="cell_Screen_Size" value="Screen Size:"/>
-                                    <h:outputText id="cell_Screen_Size" value="#{cellPhoneForSale.screenSize}"/>
-
-                                    <h:outputLabel for="cell_Brand" value="Brand:"/>
-                                    <h:outputText id="cell_Brand"
-                                                  value="#{cellPhone.getConstValueByKey(cellPhone.brands,cellPhoneForSale.brand)}"/>
-
-
-                                    <h:outputLabel for="cell_Model" value="Model:"/>
-                                    <h:outputText id="cell_Model" value="#{cellPhoneForSale.model}"/>
-
-                                    <h:outputLabel for="cell_Ram" value="Ram:"/>
-                                    <h:outputText id="cell_Ram" value="#{cellPhoneForSale.ram}"/>
-
-
-                                </h:panelGrid>
-                            </h:column>
-
-                            <h:column>
-                                <h:panelGrid columns="2">
-                                    <h:outputLabel for="cell_OS" value="OS:"/>
-                                    <h:outputText id="cell_OS" value="#{cellPhone.getConstValueByKey(cellPhone.osSys,cellPhoneForSale.os)}"/>
-
-                                    <h:outputLabel for="Storage" value="Storage:"/>
-                                    <h:outputText id="Storage" value="#{cellPhone.getConstValueByKey(cellPhone.storageCaps,cellPhoneForSale.storage)}"/>
+                        <f:facet name="header">
+                            <h:outputText value="#{itemsForSale.name}"/>
+                            <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
+                        </f:facet>
 
 
-                                    <h:outputLabel for="Battery_Capacity" value="Battery Capacity:"/>
-                                    <h:outputText id="Battery_Capacity" value="#{cellPhoneForSale.batteryCapacity}"/>
+                        <h:column>
 
-                                    <h:outputLabel for="Memory" value="Memory Card Type:"/>
-                                    <h:outputText id="Memory" value="#{cellPhone.getConstValueByKey(cellPhone.storageTypes,cellPhoneForSale.memoryCardType)}"/>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel for="Screen_Size" value="Screen Size:"/>
+                                <h:outputText id="Screen_Size" value="#{computerForSale.screenSize}"/>
 
-                                </h:panelGrid>
-                            </h:column>
-                        </h:dataTable>
+                                <h:outputLabel for="Type" value="Type:"/>
+                                <h:outputText id="Type" value="#{computerForSale.type}"/>
 
-                        <h:dataTable id="books" rendered="#{itemsForSale.category eq 1}"
-                                     value="#{bookController.loadBookForSale(itemsForSale.bookSpecs)}"
-                                     var="bookForsale">
-                            <f:facet name="header">
-                                <h:outputText value="#{itemsForSale.name}"/>
-                                <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
-                            </f:facet>
+                                <h:outputLabel for="Model" value="Model:"/>
+                                <h:outputText id="Model" value="#{computerForSale.model}"/>
 
-                            <h:column>
-                                <h:panelGrid columns="2">
-                                    <h:outputText value="Series:"/>
-                                    <h:outputText id="Series" value="#{bookForsale.series}"/>
+                                <h:outputLabel for="Brand" value="Brand:"/>
+                                <h:outputText id="Brand"
+                                              value="#{computer.getConstValueByKey(computer.brandList,computerForSale.brand)}"/>
 
-                                    <h:outputText value="Genre:"/>
-                                    <h:outputText id="B_Genre"
-                                                  value="#{book.getConstValueByKey(book.genres,bookForsale.genre)}"/>
-                                </h:panelGrid>
+                                <h:outputLabel for="Ram" value="Ram:"/>
+                                <h:outputText id="Ram" value="#{computerForSale.memory}"/>
 
-                            </h:column>
+                                <h:outputLabel for="Release_Year" value="Release Year:"/>
+                                <h:outputText id="Release_Year" value="#{computerForSale.releaseYear}"/>
+                            </h:panelGrid>
+                        </h:column>
 
-                            <h:column>
-                                <h:panelGrid columns="2">
-                                    <h:outputText value="Age Level:"/>
-                                    <h:outputText id="B_Age_Level"
-                                                  value="#{book.getConstValueByKey(book.ageLevels,bookForsale.ageLvl)}"/>
+                        <h:column>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel for="CPU" value="CPU:"/>
+                                <h:outputText id="CPU"
+                                              value="#{computer.getConstValueByKey(computer.cpuList,computerForSale.cpu)}"/>
 
-                                    <h:outputText value="Author:"/>
-                                    <h:outputText id="Author"
-                                                  value="#{book.getConstValueByKey(book.authors,bookForsale.author)}"/>
-                                </h:panelGrid>
-                            </h:column>
-                        </h:dataTable>
+                                <h:outputLabel for="cpuSpeed" value="CPU Speed:"/>
+                                <h:outputText id="cpuSpeed" value="#{computerForSale.cpuSpeed}"/>
 
-                    </p:rowExpansion>
-                    <p:column headerText="Actions">
-                        <p:panelGrid columns="2">
-                            <p:commandLink value="Update"/>
-                            <p:commandLink value="Delete"/>
-                        </p:panelGrid>
-                    </p:column>
-                </p:dataTable>
-            </h:form>
+                                <h:outputLabel for="GPU" value="GPU:"/>
+                                <h:outputText id="GPU"
+                                              value="#{computer.getConstValueByKey(computer.gpuList,computerForSale.gpu)}"/>
 
 
-            <h:button value="Add An Item For Sale" styleClass="btn-lg btn-primary pull-right" outcome="add-edit-item"/>
+                                <h:outputLabel for="OS" value="OS:"/>
+                                <h:outputText id="OS"
+                                              value="#{computer.getConstValueByKey(computer.osSys,computerForSale.os)}"/>
+
+                                <h:outputLabel for="HDD" value="HDD:"/>
+                                <h:outputText id="HDD"
+                                              value="#{computer.getConstValueByKey(computer.storageCaps,computerForSale.hdd)}"/>
+
+                                <h:outputLabel for="SSD" value="SSD:"/>
+                                <h:outputText id="SSD"
+                                              value="#{computer.getConstValueByKey(computer.storageCaps,computerForSale.ssd)}"/>
+
+
+                            </h:panelGrid>
+                        </h:column>
+                    </h:dataTable>
+
+
+                    <h:dataTable id="cell" bodyrows="2"
+                                 rendered="#{itemsForSale.category eq 2}"
+                                 value="#{cellPhoneController.loadCellPhoneForSale(itemsForSale.cellSpecs)}"
+                                 var="cellPhoneForSale">
+
+                        <f:facet name="header">
+                            <h:outputText value="#{itemsForSale.name}"/>
+                            <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
+                        </f:facet>
+
+                        <h:column>
+
+                            <h:panelGrid columns="2">
+                                <h:outputLabel for="cell_Screen_Size" value="Screen Size:"/>
+                                <h:outputText id="cell_Screen_Size" value="#{cellPhoneForSale.screenSize}"/>
+
+                                <h:outputLabel for="cell_Brand" value="Brand:"/>
+                                <h:outputText id="cell_Brand"
+                                              value="#{cellPhone.getConstValueByKey(cellPhone.brands,cellPhoneForSale.brand)}"/>
+
+
+                                <h:outputLabel for="cell_Model" value="Model:"/>
+                                <h:outputText id="cell_Model" value="#{cellPhoneForSale.model}"/>
+
+                                <h:outputLabel for="cell_Ram" value="Ram:"/>
+                                <h:outputText id="cell_Ram" value="#{cellPhoneForSale.ram}"/>
+
+
+                            </h:panelGrid>
+                        </h:column>
+
+                        <h:column>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel for="cell_OS" value="OS:"/>
+                                <h:outputText id="cell_OS"
+                                              value="#{cellPhone.getConstValueByKey(cellPhone.osSys,cellPhoneForSale.os)}"/>
+
+                                <h:outputLabel for="Storage" value="Storage:"/>
+                                <h:outputText id="Storage"
+                                              value="#{cellPhone.getConstValueByKey(cellPhone.storageCaps,cellPhoneForSale.storage)}"/>
+
+
+                                <h:outputLabel for="Battery_Capacity" value="Battery Capacity:"/>
+                                <h:outputText id="Battery_Capacity" value="#{cellPhoneForSale.batteryCapacity}"/>
+
+                                <h:outputLabel for="Memory" value="Memory Card Type:"/>
+                                <h:outputText id="Memory"
+                                              value="#{cellPhone.getConstValueByKey(cellPhone.storageTypes,cellPhoneForSale.memoryCardType)}"/>
+
+                            </h:panelGrid>
+                        </h:column>
+                    </h:dataTable>
+
+                    <h:dataTable id="books" rendered="#{itemsForSale.category eq 1}"
+                                 value="#{bookController.loadBookForSale(itemsForSale.bookSpecs)}"
+                                 var="bookForsale">
+                        <f:facet name="header">
+                            <h:outputText value="#{itemsForSale.name}"/>
+                            <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
+                        </f:facet>
+
+                        <h:column>
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Series:"/>
+                                <h:outputText id="Series" value="#{bookForsale.series}"/>
+
+                                <h:outputText value="Genre:"/>
+                                <h:outputText id="B_Genre"
+                                              value="#{book.getConstValueByKey(book.genres,bookForsale.genre)}"/>
+                            </h:panelGrid>
+
+                        </h:column>
+
+                        <h:column>
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Age Level:"/>
+                                <h:outputText id="B_Age_Level"
+                                              value="#{book.getConstValueByKey(book.ageLevels,bookForsale.ageLvl)}"/>
+
+                                <h:outputText value="Author:"/>
+                                <h:outputText id="Author"
+                                              value="#{book.getConstValueByKey(book.authors,bookForsale.author)}"/>
+                            </h:panelGrid>
+                        </h:column>
+                    </h:dataTable>
+
+                </p:rowExpansion>
+
+            </p:dataTable>
         </h:form>
 
-
+        <h:button value="Add An Item For Sale" styleClass="btn-lg btn-primary pull-right" outcome="add-edit-item"/>
     </h:panelGrid>
 </h:body>
 </html>

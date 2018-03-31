@@ -20,7 +20,7 @@ import java.util.Hashtable;
 @Getter
 @Setter
 public class CellPhone extends Item {
-
+    private int id;
     private double screenSize;
     private int ram;
     private int brand;
@@ -42,7 +42,8 @@ public class CellPhone extends Item {
         super();
     }
 
-    public CellPhone(double screenSize, int ram, int brand, String model, int memoryCardType, int os, int storage, int batteryCapacity){
+    public CellPhone(int id,double screenSize, int ram, int brand, String model, int memoryCardType, int os, int storage, int batteryCapacity){
+        this.id = id;
         this.screenSize = screenSize;
         this.ram = ram;
         this.brand = brand;
@@ -51,6 +52,25 @@ public class CellPhone extends Item {
         this.os = os;
         this.storage = storage;
         this.batteryCapacity = batteryCapacity;
+    }
+
+    public CellPhone(int id, double screenSize, int ram, int brand, String model, int memoryCardType, int os, int storage, int batteryCapacity,
+                     Hashtable<Integer, String> brands,Hashtable<Integer, String> osSys,Hashtable<Integer, String> storageTypes,
+                     Hashtable<Integer, String> storageCaps){
+
+        this.id = id;
+        this.screenSize = screenSize;
+        this.ram = ram;
+        this.brand = brand;
+        this.model = model;
+        this.memoryCardType = memoryCardType;
+        this.os = os;
+        this.storage = storage;
+        this.batteryCapacity = batteryCapacity;
+        this.brands = brands;
+        this.osSys = osSys;
+        this.storageTypes = storageTypes;
+        this.storageCaps = storageCaps;
     }
 
     public CellPhone(String name, float price, String itemDesc, int category, int condition, UploadedFile uploadedFile, int numOfItems,

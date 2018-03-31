@@ -12,10 +12,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * Created by Misha on 3/25/2018.
@@ -31,6 +33,7 @@ public class CellPhoneController extends ItemController implements Serializable 
     private CellPhoneDBUtils cellPhoneDBUtils;
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
             "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";
+    private static final String EDIT_ITEM_PAGE = "/secured/edit-item";
 
     public CellPhoneController() {
         this.cellPhoneDBUtils = new CellPhoneDBUtils();
@@ -61,6 +64,40 @@ public class CellPhoneController extends ItemController implements Serializable 
             }
         }
         return null;
+    }
+
+    public String loadCellPhoneForUpdate(Integer id, Integer itemId) {
+        if (itemId != null) {
+            try {
+                ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+                Map<String, Object> requestMap = externalContext.getRequestMap();
+                requestMap.put("item", this.getItemDBUtils().loadItemForSale(itemId));
+                requestMap.put("cellPhone", this.cellPhoneDBUtils.loadCellPhoneForSale(id));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return EDIT_ITEM_PAGE;
+    }
+
+    public void updateCellPhoneForSale(Item item, CellPhone cellPhone) {
+        try {
+            this.cellPhoneDBUtils.updateCellPhoneSpecs(cellPhone);
+            this.updateItemForSale(item);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteCellPhoneForSale(Integer cellPhoneId,Integer itemId){
+        try {
+            this.deleteItemForSale(itemId);
+            this.cellPhoneDBUtils.deleteCellPhoneForSale(cellPhoneId);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
