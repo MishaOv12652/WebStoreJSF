@@ -20,7 +20,7 @@ label,h4{
 @media only screen and (max-height: 1050px) {
     .ui-growl {
         right: 0;
-        top: 500px;
+        top: 860px;
         position: absolute;
     }
 }

@@ -1,0 +1,1 @@
+INSERT INTO dreambuy.computer_specs (type, os, cpu, cpu_speed, ram, gpu, brand, screen_size, release_year, hdd, ssd, model) VALUES ('laptop', 3, 1, 3.4, 8, 1, 1, 15.6, 2015, 1, 1, 'comp model');

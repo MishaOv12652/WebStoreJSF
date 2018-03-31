@@ -117,35 +117,38 @@ CREATE TABLE dreambuy.gpu_list
   gpu VARCHAR(25)
 );
 
-CREATE TABLE dreambuy.user
+-- auto-generated definition
+create table dreambuy.user
 (
-  id                 INT         NOT NULL AUTO_INCREMENT
-    PRIMARY KEY,
-  f_name             VARCHAR(20) NULL,
-  l_name             VARCHAR(20) NULL,
-  email              VARCHAR(30) NULL,
-  password           VARCHAR(20) NULL,
-  city               INT         NULL,
-  address            VARCHAR(50) NULL,
-  credit_card_number VARCHAR(20) NULL,
-  credit_card_comp   INT         NULL,
-  credit_card_exp    VARCHAR(6)  NULL,
-  phone_number       VARCHAR(10) NULL,
-  zip                INT         NULL,
-  CONSTRAINT User_email_uindex
-  UNIQUE (email),
-  CONSTRAINT user_city_id_fk
-  FOREIGN KEY (city) REFERENCES dreambuy.city (id),
-  CONSTRAINT user_credit_companies_id_fk
-  FOREIGN KEY (credit_card_comp) REFERENCES dreambuy.credit_companies (id)
-);
+  id int not null auto_increment
+    primary key,
+  email varchar(30) null,
+  f_name varchar(20) null,
+  l_name varchar(20) null,
+  password varchar(20) null,
+  phone_number varchar(10) null,
+  city int null,
+  address varchar(50) null,
+  credit_card_number varchar(20) null,
+  credit_card_comp int null,
+  credit_card_exp varchar(7) null,
+  zip int null,
+  constraint User_email_uindex
+  unique (email),
+  constraint user_city_id_fk
+  foreign key (city) references dreambuy.city (id),
+  constraint user_credit_companies_id_fk
+  foreign key (credit_card_comp) references dreambuy.credit_companies (id)
+)
+;
 
-CREATE INDEX user_city_id_fk
-  ON dreambuy.user (city);
+create index user_city_id_fk
+  on dreambuy.user (city)
+;
 
-CREATE INDEX user_credit_companies_id_fk
-  ON dreambuy.user (credit_card_comp);
-
+create index user_credit_companies_id_fk
+  on dreambuy.user (credit_card_comp)
+;
 -- auto-generated definition
 CREATE TABLE dreambuy.movie_specs
 (
@@ -279,9 +282,10 @@ CREATE TABLE dreambuy.products
   condition_id       INT              NULL,
   img                BLOB             NULL,
   seller_id          INT              NULL,
-  book_specs_id      INT DEFAULT '-1' NULL,
-  movie_specs_id     INT              NULL,
-  cellphone_specs_id INT              NULL,
+  book_spec_id      INT DEFAULT '-1' NULL,
+  movie_spec_id     INT              NULL,
+  cellphone_spec_id INT              NULL,
+  computer_spec_id INT              NULL,
   CONSTRAINT products_categories_id_fk
   FOREIGN KEY (category) REFERENCES dreambuy.categories (id),
   CONSTRAINT products_product_condition_id_fk
@@ -289,11 +293,13 @@ CREATE TABLE dreambuy.products
   CONSTRAINT products_user_id_fk
   FOREIGN KEY (seller_id) REFERENCES dreambuy.user (id),
   CONSTRAINT products_books_specs_id_fk
-  FOREIGN KEY (book_specs_id) REFERENCES dreambuy.books_specs (id),
+  FOREIGN KEY (book_spec_id) REFERENCES dreambuy.books_specs (id),
   CONSTRAINT products_movie_specs_id_fk
-  FOREIGN KEY (movie_specs_id) REFERENCES dreambuy.movie_specs (id),
+  FOREIGN KEY (movie_spec_id) REFERENCES dreambuy.movie_specs (id),
   CONSTRAINT products_cellphone_specs_id_fk
-  FOREIGN KEY (cellphone_specs_id) REFERENCES dreambuy.cellphone_specs (id)
+  FOREIGN KEY (cellphone_spec_id) REFERENCES dreambuy.cellphone_specs (id),
+  CONSTRAINT products_computer_specs_id_fk
+  FOREIGN KEY (computer_spec_id) REFERENCES dreambuy.computer_specs (id)
 );
 
 CREATE INDEX products_categories_id_fk
@@ -306,13 +312,16 @@ CREATE INDEX products_user_id_fk
   ON dreambuy.products (seller_id);
 
 CREATE INDEX products_books_specs_id_fk
-  ON dreambuy.products (book_specs_id);
+  ON dreambuy.products (book_spec_id);
 
 CREATE INDEX products_movie_specs_id_fk
-  ON dreambuy.products (movie_specs_id);
+  ON dreambuy.products (movie_spec_id);
 
 CREATE INDEX products_cellphone_specs_id_fk
-  ON dreambuy.products (cellphone_specs_id);
+  ON dreambuy.products (cellphone_spec_id);
+
+CREATE INDEX products_computer_specs_id_fk
+  ON dreambuy.products (computer_spec_id);
 
 
 

@@ -1,4 +1,4 @@
-INSERT INTO dreambuy.storage_type (storage_type) VALUES ('sd card');
-INSERT INTO dreambuy.storage_type (storage_type) VALUES ('micro sd card');
-INSERT INTO dreambuy.storage_type (storage_type) VALUES ('hdd');
-INSERT INTO dreambuy.storage_type (storage_type) VALUES ('ssd');
+INSERT INTO dreambuy.storage_type (storage_type) VALUES ('SD Card');
+INSERT INTO dreambuy.storage_type (storage_type) VALUES ('Micro SD Card');
+INSERT INTO dreambuy.storage_type (storage_type) VALUES ('HDD');
+INSERT INTO dreambuy.storage_type (storage_type) VALUES ('SSD');

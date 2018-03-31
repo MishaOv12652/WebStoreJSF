@@ -18,7 +18,7 @@ import java.sql.SQLException;
 @SessionScoped
 public class UserController {
     private static final String PROFILE_PAGE_REDIRECT =
-            "/NewSadna_war_exploded/secured/profile.xhtml";
+            "/NewSadna_war_exploded/secured/profile-personal-info.xhtml";
     private static final String LOGOUT_PAGE_REDIRECT =
             "/logout.xhtml?faces-redirect=true";
     private UserDBUtils userDBUtils;
@@ -33,6 +33,7 @@ public class UserController {
             this.userDBUtils.signUp(user);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful Registration", "You Have Registered Successfully"));
             SessionUtils.getSession().setAttribute("userEmail", user.getEmail());
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
             FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -48,6 +49,7 @@ public class UserController {
             if(this.userDBUtils.login(user)){
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful Login", "You Have Logged in Successfully"));
                 SessionUtils.getSession().setAttribute("userEmail", user.getEmail());
+                FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
                 FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT);
             }else{
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Unsuccessful Login", "Something Went Wrong On Login"));
