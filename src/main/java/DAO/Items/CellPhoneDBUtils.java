@@ -64,6 +64,7 @@ public class CellPhoneDBUtils extends ItemDBUtils {
         ResultSet resultSet = preparedStatement.executeQuery();
         if(resultSet.next()){
             CellPhone cellPhone =  new CellPhone(
+                    resultSet.getInt("id"),
                     resultSet.getDouble("screen_size"),
                     resultSet.getInt("ram"),
                     resultSet.getInt("brand"),

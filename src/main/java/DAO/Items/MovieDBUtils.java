@@ -63,6 +63,7 @@ public class MovieDBUtils extends ItemDBUtils {
         ResultSet resultSet = preparedStatement.executeQuery();
         if(resultSet.next()){
             Movie movie = new Movie(
+                    resultSet.getInt("id"),
                     resultSet.getInt("director"),//director
                     resultSet.getInt("length"),//length
                     resultSet.getInt("year"),//year

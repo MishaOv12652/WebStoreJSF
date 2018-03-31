@@ -54,9 +54,11 @@ public class CellPhone extends Item {
         this.batteryCapacity = batteryCapacity;
     }
 
-    public CellPhone(double screenSize, int ram, int brand, String model, int memoryCardType, int os, int storage, int batteryCapacity,
+    public CellPhone(int id, double screenSize, int ram, int brand, String model, int memoryCardType, int os, int storage, int batteryCapacity,
                      Hashtable<Integer, String> brands,Hashtable<Integer, String> osSys,Hashtable<Integer, String> storageTypes,
                      Hashtable<Integer, String> storageCaps){
+
+        this.id = id;
         this.screenSize = screenSize;
         this.ram = ram;
         this.brand = brand;

@@ -60,39 +60,39 @@
                 <p:column style="width:45px">
                     <p:rowToggler/>
                 </p:column>
-                <p:column headerText="Item Name">
+                <p:column headerText="Item Name" style="width:200px;text-align: center">
                     <h:outputText value="#{itemsForSale.name}"/>
                 </p:column>
 
-                <p:column headerText="Price">
+                <p:column headerText="Price" style="width:100px;text-align: center">
                     <h:outputText value="#{itemsForSale.price}"/>
                 </p:column>
 
-                <p:column headerText="Condition">
+                <p:column headerText="Condition" style="width:150px;text-align: center">
                     <h:outputText
                             value="#{item.getConstValueByKey(item.conditions,itemsForSale.condition)}"/>
                 </p:column>
 
-                <p:column headerText="Item Description" style="width: 350px">
+                <p:column headerText="Item Description" style="width: 500px">
                     <h:outputText value="#{itemsForSale.itemDesc}"/>
                 </p:column>
 
-                <p:column headerText="Category">
+                <p:column headerText="Category" style="width:150px;text-align: center">
                     <h:outputText
                             value="#{item.getConstValueByKey(item.categories,itemsForSale.category)}"/>
                 </p:column>
 
-                <p:column headerText="Inventory">
+                <p:column headerText="Inventory" style="width:100px;text-align: center">
                     <h:outputText value="#{itemsForSale.numOfItems}"/>
                 </p:column>
 
-                <p:column headerText="Actions">
+                <p:column headerText="Actions" style="width: 250px">
                     <h:panelGrid id="buttons">
-                        <h:commandButton rendered="#{itemsForSale.category eq 1}" action="#{bookController.loadBookForUpdate(itemsForSale.bookSpecs,itemsForSale.id)}" value="Update Book"/>
-                        <h:commandButton rendered="#{itemsForSale.category eq 2}" action="#{cellPhoneController.loadCellPhoneForUpdate(itemsForSale.cellSpecs,itemsForSale.id)}" value="Update Cellphone"/>
-                        <h:commandButton rendered="#{itemsForSale.category eq 3}" action="#{computerController.loadComputerForUpdate(itemsForSale.compSpecs,itemsForSale.id)}" value="Update Computer"/>
-                        <h:commandButton rendered="#{itemsForSale.category eq 4}" action="#{movieController.loadMovieForUpdate(itemsForSale.movieSpecs,itemsForSale.id)}" value="Update Movie"/>
-                        <h:commandButton rendered="#{itemsForSale.category eq 5}" action="#{itemController.loadItemForSale(itemsForSale.id)}" value="Update Item"/>
+                        <h:commandButton styleClass="btn btn-success" rendered="#{itemsForSale.category eq 1}" action="#{bookController.loadBookForUpdate(itemsForSale.bookSpecs,itemsForSale.id)}" value="Update Book"/>
+                        <h:commandButton styleClass="btn btn-success" rendered="#{itemsForSale.category eq 2}" action="#{cellPhoneController.loadCellPhoneForUpdate(itemsForSale.cellSpecs,itemsForSale.id)}" value="Update Cellphone"/>
+                        <h:commandButton styleClass="btn btn-success" rendered="#{itemsForSale.category eq 3}" action="#{computerController.loadComputerForUpdate(itemsForSale.compSpecs,itemsForSale.id)}" value="Update Computer"/>
+                        <h:commandButton styleClass="btn btn-success" rendered="#{itemsForSale.category eq 4}" action="#{movieController.loadMovieForUpdate(itemsForSale.movieSpecs,itemsForSale.id)}" value="Update Movie"/>
+                        <h:commandButton styleClass="btn btn-success" rendered="#{itemsForSale.category eq 5}" action="#{itemController.loadItemForSale(itemsForSale.id)}" value="Update Item"/>
                     </h:panelGrid>
 
                 </p:column>

@@ -68,6 +68,7 @@ public class ComputerDBUtils extends ItemDBUtils {
         ResultSet resultSet = preparedStatement.executeQuery();
         if(resultSet.next()){
             Computer computer =  new Computer(
+                    resultSet.getInt("id"),
                     resultSet.getString("type"),
                     resultSet.getString("model"),
                     resultSet.getInt("os"),
