@@ -89,4 +89,15 @@ public class CellPhoneController extends ItemController implements Serializable 
         }
     }
 
+    public void deleteCellPhoneForSale(Integer cellPhoneId,Integer itemId){
+        try {
+            this.deleteItemForSale(itemId);
+            this.cellPhoneDBUtils.deleteCellPhoneForSale(cellPhoneId);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

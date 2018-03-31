@@ -89,4 +89,15 @@ public class ComputerController extends ItemController implements Serializable{
             e.printStackTrace();
         }
     }
+
+    public void deleteComputerForSale(Integer compId,Integer itemId){
+        try {
+            this.deleteItemForSale(itemId);
+            this.computerDBUtils.deleteComputerForSale(compId);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

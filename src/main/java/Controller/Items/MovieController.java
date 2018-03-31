@@ -88,4 +88,15 @@ public class MovieController extends ItemController implements Serializable{
             e.printStackTrace();
         }
     }
+
+    public void deleteMovieForSale(Integer movieId,Integer itemId){
+        try {
+            this.deleteItemForSale(itemId);
+            this.movieDBUtils.deleteMovieForSale(movieId);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

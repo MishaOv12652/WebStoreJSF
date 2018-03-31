@@ -68,6 +68,15 @@ public class BookDBUtils extends ItemDBUtils {
         this.getDbManager().Disconnect();
     }
 
+    public void deleteBookForSale(Integer id) throws SQLException {
+        this.getDbManager().Connect();
+        String sql = "DELETE FROM dreambuy.books_specs WHERE id=?";
+        Connection connection = this.getDbManager().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1,id);
+        preparedStatement.execute();
+        this.getDbManager().Disconnect();
+    }
 
     private int addBookSpecs(Book book) throws SQLException {
         this.getDbManager().Connect();
@@ -87,4 +96,6 @@ public class BookDBUtils extends ItemDBUtils {
             return -1;
         }
     }
+
+
 }
