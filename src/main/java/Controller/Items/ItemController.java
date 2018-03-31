@@ -47,6 +47,18 @@ public class ItemController implements Serializable {
     //add item for sale
     public void addItemForSale(Item item, String email) {
         try {
+            if(item.getBookSpecs()==0){
+                item.setBookSpecs(null);
+            }
+            if(item.getMovieSpecs()==0){
+                item.setMovieSpecs(null);
+            }
+            if(item.getCellSpecs()==0){
+                item.setCellSpecs(null);
+            }
+            if(item.getCompSpecs()==0){
+                item.setCompSpecs(null);
+            }
             this.addItemForSale(item, email, this.itemDBUtils);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,6 +111,7 @@ public class ItemController implements Serializable {
         }
     }
 
+
     protected void addItemForSale(Item item, String email, ItemDBUtils itemDBUtils) throws SQLException, IOException {
         int idOfUser = CommonUtils.getUserIdByEmail(email);
         int idOfItem = itemDBUtils.addItemForSale(item, idOfUser);
@@ -112,6 +125,16 @@ public class ItemController implements Serializable {
             item.setId(idOfItem);
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
             FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT_SELLING_LIST);
+        }
+    }
+
+    public void deleteItemForSale(Integer id){
+        try {
+            this.itemDBUtils.deleteItemForSale(id);
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+            FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT_SELLING_LIST);
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -116,4 +116,14 @@ public class ComputerDBUtils extends ItemDBUtils {
         preparedStatement.execute();
         this.getDbManager().Disconnect();
     }
+
+    public void deleteComputerForSale(Integer id) throws SQLException {
+        this.getDbManager().Connect();
+        String sql = "DELETE FROM dreambuy.computer_specs WHERE id=?";
+        Connection connection = this.getDbManager().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1,id);
+        preparedStatement.execute();
+        this.getDbManager().Disconnect();
+    }
 }

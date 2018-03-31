@@ -88,6 +88,16 @@ public class BookController extends ItemController implements Serializable {
         }
     }
 
+    public void deleteBookForSale(Integer bookId,Integer itemId){
+        try {
+            this.deleteItemForSale(itemId);
+            this.bookDBUtils.deleteBookForSale(bookId);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
     public void setItemBean(Item itemBean) {
         this.itemBean = itemBean;
     }
