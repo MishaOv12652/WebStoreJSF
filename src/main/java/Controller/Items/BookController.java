@@ -33,6 +33,7 @@ public class BookController extends ItemController implements Serializable {
     private BookDBUtils bookDBUtils;
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
             "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";
+    private static final String EDIT_ITEM_PAGE = "/secured/edit-item";
 
     public BookController() {
         this.bookDBUtils = new BookDBUtils();
@@ -56,19 +57,26 @@ public class BookController extends ItemController implements Serializable {
     public Book loadBookForSale(Integer id) {
         if (id != null) {
             try {
-                Book book = this.bookDBUtils.loadBooksForSale(id);
-                ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-                Map<String, Object> requestMap = externalContext.getRequestMap();
-                if (requestMap.containsKey("book")) {
-                    requestMap.remove("book");
-                }
-                requestMap.put("book", book);
-                return book;
+                return this.bookDBUtils.loadBooksForSale(id);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
         return null;
+    }
+
+    public String loadBookForUpdate(Integer id, Integer itemId) {
+        if (itemId != null) {
+            try {
+                ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+                Map<String, Object> requestMap = externalContext.getRequestMap();
+                requestMap.put("item", this.getItemDBUtils().loadItemForSale(itemId));
+                requestMap.put("book", this.bookDBUtils.loadBooksForSale(id));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return EDIT_ITEM_PAGE;
     }
 
     public void updateBookForSale(Item item, Book book) {

@@ -44,7 +44,8 @@ public class Computer extends Item implements Serializable {
         super();
     }
 
-    public Computer(String type, String model, int os, int cpu, double cpuSpeed, int memory, int gpu, int brand, double screenSize, int releaseYear, int hdd, int ssd){
+    public Computer(String type, String model, int os, int cpu, double cpuSpeed, int memory, int gpu, int brand, double screenSize,
+                    int releaseYear, int hdd, int ssd) {
         this.type = type;
         this.model = model;
         this.os = os;
@@ -57,6 +58,28 @@ public class Computer extends Item implements Serializable {
         this.releaseYear = releaseYear;
         this.hdd = hdd;
         this.ssd = ssd;
+    }
+
+    public Computer(String type, String model, int os, int cpu, double cpuSpeed, int memory, int gpu, int brand, double screenSize,
+                    int releaseYear, int hdd, int ssd, Hashtable<Integer, String> osSys, Hashtable<Integer, String> cpuList,
+                    Hashtable<Integer, String> gpuList, Hashtable<Integer, String> storageCaps, Hashtable<Integer, String> brandList) {
+        this.type = type;
+        this.model = model;
+        this.os = os;
+        this.cpu = cpu;
+        this.cpuSpeed = cpuSpeed;
+        this.memory = memory;
+        this.gpu = gpu;
+        this.brand = brand;
+        this.screenSize = screenSize;
+        this.releaseYear = releaseYear;
+        this.hdd = hdd;
+        this.ssd = ssd;
+        this.osSys = osSys;
+        this.cpuList = cpuList;
+        this.gpuList = gpuList;
+        this.storageCaps = storageCaps;
+        this.brandList = brandList;
     }
 
     public Computer(String name, float price, String itemDesc, int category, int condition, UploadedFile uploadedFile, int numOfItems,
@@ -91,8 +114,8 @@ public class Computer extends Item implements Serializable {
     }
 
     @Override
-    public String getConstValueByKey(Hashtable<Integer,String> hashtable, String key){
-        return CommonUtils.getValueByKeyFromHash(hashtable,key);
+    public String getConstValueByKey(Hashtable<Integer, String> hashtable, String key) {
+        return CommonUtils.getValueByKeyFromHash(hashtable, key);
     }
 
 }

@@ -3,6 +3,7 @@ package DAO.Items;
 
 import ModelManagedBeans.Items.CellPhone;
 import ModelManagedBeans.Items.Item;
+import Utils.CommonUtils;
 import Utils.DBManager;
 import lombok.Getter;
 import lombok.Setter;
@@ -69,7 +70,11 @@ public class CellPhoneDBUtils extends ItemDBUtils {
                     resultSet.getInt("mem_card_type"),
                     resultSet.getInt("os"),
                     resultSet.getInt("storage"),
-                    resultSet.getInt("battery_cap")
+                    resultSet.getInt("battery_cap"),
+                    CommonUtils.getConstLists("dreambuy.cellphone_brands", "brand"),
+                    CommonUtils.getConstLists("dreambuy.os_systems", "os"),
+                    CommonUtils.getConstLists("dreambuy.storage_type", "storage_type"),
+                    CommonUtils.getConstLists("dreambuy.storage_capacity", "capacity")
             );
             this.getDbManager().Disconnect();
             return cellPhone;

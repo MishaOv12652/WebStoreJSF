@@ -2,6 +2,7 @@ package DAO.Items;
 
 import ModelManagedBeans.Items.Item;
 import ModelManagedBeans.Items.Movie;
+import Utils.CommonUtils;
 import Utils.DBManager;
 import com.sun.org.apache.regexp.internal.RE;
 import lombok.Getter;
@@ -66,8 +67,11 @@ public class MovieDBUtils extends ItemDBUtils {
                     resultSet.getInt("year"),//year
                     resultSet.getInt("age_lvl"),//age_lvl
                     resultSet.getInt("actor"),//actor
-                    resultSet.getInt("genre")//genre
-
+                    resultSet.getInt("genre"),//genre
+                    CommonUtils.getConstLists("dreambuy.directors", "name"),
+                    CommonUtils.getConstLists("dreambuy.actors", "name"),
+                    CommonUtils.getConstLists("dreambuy.age_lvl", "age_lvl"),
+                    CommonUtils.getConstLists("dreambuy.genres", "genre")
             );
             this.getDbManager().Disconnect();
             return movie;

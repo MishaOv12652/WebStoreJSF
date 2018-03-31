@@ -3,6 +3,7 @@ package DAO.Items;
 import ModelManagedBeans.Items.CellPhone;
 import ModelManagedBeans.Items.Computer;
 import ModelManagedBeans.Items.Item;
+import Utils.CommonUtils;
 import Utils.DBManager;
 import lombok.Getter;
 import lombok.Setter;
@@ -77,7 +78,12 @@ public class ComputerDBUtils extends ItemDBUtils {
                     resultSet.getDouble("screen_size"),
                     resultSet.getInt("release_year"),
                     resultSet.getInt("hdd"),
-                    resultSet.getInt("ssd")
+                    resultSet.getInt("ssd"),
+                    CommonUtils.getConstLists("dreambuy.os_systems", "os"),
+                    CommonUtils.getConstLists("dreambuy.cpu_list", "cpu"),
+                    CommonUtils.getConstLists("dreambuy.gpu_list", "gpu"),
+                    CommonUtils.getConstLists("dreambuy.storage_capacity", "capacity"),
+                    CommonUtils.getConstLists("dreambuy.cellphone_brands", "brand")
             );
             this.getDbManager().Disconnect();
             return computer;

@@ -87,7 +87,14 @@
                 </p:column>
 
                 <p:column headerText="Actions">
-                    <p:commandButton action="#{itemController.loadItemForSale(itemsForSale.id)}" value="Update"/>
+                    <h:panelGrid id="buttons">
+                        <h:commandButton rendered="#{itemsForSale.category eq 1}" action="#{bookController.loadBookForUpdate(itemsForSale.bookSpecs,itemsForSale.id)}" value="Update Book"/>
+                        <h:commandButton rendered="#{itemsForSale.category eq 2}" action="#{cellPhoneController.loadCellPhoneForUpdate(itemsForSale.cellSpecs,itemsForSale.id)}" value="Update Cellphone"/>
+                        <h:commandButton rendered="#{itemsForSale.category eq 3}" action="#{computerController.loadComputerForUpdate(itemsForSale.compSpecs,itemsForSale.id)}" value="Update Computer"/>
+                        <h:commandButton rendered="#{itemsForSale.category eq 4}" action="#{movieController.loadMovieForUpdate(itemsForSale.movieSpecs,itemsForSale.id)}" value="Update Movie"/>
+                        <h:commandButton rendered="#{itemsForSale.category eq 5}" action="#{itemController.loadItemForSale(itemsForSale.id)}" value="Update Item"/>
+                    </h:panelGrid>
+
                 </p:column>
 
                 <p:rowExpansion id="expand">

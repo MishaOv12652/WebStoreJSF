@@ -45,6 +45,19 @@ public class Movie extends Item implements Serializable {
         this.genre = genre;
     }
 
+    public Movie( int director, int length, int year, int ageLvl, int knownActor, int genre,Hashtable<Integer, String> directors,Hashtable<Integer, String> knownActors,Hashtable<Integer, String> ageLvls,Hashtable<Integer, String> genres ){
+        this.director = director;
+        this.length = length;
+        this.year = year;
+        this.ageLvl = ageLvl;
+        this.knownActor = knownActor;
+        this.genre = genre;
+        this.directors = directors;
+        this.knownActors = knownActors;
+        this.ageLvls = ageLvls;
+        this.genres = genres;
+    }
+
     public Movie(String name, float price, String itemDesc, int category, int condition, UploadedFile uploadedFile, int numOfItems,
                  int director, int length, int year, int ageLvl, int knownActor, int genre) {
         super(name, price, itemDesc, category, condition, uploadedFile, numOfItems);

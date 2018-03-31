@@ -359,7 +359,7 @@ create table dreambuy.computer_specs
 (
   id int not null auto_increment
     primary key,
-  type varchar(25) null,
+  type varchar(255) null,
   os int null,
   cpu int null,
   cpu_speed double null,

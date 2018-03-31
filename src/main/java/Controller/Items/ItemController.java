@@ -79,7 +79,6 @@ public class ItemController implements Serializable {
 
     public void updateItemForSale(Item item) {
         try {
-           //this.updateItemForSale(item, this.itemDBUtils);
             this.itemDBUtils.updateItemForSale(item);
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
             FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT_SELLING_LIST);

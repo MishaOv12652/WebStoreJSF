@@ -53,6 +53,23 @@ public class CellPhone extends Item {
         this.batteryCapacity = batteryCapacity;
     }
 
+    public CellPhone(double screenSize, int ram, int brand, String model, int memoryCardType, int os, int storage, int batteryCapacity,
+                     Hashtable<Integer, String> brands,Hashtable<Integer, String> osSys,Hashtable<Integer, String> storageTypes,
+                     Hashtable<Integer, String> storageCaps){
+        this.screenSize = screenSize;
+        this.ram = ram;
+        this.brand = brand;
+        this.model = model;
+        this.memoryCardType = memoryCardType;
+        this.os = os;
+        this.storage = storage;
+        this.batteryCapacity = batteryCapacity;
+        this.brands = brands;
+        this.osSys = osSys;
+        this.storageTypes = storageTypes;
+        this.storageCaps = storageCaps;
+    }
+
     public CellPhone(String name, float price, String itemDesc, int category, int condition, UploadedFile uploadedFile, int numOfItems,
                      double screenSize, int ram, int brand, String model, int memoryCardType, int os, int storage, int batteryCapacity) {
         super(name, price, itemDesc, category, condition, uploadedFile, numOfItems);
