@@ -2,6 +2,7 @@ package DAO.Items;
 
 import ModelManagedBeans.Items.Book;
 import ModelManagedBeans.Items.Item;
+import Utils.CommonUtils;
 import Utils.DBManager;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,12 +20,54 @@ public class BookDBUtils extends ItemDBUtils {
         super();
     }
 
+
+    public Book loadBooksForSale(Integer id) throws SQLException {
+        this.getDbManager().Connect();
+        String sql = "SELECT * FROM dreambuy.books_specs WHERE id = ?";
+        Connection connection = this.getDbManager().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            Book book = new Book(
+                    resultSet.getInt("id"),
+                    resultSet.getInt("author"),
+                    resultSet.getInt("genre"),
+                    resultSet.getString("series"),
+                    resultSet.getInt("age_lvl"),
+                    CommonUtils.getConstLists("dreambuy.known_authers", "auther_name"),
+                    CommonUtils.getConstLists("dreambuy.genres", "genre"),
+                    CommonUtils.getConstLists("dreambuy.age_lvl", "age_lvl")
+            );
+            this.getDbManager().Disconnect();
+            return book;
+        }
+        this.getDbManager().Disconnect();
+        return null;
+    }
+
     @Override
     public int addItemForSale(Item item, int sellerId) throws SQLException {
         this.getDbManager().Connect();
         item.setBookSpecs(this.addBookSpecs((Book) item));
         return this.addItemForSale(item, sellerId, this.getDbManager().getConnection());
     }
+
+
+    public void updateBookSpecs(Book book) throws SQLException {
+        this.getDbManager().Connect();
+        String sql = "UPDATE dreambuy.books_specs SET genre=?, series=?, age_lvl=?, author=? WHERE id=?";
+        Connection connection = this.getDbManager().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, book.getGenre());
+        preparedStatement.setString(2, book.getSeries());
+        preparedStatement.setInt(3, book.getAgeLvl());
+        preparedStatement.setInt(4, book.getAuthor());
+        preparedStatement.setInt(5, book.getId());
+        preparedStatement.execute();
+        this.getDbManager().Disconnect();
+    }
+
 
     private int addBookSpecs(Book book) throws SQLException {
         this.getDbManager().Connect();
@@ -43,26 +86,5 @@ public class BookDBUtils extends ItemDBUtils {
         } else {
             return -1;
         }
-    }
-
-    public Book loadBooksForSale(Integer id) throws SQLException {
-        this.getDbManager().Connect();
-        String sql = "SELECT * FROM dreambuy.books_specs WHERE id = ?";
-        Connection connection = this.getDbManager().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1, id);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            Book book = new Book(
-                    resultSet.getInt("author"),
-                    resultSet.getInt("genre"),
-                    resultSet.getString("series"),
-                    resultSet.getInt("age_lvl")
-            );
-            this.getDbManager().Disconnect();
-            return book;
-        }
-        this.getDbManager().Disconnect();
-        return null;
     }
 }

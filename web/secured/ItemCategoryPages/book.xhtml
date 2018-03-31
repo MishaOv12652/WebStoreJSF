@@ -17,7 +17,9 @@
 </h:head>
 <h:body>
     <ui:composition>
+        <h:inputHidden value="#{book.id}"/>
         <h:panelGrid columns="2" styleClass="col-md-offset-4">
+
             <h:panelGrid bodyrows="2">
                 <h:panelGrid columns="2">
                     <h:outputLabel for="author" value="Author:">

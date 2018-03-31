@@ -19,6 +19,7 @@ import java.util.Hashtable;
 @Getter
 @SessionScoped
 public class Movie extends Item implements Serializable {
+    private int id;
     private int director;
     private int length;
     private int year;
@@ -36,13 +37,28 @@ public class Movie extends Item implements Serializable {
         super();
     }
 
-    public Movie( int director, int length, int year, int ageLvl, int knownActor, int genre){
+    public Movie( int id,int director, int length, int year, int ageLvl, int knownActor, int genre){
+        this.id = id;
         this.director = director;
         this.length = length;
         this.year = year;
         this.ageLvl = ageLvl;
         this.knownActor = knownActor;
         this.genre = genre;
+    }
+
+    public Movie( int id,int director, int length, int year, int ageLvl, int knownActor, int genre,Hashtable<Integer, String> directors,Hashtable<Integer, String> knownActors,Hashtable<Integer, String> ageLvls,Hashtable<Integer, String> genres ){
+        this.id = id;
+        this.director = director;
+        this.length = length;
+        this.year = year;
+        this.ageLvl = ageLvl;
+        this.knownActor = knownActor;
+        this.genre = genre;
+        this.directors = directors;
+        this.knownActors = knownActors;
+        this.ageLvls = ageLvls;
+        this.genres = genres;
     }
 
     public Movie(String name, float price, String itemDesc, int category, int condition, UploadedFile uploadedFile, int numOfItems,

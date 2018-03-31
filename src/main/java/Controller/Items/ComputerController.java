@@ -12,10 +12,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * Created by Misha on 3/25/2018.
@@ -31,6 +33,7 @@ public class ComputerController extends ItemController implements Serializable{
     private ComputerDBUtils computerDBUtils;
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
             "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";
+    private static final String EDIT_ITEM_PAGE = "/secured/edit-item";
 
     public ComputerController(){
         this.computerDBUtils = new ComputerDBUtils();
@@ -62,5 +65,28 @@ public class ComputerController extends ItemController implements Serializable{
             }
         }
         return null;
+    }
+
+    public String loadComputerForUpdate(Integer id, Integer itemId) {
+        if (itemId != null) {
+            try {
+                ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+                Map<String, Object> requestMap = externalContext.getRequestMap();
+                requestMap.put("item", this.getItemDBUtils().loadItemForSale(itemId));
+                requestMap.put("computer", this.computerDBUtils.loadComputerForSale(id));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return EDIT_ITEM_PAGE;
+    }
+
+    public void updateComputerForSale(Item item, Computer computer) {
+        try {
+            this.computerDBUtils.updateCOmputerSpecs(computer);
+            this.updateItemForSale(item);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
