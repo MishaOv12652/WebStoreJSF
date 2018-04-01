@@ -3,6 +3,7 @@ package Controller.Items;
 import DAO.Items.ItemDBUtils;
 import ModelManagedBeans.Items.Item;
 import Utils.CommonUtils;
+import Utils.SessionUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -34,10 +36,14 @@ public class ItemController implements Serializable {
 
     private ArrayList<Item> itemsForSale;
 
+    private String inputSearchString;
+    private int category;
+    private ArrayList<Item> searchResults;
 
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
             "/NewSadna_war_exploded/secured/profile-selling-items.xhtml?faces-redirect=true";
     private static final String EDIT_ITEM_PAGE = "/secured/edit-item";
+    private static final String SEARCH_RESULT_PAGE = "/NewSadna_war_exploded/public/searchResults.xhtml";
 
 
     public ItemController() {
@@ -136,6 +142,28 @@ public class ItemController implements Serializable {
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void loadItemsToBuy(String email){
+        HttpSession httpSession = SessionUtils.getSession();
+        this.inputSearchString = (String) httpSession.getAttribute("searchInput");
+        this.category = (Integer) httpSession.getAttribute("category");
+        try {
+            this.searchResults =  this.itemDBUtils.searchForItemsToBuy(this.inputSearchString,CommonUtils.getUserIdByEmail(email),this.category);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void searchForItemsToBuy(){
+        HttpSession httpSession = SessionUtils.getSession();
+        httpSession.setAttribute("searchInput",this.inputSearchString);
+        httpSession.setAttribute("category",this.category);
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect(SEARCH_RESULT_PAGE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

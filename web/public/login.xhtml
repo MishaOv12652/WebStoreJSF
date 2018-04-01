@@ -6,7 +6,9 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+    >
 <h:head>
     <title>Web Store - Login</title>
     <link rel="shortcut icon" type="image/x-icon" href="../resources/imgs/dollar.png"/>
@@ -15,9 +17,34 @@
     <link rel="stylesheet" href="../resources/Custom%20CSS/login.css"/>
     <link rel="stylesheet" href="../resources/Custom%20CSS/navBar.css"/>
 </h:head>
-<ui:insert name="navBar">
-    <ui:include src="navBar.xhtml"/>
-</ui:insert>
+<b:navBar brandImg="https://png.icons8.com/office/30/000000/tea.png" brandImgStyle="padding-right: 10px;"
+          brandAlign="left" brand="Dreaming Buy And Sell" inverse="true" brandHref="#" fixed="top">
+    <h:form style="padding-top: 10px" styleClass="pull-left">
+        <h:panelGrid columns="5">
+            <h:panelGrid columns="2">
+                <h:outputLabel style="font-size: 17px;color: grey" for="searchInput" value="Search:"/>
+                <h:inputText style="padding-left: 10px" id="searchInput"
+                             value="#{itemController.inputSearchString}"/>
+            </h:panelGrid>
+            <h:panelGrid columns="2" style="padding-left: 10px;padding-right: 10px">
+                <h:outputLabel style="font-size: 17px;color: grey;padding-left: 10px" for="categories"
+                               value="Categorie:"/>
+                <h:selectOneMenu id="categories" value="#{itemController.category}">
+                    <c:forEach items="#{item.categories.entrySet()}" var="category">
+                        <f:selectItem itemValue="#{category.key}" itemLabel="#{category.value}"/>
+                    </c:forEach>
+                </h:selectOneMenu>
+            </h:panelGrid>
+            <h:commandButton style="margin-left: 10px" styleClass="btn btn-primary" value="Search"
+                             actionListener="#{itemController.searchForItemsToBuy}"/>
+        </h:panelGrid>
+    </h:form>
+    <b:navbarLinks styleClass="pull-right">
+        <b:navLink value="home" iconAwesome="home" href="../../NewSadna_war_exploded/index.xhtml"/>
+        <b:navLink value="Sign Up" iconAwesome="user-plus" href="../public/signUp.xhtml"/>
+        <b:navLink value="Login" iconAwesome="user" href="../public/login.xhtml"/>
+    </b:navbarLinks>
+</b:navBar>
 <div class="col-md-12 form">
     <br/>
     <div class="jumbotron text-center">

@@ -37,7 +37,7 @@ public class ItemDBUtils {
     public void updateItemForSale(Item item) throws SQLException {
         this.dbManager.Connect();
         Connection connection = this.dbManager.getConnection();
-        this.updateItemForSale(item,connection);
+        this.updateItemForSale(item, connection);
 
     }
 
@@ -157,8 +157,41 @@ public class ItemDBUtils {
         this.dbManager.Connect();
         Connection connection = this.dbManager.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1,id);
+        preparedStatement.setInt(1, id);
         preparedStatement.execute();
         this.dbManager.Disconnect();
+    }
+
+    public ArrayList<Item> searchForItemsToBuy(String inputSearchString, Integer id, int category) throws SQLException {
+        ArrayList<Item> arrayList = new ArrayList<>();
+        String sql = "SELECT * FROM dreambuy.products WHERE name LIKE ? AND seller_id <> ? AND category = ?";
+        this.dbManager.Connect();
+        Connection connection = this.dbManager.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, "%" + inputSearchString + "%");
+        preparedStatement.setObject(2, id);
+        preparedStatement.setInt(3, category);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            arrayList.add(new Item(
+                    resultSet.getInt("id"),
+                    resultSet.getString("name"),
+                    resultSet.getFloat("price"),
+                    resultSet.getString("item_desc"),
+                    resultSet.getInt("category"),
+                    resultSet.getInt("condition_id"),
+                    null,
+//                    resultSet.getBlob("img"),
+                    resultSet.getInt("numOfItems"),
+                    resultSet.getInt("book_spec_id"),
+                    resultSet.getInt("movie_spec_id"),
+                    resultSet.getInt("cellphone_spec_id"),
+                    resultSet.getInt("computer_spec_id"),
+                    CommonUtils.getConstLists("dreambuy.product_condition", "condition"),
+                    CommonUtils.getConstLists("dreambuy.categories", "category_name")
+            ));
+        }
+        this.dbManager.Disconnect();
+        return arrayList;
     }
 }

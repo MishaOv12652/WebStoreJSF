@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:metadata>
+    <f:event type="preRenderView" listener="#{itemController.loadItemsToBuy(user.email)}"/>
+</f:metadata>
+<h:head>
+    <title>Web Store</title>
+    <title>Web Store - Search Results</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../resources/imgs/dollar.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" href="../resources/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+</h:head>
+<h:body>
+    <b:navBar brandImg="https://png.icons8.com/office/30/000000/tea.png" brandImgStyle="padding-right: 10px;"
+              brandAlign="left" brand="Dreaming Buy And Sell" inverse="true" brandHref="#" fixed="top">
+        <h:form style="padding-top: 10px" styleClass="pull-left">
+            <h:panelGrid columns="5">
+                <h:panelGrid columns="2">
+                    <h:outputLabel style="font-size: 17px;color: grey" for="searchInput" value="Search:"/>
+                    <h:inputText style="padding-left: 10px" id="searchInput"
+                                 value="#{itemController.inputSearchString}"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2" style="padding-left: 10px;padding-right: 10px">
+                    <h:outputLabel style="font-size: 17px;color: grey;padding-left: 10px" for="categories"
+                                   value="Categorie:"/>
+                    <h:selectOneMenu id="categories" value="#{itemController.category}">
+                        <c:forEach items="#{item.categories.entrySet()}" var="category">
+                            <f:selectItem itemValue="#{category.key}" itemLabel="#{category.value}"/>
+                        </c:forEach>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandButton style="margin-left: 10px" styleClass="btn btn-primary" value="Search"
+                                 actionListener="#{itemController.searchForItemsToBuy}"/>
+            </h:panelGrid>
+        </h:form>
+        <b:navbarLinks styleClass="pull-right">
+            <b:navLink value="home" iconAwesome="home" href="../../NewSadna_war_exploded/index.xhtml"/>
+            <b:navLink value="Sign Up" iconAwesome="user-plus" href="../public/signUp.xhtml"/>
+            <b:navLink value="Login" iconAwesome="user" href="../public/login.xhtml"/>
+        </b:navbarLinks>
+    </b:navBar>
+    <div class="container" style="margin-top: 50px">
+        <div>
+            <h1>Search Results</h1>
+            <h2 class="lead"><strong
+                    class="text-danger">#{itemController.searchResults.size()}</strong> results were found for the search for
+                <strong
+                        class="text-danger">#{itemController.inputSearchString}</strong></h2>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-12">
+            <h:dataTable value="#{itemController.searchResults}" var="searchResult" columns="3" columnClasses="">
+                <h:column>
+                    <h:graphicImage styleClass="thumbnail"
+                                    value="https://images-na.ssl-images-amazon.com/images/I/51sTwK7kBxL._SX258_BO1,204,203,200_.jpg"/>
+                </h:column>
+                <h:column>
+                    <ul class="meta-search" style="margin-left: 15px">
+                        <!--<li><i class="glyphicon glyphicon-calendar"/> <span>01/25/2018</span></li>-->
+                        <li><i class="glyphicon glyphicon-tags"/>
+                            <span>#{item.getConstValueByKey(searchResult.categories,searchResult.category)}</span>
+                        </li>
+                        <li><i class="glyphicon glyphicon-usd"/> <span>#{searchResult.price}</span></li>
+                    </ul>
+                </h:column>
+                <h:column>
+                    <div style="margin-left: 15px">
+                        <h3><a href="#" title="">#{searchResult.name}</a></h3>
+                        <p>#{searchResult.itemDesc}</p>
+                        <span class="plus"><a href="#" title="Lorem ipsum"><i
+                                class="glyphicon glyphicon-plus"/></a></span>
+                    </div>
+
+                </h:column>
+            </h:dataTable>
+        </div>
+    </div>
+</h:body>
+</html>

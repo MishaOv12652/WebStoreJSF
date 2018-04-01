@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
     <title>Web Store</title>
     <link rel="shortcut icon" type="image/x-icon" href="../resources/imgs/dollar.png"/>
@@ -21,15 +22,19 @@
             <h:panelGrid columns="5">
                 <h:panelGrid columns="2">
                     <h:outputLabel style="font-size: 17px;color: grey" for="searchInput" value="Search:"/>
-                    <h:inputText style="padding-left: 10px" id="searchInput" value="#{item}"/>
+                    <h:inputText style="padding-left: 10px" id="searchInput" value="#{itemController.inputSearchString}"/>
                 </h:panelGrid>
                 <h:panelGrid columns="2" style="padding-left: 10px;padding-right: 10px">
                     <h:outputLabel style="font-size: 17px;color: grey;padding-left: 10px" for="categories"
                                    value="Categorie:"/>
-                    <h:inputText id="categories" value="#{item}"/>
+                    <h:selectOneMenu id="categories" value="#{itemController.category}">
+                        <c:forEach items="#{item.categories.entrySet()}" var="category">
+                            <f:selectItem itemValue="#{category.key}" itemLabel="#{category.value}"/>
+                        </c:forEach>
+                    </h:selectOneMenu>
                 </h:panelGrid>
-                <h:commandButton style="padding-left: 10px" styleClass="btn btn-primary" value="Search"
-                                 actionListener="#{search}"/>
+                <h:commandButton style="margin-left: 10px" styleClass="btn btn-primary" value="Search"
+                                 actionListener="#{itemController.searchForItemsToBuy}"/>
             </h:panelGrid>
         </h:form>
         <b:navbarLinks styleClass="pull-right">
