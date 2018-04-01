@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <link rel="shortcut icon" type="image/x-icon" href="../../resources/imgs/dollar.png"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <link rel="stylesheet" href="../../resources/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" href="../../resources/Custom%20CSS/addItem.css"/>
+</h:head>
+<h:body>
+    <ui:composition>
+        <h:inputHidden value="#{cellPhone.id}"/>
+        <h:panelGrid columns="2" border="1">
+            <h:panelGrid bodyrows="4">
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="cell_screen_size" value="Screen Size:">
+                        <h:outputText id="cell_screen_size" value="#{cellPhone.screenSize}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="cell_phone_brand" value="Brand:">
+                        <h:outputText id="cell_phone_brand"
+                                      value="#{cellPhone.getConstValueByKey(cellPhone.brands,cellPhone.brand)}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="cell_phone_model" value="Model:">
+                        <h:outputText id="cell_phone_model" value="#{cellPhone.model}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="cell_phone_ram" value="RAM:">
+                        <h:outputText id="cell_phone_ram" value="#{cellPhone.ram}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+            </h:panelGrid>
+            <h:panelGrid bodyrows="4" style="margin-left:15px;padding-left: 10px">
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="Cell_phone_OS" value="OS:">
+                        <h:outputText id="Cell_phone_OS"
+                                      value="#{cellPhone.getConstValueByKey(cellPhone.osSys,cellPhone.os)}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="battery_cap" value="Battery Capacity:">
+                        <h:outputText id="battery_cap" value="#{cellPhone.batteryCapacity}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="mem_card_type" value="Memory Card Type:">
+                        <h:outputText id="mem_card_type"
+                                      value="#{cellPhone.getConstValueByKey(cellPhone.storageTypes,cellPhone.memoryCardType)}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="storage" value="Storage Capacity:">
+                        <h:outputText id="storage"
+                                      value="#{cellPhone.getConstValueByKey(cellPhone.storageCaps,cellPhone.storage)}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+            </h:panelGrid>
+        </h:panelGrid>
+
+    </ui:composition>
+
+</h:body>
+</html>

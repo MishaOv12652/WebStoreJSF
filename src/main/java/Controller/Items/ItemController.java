@@ -43,6 +43,7 @@ public class ItemController implements Serializable {
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
             "/NewSadna_war_exploded/secured/profile-selling-items.xhtml?faces-redirect=true";
     private static final String EDIT_ITEM_PAGE = "/secured/edit-item";
+    private static final String VIEW_ITEM_PAGE = "/item-view";
     private static final String SEARCH_RESULT_PAGE = "/NewSadna_war_exploded/public/searchResults.xhtml";
 
 
@@ -83,7 +84,7 @@ public class ItemController implements Serializable {
         }
     }
 
-    public String loadItemForSale(int id) {
+    public String loadItemForSale(int id, boolean edit) {
         try {
             this.item = this.getItemDBUtils().loadItemForSale(id);
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
@@ -92,7 +93,12 @@ public class ItemController implements Serializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return EDIT_ITEM_PAGE;
+        if(edit){
+            return EDIT_ITEM_PAGE;
+        }else{
+            return VIEW_ITEM_PAGE;
+        }
+
     }
 
     public void updateItemForSale(Item item) {

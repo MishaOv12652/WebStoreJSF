@@ -71,13 +71,35 @@
                     </ul>
                 </h:column>
                 <h:column>
-                    <div style="margin-left: 15px">
-                        <h3><a href="#" title="">#{searchResult.name}</a></h3>
-                        <p>#{searchResult.itemDesc}</p>
-                        <span class="plus"><a href="#" title="Lorem ipsum"><i
-                                class="glyphicon glyphicon-plus"/></a></span>
-                    </div>
-
+                    <h:form>
+                        <div style="margin-left: 15px">
+                            <h:panelGrid columns="1">
+                                <h:commandLink rendered="#{searchResult.category eq 1}" styleClass="page-header"
+                                               style="font-size: 32px"
+                                               action="#{bookController.loadBookForUpdate(searchResult.bookSpecs,searchResult.id,false)}"
+                                               value="#{searchResult.name}"/>
+                                <h:commandLink rendered="#{searchResult.category eq 2}" styleClass="page-header"
+                                               style="font-size: 32px"
+                                               action="#{cellPhoneController.loadCellPhoneForUpdate(searchResult.cellSpecs,searchResult.id,false)}"
+                                               value="#{searchResult.name}"/>
+                                <h:commandLink rendered="#{searchResult.category eq 3}" styleClass="page-header"
+                                               style="font-size: 32px"
+                                               action="#{computerController.loadComputerForUpdate(searchResult.compSpecs,searchResult.id,false)}"
+                                               value="#{searchResult.name}"/>
+                                <h:commandLink rendered="#{searchResult.category eq 4}" styleClass="page-header"
+                                               style="font-size: 32px"
+                                               action="#{movieController.loadMovieForUpdate(searchResult.movieSpecs,searchResult.id,false)}"
+                                               value="#{searchResult.name}"/>
+                                <h:commandLink rendered="#{searchResult.category eq 5}" styleClass="page-header"
+                                               style="font-size: 32px"
+                                               action="#{itemController.loadItemForSale(searchResult.id,false)}"
+                                               value="#{searchResult.name}"/>
+                            </h:panelGrid>
+                            <p>#{searchResult.itemDesc}</p>
+                            <span class="plus"><a href="#" title="Lorem ipsum"><i
+                                    class="glyphicon glyphicon-plus"/></a></span>
+                        </div>
+                    </h:form>
                 </h:column>
             </h:dataTable>
         </div>

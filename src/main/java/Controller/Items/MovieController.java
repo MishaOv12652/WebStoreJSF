@@ -33,6 +33,7 @@ public class MovieController extends ItemController implements Serializable{
     private MovieDBUtils movieDBUtils;
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
             "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";
+    private static final String VIEW_ITEM_PAGE = "/item-view";
     private static final String EDIT_ITEM_PAGE = "/secured/edit-item";
 
 
@@ -66,7 +67,7 @@ public class MovieController extends ItemController implements Serializable{
         return null;
     }
 
-    public String loadMovieForUpdate(Integer id, Integer itemId) {
+    public String loadMovieForUpdate(Integer id, Integer itemId, boolean edit) {
         if (itemId != null) {
             try {
                 ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
@@ -77,7 +78,11 @@ public class MovieController extends ItemController implements Serializable{
                 e.printStackTrace();
             }
         }
-        return EDIT_ITEM_PAGE;
+        if(edit){
+            return EDIT_ITEM_PAGE;
+        }else{
+            return VIEW_ITEM_PAGE;
+        }
     }
 
     public void updateMovieForSale(Item item, Movie movie) {
