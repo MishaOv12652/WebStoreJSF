@@ -50,11 +50,11 @@
                     </h:panelGrid>
                     <h:panelGrid columns="1" bodyrows="3" style="margin-left: 25px">
                         <div class="btn-group">
-                            <h:commandButton style="margin-bottom: 10px;width:137px;" styleClass="btn btn-primary"
+                            <h:commandButton disabled="#{!userController.checkIfUserLoggedIn()}" style="margin-bottom: 10px;width:137px;" styleClass="btn btn-primary"
                                              value="Buy It Now"/>
-                            <h:commandButton style="margin-bottom: 10px; width: 137px" styleClass="btn btn-success"
+                            <h:commandButton disabled="#{!userController.checkIfUserLoggedIn()}" style="margin-bottom: 10px; width: 137px" styleClass="btn btn-success"
                                              value="Add To Cart"/>
-                            <h:commandButton disabled="true" styleClass="btn btn-default" value="Add To Watch List"/>
+                            <h:commandButton disabled="#{!userController.checkIfUserLoggedIn()}" styleClass="btn btn-default" value="Add To Watch List"/>
                         </div>
                     </h:panelGrid>
                 </h:panelGrid>

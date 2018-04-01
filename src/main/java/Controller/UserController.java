@@ -8,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -58,5 +59,15 @@ public class UserController {
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Unsuccessful Login", e.getMessage()));
         }
+    }
+
+    public boolean checkIfUserLoggedIn(){
+        HttpSession httpSession = SessionUtils.getSession();
+        return httpSession.getAttribute("email") != null;
+    }
+
+    public void logOut(){
+        HttpSession httpSession = SessionUtils.getSession();
+        httpSession.removeAttribute("email");
     }
 }
