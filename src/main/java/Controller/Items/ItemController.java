@@ -28,7 +28,7 @@ import java.util.Map;
 @Getter
 @Setter
 @ManagedBean
-//@SessionScoped
+@SessionScoped
 @ViewScoped
 public class ItemController implements Serializable {
     private Item item;

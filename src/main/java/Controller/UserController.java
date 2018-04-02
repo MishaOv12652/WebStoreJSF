@@ -6,7 +6,9 @@ import Utils.SessionUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -17,6 +19,7 @@ import java.sql.SQLException;
  */
 @ManagedBean
 @SessionScoped
+@ViewScoped
 public class UserController {
     private static final String PROFILE_PAGE_REDIRECT =
             "/NewSadna_war_exploded/secured/profile-personal-info.xhtml";
@@ -34,6 +37,7 @@ public class UserController {
             this.userDBUtils.signUp(user);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful Registration", "You Have Registered Successfully"));
             SessionUtils.getSession().setAttribute("userEmail", user.getEmail());
+            SessionUtils.getSession().setAttribute("userName",user.getFirstName());
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
             FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT);
         } catch (SQLException e) {
@@ -50,6 +54,7 @@ public class UserController {
             if(this.userDBUtils.login(user)){
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful Login", "You Have Logged in Successfully"));
                 SessionUtils.getSession().setAttribute("userEmail", user.getEmail());
+                SessionUtils.getSession().setAttribute("userName",user.getFirstName());
                 FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
                 FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT);
             }else{
@@ -63,11 +68,17 @@ public class UserController {
 
     public boolean checkIfUserLoggedIn(){
         HttpSession httpSession = SessionUtils.getSession();
-        return httpSession.getAttribute("email") != null;
+        return httpSession.getAttribute("userEmail") != null;
     }
 
     public void logOut(){
         HttpSession httpSession = SessionUtils.getSession();
-        httpSession.removeAttribute("email");
+        httpSession.removeAttribute("userEmail");
+        httpSession.removeAttribute("userName");
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/NewSadna_war_exploded/public/login.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

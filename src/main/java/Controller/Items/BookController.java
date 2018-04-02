@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @ManagedBean
 @ViewScoped
-//@RequestScoped
+@SessionScoped
 @Getter
 @Setter
 public class BookController extends ItemController implements Serializable {

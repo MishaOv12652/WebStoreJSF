@@ -3,8 +3,10 @@ package ModelManagedBeans;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.HttpSession;
 
 import Utils.CommonUtils;
+import Utils.SessionUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,6 +43,9 @@ public class User {
     public void init() {
         this.cities = CommonUtils.getConstLists("dreambuy.city", "name");
         this.creditCardCompanies = CommonUtils.getConstLists("dreambuy.credit_companies", "name");
+        if(SessionUtils.getSession().getAttribute("userName")!=null){
+            this.firstName = (String) SessionUtils.getSession().getAttribute("userName");
+        }
     }
 
     public User() {
