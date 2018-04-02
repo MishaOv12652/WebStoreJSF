@@ -51,6 +51,23 @@ public class User {
     public User() {
     }
 
+    /**
+     * constructor for sign up
+     * @param firstName
+     * @param lastName
+     * @param email
+     * @param password
+     * @param phoneStart
+     * @param phoneNum
+     * @param city
+     * @param street
+     * @param streetNum
+     * @param zip
+     * @param creditCardNumber
+     * @param creditCardComp
+     * @param creditCardExpMonth
+     * @param creditCardExpYear
+     */
     public User(String firstName, String lastName, String email, String password, int phoneStart, int phoneNum, int city, String street, int streetNum, int zip, long creditCardNumber, int creditCardComp, int creditCardExpMonth, int creditCardExpYear) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -68,6 +85,11 @@ public class User {
         this.creditCardExpYear = creditCardExpYear;
     }
 
+    /**
+     * constructor for login
+     * @param email
+     * @param password
+     */
     public User(String email, String password) {
         this.email = email;
         this.password = password;

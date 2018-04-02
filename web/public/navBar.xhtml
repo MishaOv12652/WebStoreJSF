@@ -47,7 +47,7 @@
         <h:form styleClass="col-md-pull-2 pull-right">
             <b:navbarLinks rendered="#{userController.checkIfUserLoggedIn()}" >
                 <!--<b:navLink value="Home" iconAwesome="home" href="/NewSadna_war_exploded/index.xhtml"/>-->
-                <b:dropMenu value="Hi #{user.firstName}">
+                <b:dropMenu value="Hi, #{session.getAttribute('userName')}">
                     <b:navLink value="Personal Info" href="/NewSadna_war_exploded/secured/profile-personal-info.xhtml"/>
                     <b:navLink value="Selling List" href="/NewSadna_war_exploded/secured/profile-selling-items.xhtml"/>
                     <b:navLink value="Wish List" href="#"/>

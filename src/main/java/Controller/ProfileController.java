@@ -53,6 +53,7 @@ public class ProfileController implements Serializable {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
             Map<String, Object> requestMap = externalContext.getRequestMap();
             requestMap.put("user", this.currentProfile);
+            SessionUtils.getSession().setAttribute("userName",this.currentProfile.getFirstName());
         } catch (SQLException e) {
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Loading Profile Error", e.getMessage()));
