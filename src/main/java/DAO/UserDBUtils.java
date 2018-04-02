@@ -24,9 +24,9 @@ public class UserDBUtils {
     }
 
     /**
-     *
+     * inserts data of the signning user to db
      * @param user - user Object of the signed person
-     * @throws SQLException
+     * @throws SQLException -
      */
     public void signUp(User user) throws SQLException {
         this.dbManager.Connect();
@@ -54,6 +54,12 @@ public class UserDBUtils {
         }
     }
 
+    /**
+     * checks if the user is allowed to enter the site
+     * @param user - user object for login
+     * @return true on successful login else false
+     * @throws SQLException
+     */
     public boolean login(User user) throws SQLException{
         this.dbManager.Connect();
         Connection con = this.dbManager.getConnection();

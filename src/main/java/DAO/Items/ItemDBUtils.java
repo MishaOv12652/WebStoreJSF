@@ -34,6 +34,11 @@ public class ItemDBUtils {
         return this.addItemForSale(item, idOfUser, this.dbManager.getConnection());
     }
 
+    /**
+     * updates an item of the category other
+     * @param item
+     * @throws SQLException
+     */
     public void updateItemForSale(Item item) throws SQLException {
         this.dbManager.Connect();
         Connection connection = this.dbManager.getConnection();
@@ -41,6 +46,12 @@ public class ItemDBUtils {
 
     }
 
+    /**
+     * loads list of items the user with email sells
+     * @param email - user email
+     * @return - list of items the user with email sells
+     * @throws SQLException -
+     */
     public ArrayList<Item> loadItemListForSale(String email) throws SQLException {
         ArrayList<Item> arrayOfItems = new ArrayList<>();
         String query = "SELECT * FROM dreambuy.products WHERE seller_id = ?";
@@ -69,6 +80,12 @@ public class ItemDBUtils {
         return arrayOfItems;
     }
 
+    /**
+     * loads
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     public Item loadItemForSale(int id) throws SQLException {
         String query = "SELECT * FROM dreambuy.products WHERE id = ?";
         this.dbManager.Connect();

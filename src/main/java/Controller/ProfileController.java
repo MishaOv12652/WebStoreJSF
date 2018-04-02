@@ -42,10 +42,17 @@ public class ProfileController implements Serializable {
 
     }
 
+    /**
+     * loads consts of the profile - for getting the string value
+     */
     public void loadConsts(){
         this.cities = CommonUtils.getConstLists("dreambuy.city", "name");
         this.creditCardCompanies = CommonUtils.getConstLists("dreambuy.credit_companies", "name");
     }
+
+    /**
+     * loads user info
+     */
     public void loadProfileInfo() {
         HttpSession session = SessionUtils.getSession();
         try {
@@ -60,14 +67,24 @@ public class ProfileController implements Serializable {
         }
     }
 
+    /**
+     * toggles edit mode mode on and off
+     */
     public void toggleEditMode() {
         this.editMode = !this.editMode;
     }
 
+    /**
+     * cancels edit mode
+     */
     public void cancelEditMode() {
         this.editMode = false;
     }
 
+    /**
+     * updates the profile info
+     * @param currentProfile - profile user object with the data to update
+     */
     public void updateProfile(User currentProfile) {
         try {
             this.profileDBUtils.updateProfileInfo(currentProfile);
@@ -78,6 +95,12 @@ public class ProfileController implements Serializable {
         }
     }
 
+    /**
+     * gets string value by key toshow the actual value
+     * @param hashtable - hash table of const values
+     * @param key - key of the value
+     * @return - the actual value
+     */
     public String getConstValueByKey(Hashtable<Integer,String> hashtable, String key){
         return CommonUtils.getValueByKeyFromHash(hashtable,key);
     }

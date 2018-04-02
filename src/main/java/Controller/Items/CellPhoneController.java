@@ -40,6 +40,11 @@ public class CellPhoneController extends ItemController implements Serializable 
         this.cellPhoneDBUtils = new CellPhoneDBUtils();
     }
 
+    /**
+     * adds cellphone specs for sale
+     * @param cellPhone - cellphone to insert
+     * @param email - email of the seller to get the id
+     */
     public void addCellPhoneForSale(CellPhone cellPhone, String email){
         CellPhone cellPhoneWithItemSpecs = new CellPhone(this.itemBean.getName(),this.itemBean.getPrice(),this.itemBean.getItemDesc()
                 ,this.itemBean.getCategory(),this.itemBean.getCondition(),this.itemBean.getImg(),this.itemBean.getNumOfItems()
@@ -56,6 +61,11 @@ public class CellPhoneController extends ItemController implements Serializable 
         }
     }
 
+    /**
+     * loads cellphone specs for the selling list
+     * @param id - books specs id
+     * @return returns the cellphone found
+     */
     public CellPhone loadCellPhoneForSale(Integer id){
         if(id != null){
             try {
@@ -67,6 +77,13 @@ public class CellPhoneController extends ItemController implements Serializable 
         return null;
     }
 
+    /**
+     * loads item specs and cellphone specs for update or view page
+     * @param id - cellphone specs id
+     * @param itemId - item id
+     * @param edit - edit or view page bool
+     * @return return a string of the url to populate data to
+     */
     public String loadCellPhoneForUpdate(Integer id, Integer itemId, boolean edit) {
         if (itemId != null) {
             try {
@@ -85,6 +102,11 @@ public class CellPhoneController extends ItemController implements Serializable 
         }
     }
 
+    /**
+     * updates a item of the category cellphone
+     * @param item - item object - for specs like name and ec.
+     * @param cellPhone - cellphone object - for cellphone specs
+     */
     public void updateCellPhoneForSale(Item item, CellPhone cellPhone) {
         try {
             this.cellPhoneDBUtils.updateCellPhoneSpecs(cellPhone);
@@ -94,6 +116,11 @@ public class CellPhoneController extends ItemController implements Serializable 
         }
     }
 
+    /**
+     * deletes a cellphone that was for sale
+     * @param cellPhoneId - book specs id
+     * @param itemId - item id
+     */
     public void deleteCellPhoneForSale(Integer cellPhoneId,Integer itemId){
         try {
             this.deleteItemForSale(itemId);

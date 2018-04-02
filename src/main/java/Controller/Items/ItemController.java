@@ -51,7 +51,11 @@ public class ItemController implements Serializable {
         this.itemDBUtils = new ItemDBUtils();
     }
 
-    //add item for sale
+    /**
+     * adds item for sale - category other
+     * @param item - item to insert
+     * @param email - email of the seller to get the id
+     */
     public void addItemForSale(Item item, String email) {
         try {
             if(item.getBookSpecs()==0){
@@ -76,6 +80,10 @@ public class ItemController implements Serializable {
         }
     }
 
+    /**
+     * loads list of items the user sells
+     * @param email - email of the user
+     */
     public void loadListItemForSale(String email) {
         try {
             this.itemsForSale = this.itemDBUtils.loadItemListForSale(email);
@@ -84,6 +92,12 @@ public class ItemController implements Serializable {
         }
     }
 
+    /**
+     * loads item for sale - for update or view
+     * @param id - item id
+     * @param edit - edit or view page bool
+     * @return return a string of the url to populate data to
+     */
     public String loadItemForSale(int id, boolean edit) {
         try {
             this.item = this.getItemDBUtils().loadItemForSale(id);
@@ -101,6 +115,10 @@ public class ItemController implements Serializable {
 
     }
 
+    /**
+     * updates an item for sale - category other
+     * @param item - item object to update
+     */
     public void updateItemForSale(Item item) {
         try {
             if(item.getBookSpecs()==0){
@@ -123,7 +141,14 @@ public class ItemController implements Serializable {
         }
     }
 
-
+    /**
+     * adds an item for sale - for use of other categories controllers
+     * @param item - item to add for selling - for attributes like name and ec.
+     * @param email - email of the seller
+     * @param itemDBUtils - DBUtils object of the category
+     * @throws SQLException - thrown if something fails in inserting to db stage
+     * @throws IOException - thrown if there is a problem with the redirect
+     */
     protected void addItemForSale(Item item, String email, ItemDBUtils itemDBUtils) throws SQLException, IOException {
         int idOfUser = CommonUtils.getUserIdByEmail(email);
         int idOfItem = itemDBUtils.addItemForSale(item, idOfUser);
@@ -140,6 +165,10 @@ public class ItemController implements Serializable {
         }
     }
 
+    /**
+     * deletes item for sale - category other
+     * @param id - id of the item
+     */
     public void deleteItemForSale(Integer id){
         try {
             this.itemDBUtils.deleteItemForSale(id);
@@ -150,6 +179,10 @@ public class ItemController implements Serializable {
         }
     }
 
+    /**
+     * loads items the were found - excluding items the user sells
+     * @param email - email of the user
+     */
     public void loadItemsToBuy(String email){
         HttpSession httpSession = SessionUtils.getSession();
         this.inputSearchString = (String) httpSession.getAttribute("searchInput");
@@ -160,6 +193,11 @@ public class ItemController implements Serializable {
             e.printStackTrace();
         }
     }
+
+    /**
+     * searches for items for buying by an input string and category
+     * saves the input string and category to session for loading later
+     */
     public void searchForItemsToBuy(){
         HttpSession httpSession = SessionUtils.getSession();
         httpSession.setAttribute("searchInput",this.inputSearchString);

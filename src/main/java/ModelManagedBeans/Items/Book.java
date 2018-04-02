@@ -18,7 +18,7 @@ import java.util.Hashtable;
 @Getter
 @Setter
 @ManagedBean
-public class Book extends Item implements Serializable{
+public class Book extends Item implements Serializable {
     private int id;
     private int author;
     private int genre;
@@ -30,20 +30,18 @@ public class Book extends Item implements Serializable{
     private Hashtable<Integer, String> genres;
     private Hashtable<Integer, String> ageLevels;
 
-    public Book(){
+    public Book() {
         super();
     }
 
-    public Book(int author, int genre, String series, int ageLvl){
+    public Book(int author, int genre, String series, int ageLvl) {
         this.author = author;
         this.genre = genre;
         this.series = series;
         this.ageLvl = ageLvl;
     }
-//    public Book(Book book){
-//
-//    }
-    public Book(int id, int author, int genre, String series, int ageLvl,  Hashtable<Integer, String> authors,  Hashtable<Integer, String> genres,  Hashtable<Integer, String> ageLevels){
+
+    public Book(int id, int author, int genre, String series, int ageLvl, Hashtable<Integer, String> authors, Hashtable<Integer, String> genres, Hashtable<Integer, String> ageLevels) {
         this.id = id;
         this.author = author;
         this.genre = genre;
@@ -54,8 +52,8 @@ public class Book extends Item implements Serializable{
         this.ageLevels = ageLevels;
     }
 
-    public Book(String name, float price, String itemDesc, int category, int condition, UploadedFile uploadedFile, int numOfItems, int author, int genre, String series, int ageLvl){
-        super(name,price, itemDesc, category, condition, uploadedFile, numOfItems);
+    public Book(String name, float price, String itemDesc, int category, int condition, UploadedFile uploadedFile, int numOfItems, int author, int genre, String series, int ageLvl) {
+        super(name, price, itemDesc, category, condition, uploadedFile, numOfItems);
         this.author = author;
         this.genre = genre;
         this.series = series;
@@ -73,8 +71,8 @@ public class Book extends Item implements Serializable{
     }
 
     @Override
-    public String getConstValueByKey(Hashtable<Integer,String> hashtable, String key){
-        return CommonUtils.getValueByKeyFromHash(hashtable,key);
+    public String getConstValueByKey(Hashtable<Integer, String> hashtable, String key) {
+        return CommonUtils.getValueByKeyFromHash(hashtable, key);
     }
 
 

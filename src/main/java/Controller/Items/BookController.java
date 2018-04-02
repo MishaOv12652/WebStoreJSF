@@ -40,6 +40,11 @@ public class BookController extends ItemController implements Serializable {
         this.bookDBUtils = new BookDBUtils();
     }
 
+    /**
+     * adds book specs for sale
+     * @param book - book to insert
+     * @param email - email of the seller to get the id
+     */
     public void addBookForSale(Book book, String email) {
         Book bookWithItemSpecs = new Book(this.itemBean.getName(), this.itemBean.getPrice(), this.itemBean.getItemDesc()
                 , this.itemBean.getCategory(), this.itemBean.getCondition(), this.itemBean.getImg(), this.itemBean.getNumOfItems()
@@ -55,6 +60,11 @@ public class BookController extends ItemController implements Serializable {
         }
     }
 
+    /**
+     * loads book specs for the selling list
+     * @param id - books specs id
+     * @return returns the book found
+     */
     public Book loadBookForSale(Integer id) {
         if (id != null) {
             try {
@@ -66,6 +76,13 @@ public class BookController extends ItemController implements Serializable {
         return null;
     }
 
+    /**
+     * loads item specs and book specs for update or view page
+     * @param id - book specs id
+     * @param itemId - item id
+     * @param edit - edit or view page bool
+     * @return return a string of the url to populate data to
+     */
     public String loadBookForUpdate(Integer id, Integer itemId,boolean edit) {
         if (itemId != null) {
             try {
@@ -84,6 +101,11 @@ public class BookController extends ItemController implements Serializable {
         }
     }
 
+    /**
+     * updates a item of the category book
+     * @param item - item object - for specs like name and ec.
+     * @param book - book object - for book specs
+     */
     public void updateBookForSale(Item item, Book book) {
         try {
             this.bookDBUtils.updateBookSpecs(book);
@@ -93,6 +115,11 @@ public class BookController extends ItemController implements Serializable {
         }
     }
 
+    /**
+     * deletes a book that was for sale
+     * @param bookId - book specs id
+     * @param itemId - item id
+     */
     public void deleteBookForSale(Integer bookId,Integer itemId){
         try {
             this.deleteItemForSale(itemId);

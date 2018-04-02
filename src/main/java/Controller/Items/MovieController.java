@@ -41,6 +41,11 @@ public class MovieController extends ItemController implements Serializable{
         this.movieDBUtils = new MovieDBUtils();
     }
 
+    /**
+     * adds movie specs for sale
+     * @param movie - movie to insert
+     * @param email - email of the seller to get the id
+     */
     public void addMovieForSale(Movie movie,String email){
         Movie movieWithItemSpecs = new Movie(this.itemBean.getName(),this.itemBean.getPrice(),this.itemBean.getItemDesc()
                 ,this.itemBean.getCategory(),this.itemBean.getCondition(),this.itemBean.getImg(),this.itemBean.getNumOfItems()
@@ -56,6 +61,11 @@ public class MovieController extends ItemController implements Serializable{
         }
     }
 
+    /**
+     * loads movie specs for the selling list
+     * @param id - movies specs id
+     * @return returns the movie found
+     */
     public Movie loadMovieForSale(Integer id){
         if(id!=null){
             try {
@@ -67,6 +77,13 @@ public class MovieController extends ItemController implements Serializable{
         return null;
     }
 
+    /**
+     * loads item specs and movie specs for update or view page
+     * @param id - movie specs id
+     * @param itemId - item id
+     * @param edit - edit or view page bool
+     * @return return a string of the url to populate data to
+     */
     public String loadMovieForUpdate(Integer id, Integer itemId, boolean edit) {
         if (itemId != null) {
             try {
@@ -85,6 +102,11 @@ public class MovieController extends ItemController implements Serializable{
         }
     }
 
+    /**
+     * updates a item of the category movie
+     * @param item - item object - for specs like name and ec.
+     * @param movie - movie object - for movie specs
+     */
     public void updateMovieForSale(Item item, Movie movie) {
         try {
             this.movieDBUtils.updateMovieSpecs(movie);
@@ -94,6 +116,11 @@ public class MovieController extends ItemController implements Serializable{
         }
     }
 
+    /**
+     * deletes a movie that was for sale
+     * @param movieId - movie specs id
+     * @param itemId - item id
+     */
     public void deleteMovieForSale(Integer movieId,Integer itemId){
         try {
             this.deleteItemForSale(itemId);
