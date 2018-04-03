@@ -84,9 +84,9 @@ public class Computer extends Item implements Serializable {
         this.brandList = brandList;
     }
 
-    public Computer(String name, float price, String itemDesc, int category, int condition,float shippingPrice, UploadedFile uploadedFile, int numOfItems,
+    public Computer(String name, float price, String itemDesc, int category, int condition,float shippingPrice,int numOfItemsToBuy, UploadedFile uploadedFile, int numOfItems,
                     String type, String model, int os, int cpu, double cpuSpeed, int memory, int gpu, int brand, double screenSize, int releaseYear, int hdd, int ssd) {
-        super(name, price, itemDesc, category, condition, shippingPrice,uploadedFile, numOfItems);
+        super(name, price, itemDesc, category, condition, shippingPrice,uploadedFile, numOfItems,numOfItemsToBuy);
         this.type = type;
         this.model = model;
         this.os = os;

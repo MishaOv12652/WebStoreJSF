@@ -7,10 +7,7 @@ import Utils.SessionUtils;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Created by Misha on 3/21/2018.
@@ -34,7 +31,7 @@ public class UserDBUtils {
         try {
             String sql = "INSERT INTO dreambuy.user(f_name, l_name, email, password, city, address, credit_card_number, credit_card_comp, credit_card_exp, phone_number, zip) " +
                     "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-            PreparedStatement prepStmt = con.prepareStatement(sql);
+            PreparedStatement prepStmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             prepStmt.setString(1, user.getFirstName());
             prepStmt.setString(2, user.getLastName());
             prepStmt.setString(3, user.getEmail());
@@ -47,6 +44,15 @@ public class UserDBUtils {
             prepStmt.setString(10, '0' + Integer.toString(user.getPhoneStart()) + Integer.toString(user.getPhoneNum()));
             prepStmt.setInt(11, user.getZip());
             prepStmt.execute();
+            ResultSet generatedKey = prepStmt.getGeneratedKeys();
+            if(generatedKey.next()){
+                int buyerId = generatedKey.getInt(1);//also seller id
+                String sqlToAddBuyerId ="UPDATE dreambuy.user SET buyer_id=? WHERE id=?";
+                PreparedStatement preparedStatement = con.prepareStatement(sqlToAddBuyerId);
+                preparedStatement.setInt(1,buyerId);
+                preparedStatement.setInt(2,buyerId);
+                preparedStatement.execute();
+            }
             this.dbManager.Disconnect();
 
         } finally {

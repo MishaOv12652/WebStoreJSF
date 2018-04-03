@@ -4,6 +4,7 @@ import DAO.Items.BookDBUtils;
 import ModelManagedBeans.Items.Book;
 import ModelManagedBeans.Items.Item;
 import Utils.CommonUtils;
+import Utils.SessionUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,7 +35,7 @@ public class BookController extends ItemController implements Serializable {
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
             "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";
     private static final String EDIT_ITEM_PAGE = "/secured/edit-item";
-    private static final String VIEW_ITEM_PAGE = "/item-view";
+    private static final String VIEW_ITEM_PAGE = "/public/item-view";
 
     public BookController() {
         this.bookDBUtils = new BookDBUtils();
@@ -47,7 +48,7 @@ public class BookController extends ItemController implements Serializable {
      */
     public void addBookForSale(Book book, String email) {
         Book bookWithItemSpecs = new Book(this.itemBean.getName(), this.itemBean.getPrice(), this.itemBean.getItemDesc()
-                , this.itemBean.getCategory(), this.itemBean.getCondition(), this.itemBean.getImg(), this.itemBean.getNumOfItems(),this.itemBean.getShippingPrice()
+                , this.itemBean.getCategory(), this.itemBean.getCondition(), this.itemBean.getImg(), this.itemBean.getNumOfItems(),this.itemBean.getShippingPrice(),this.itemBean.getNumOfItemsToBuy()
                 , book.getAuthor(), book.getGenre(), book.getSeries(), book.getAgeLvl());
         try {
             this.addItemForSale(bookWithItemSpecs, email, this.bookDBUtils);
@@ -97,6 +98,8 @@ public class BookController extends ItemController implements Serializable {
         if(edit){
             return EDIT_ITEM_PAGE;
         }else{
+            SessionUtils.getSession().setAttribute("itemId",itemId);
+            SessionUtils.getSession().setAttribute("sellerEmail",CommonUtils.getEmailByUserId(CommonUtils.getSellerIdByItemId(itemId)));
             return VIEW_ITEM_PAGE;
         }
     }

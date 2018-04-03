@@ -5,6 +5,7 @@ import ModelManagedBeans.Items.Book;
 import ModelManagedBeans.Items.CellPhone;
 import ModelManagedBeans.Items.Item;
 import Utils.CommonUtils;
+import Utils.SessionUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,7 +34,7 @@ public class CellPhoneController extends ItemController implements Serializable 
     private CellPhoneDBUtils cellPhoneDBUtils;
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
             "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";
-    private static final String VIEW_ITEM_PAGE = "/item-view";
+    private static final String VIEW_ITEM_PAGE = "/public/item-view";
     private static final String EDIT_ITEM_PAGE = "/secured/edit-item";
 
     public CellPhoneController() {
@@ -47,7 +48,7 @@ public class CellPhoneController extends ItemController implements Serializable 
      */
     public void addCellPhoneForSale(CellPhone cellPhone, String email){
         CellPhone cellPhoneWithItemSpecs = new CellPhone(this.itemBean.getName(),this.itemBean.getPrice(),this.itemBean.getItemDesc()
-                ,this.itemBean.getCategory(),this.itemBean.getCondition(),this.itemBean.getShippingPrice(),this.itemBean.getImg(),this.itemBean.getNumOfItems()
+                ,this.itemBean.getCategory(),this.itemBean.getCondition(),this.itemBean.getShippingPrice(),this.itemBean.getNumOfItemsToBuy(),this.itemBean.getImg(),this.itemBean.getNumOfItems()
                 ,cellPhone.getScreenSize(),cellPhone.getRam(),cellPhone.getBrand(),cellPhone.getModel(),cellPhone.getMemoryCardType()
                 ,cellPhone.getOs(),cellPhone.getStorage(),cellPhone.getBatteryCapacity());
         try {
@@ -98,6 +99,8 @@ public class CellPhoneController extends ItemController implements Serializable 
         if(edit){
             return EDIT_ITEM_PAGE;
         }else{
+            SessionUtils.getSession().setAttribute("itemId",itemId);
+            SessionUtils.getSession().setAttribute("sellerEmail",CommonUtils.getEmailByUserId(CommonUtils.getSellerIdByItemId(itemId)));
             return VIEW_ITEM_PAGE;
         }
     }

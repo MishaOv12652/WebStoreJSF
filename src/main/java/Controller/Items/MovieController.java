@@ -5,6 +5,7 @@ import ModelManagedBeans.Items.Book;
 import ModelManagedBeans.Items.Item;
 import ModelManagedBeans.Items.Movie;
 import Utils.CommonUtils;
+import Utils.SessionUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,7 +34,7 @@ public class MovieController extends ItemController implements Serializable{
     private MovieDBUtils movieDBUtils;
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
             "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";
-    private static final String VIEW_ITEM_PAGE = "/item-view";
+    private static final String VIEW_ITEM_PAGE = "/public/item-view";
     private static final String EDIT_ITEM_PAGE = "/secured/edit-item";
 
 
@@ -48,7 +49,7 @@ public class MovieController extends ItemController implements Serializable{
      */
     public void addMovieForSale(Movie movie,String email){
         Movie movieWithItemSpecs = new Movie(this.itemBean.getName(),this.itemBean.getPrice(),this.itemBean.getItemDesc()
-                ,this.itemBean.getCategory(),this.itemBean.getCondition(),this.itemBean.getShippingPrice(),this.itemBean.getImg(),this.itemBean.getNumOfItems()
+                ,this.itemBean.getCategory(),this.itemBean.getCondition(),this.itemBean.getShippingPrice(),this.itemBean.getNumOfItemsToBuy(),this.itemBean.getImg(),this.itemBean.getNumOfItems()
                 ,movie.getDirector(),movie.getLength(),movie.getYear(),movie.getAgeLvl(),movie.getKnownActor(),movie.getGenre());
         try {
            this.addItemForSale(movieWithItemSpecs,email,this.movieDBUtils);
@@ -98,6 +99,8 @@ public class MovieController extends ItemController implements Serializable{
         if(edit){
             return EDIT_ITEM_PAGE;
         }else{
+            SessionUtils.getSession().setAttribute("itemId",itemId);
+            SessionUtils.getSession().setAttribute("sellerEmail",CommonUtils.getEmailByUserId(CommonUtils.getSellerIdByItemId(itemId)));
             return VIEW_ITEM_PAGE;
         }
     }

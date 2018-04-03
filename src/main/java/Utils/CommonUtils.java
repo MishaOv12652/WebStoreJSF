@@ -64,6 +64,47 @@ public class CommonUtils {
         return -1;
     }
 
+    public static String getEmailByUserId(Integer id) {
+        DBManager manager = new DBManager();
+        manager.Connect();
+        try {
+            Connection con = manager.getConnection();
+            Statement stmt = con.createStatement();
+            String query = "SELECT email FROM dreambuy.user WHERE id='" + id + "'";
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                return rs.getString("email");
+            }
+            manager.Disconnect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            manager.Disconnect();
+            return null;
+        }
+        manager.Disconnect();
+        return null;
+    }
+
+    public static int getSellerIdByItemId(int id){
+        DBManager manager = new DBManager();
+        manager.Connect();
+        try {
+            Connection con = manager.getConnection();
+            Statement stmt = con.createStatement();
+            String query = "SELECT seller_id FROM dreambuy.products WHERE id='" + id+ "'";
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                return rs.getInt("seller_id");
+            }
+            manager.Disconnect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            manager.Disconnect();
+            return -1;
+        }
+        manager.Disconnect();
+        return -1;
+    }
     public static String getValueByKeyFromHash(Hashtable<Integer,String>hashtable,String key){
         return hashtable.get(Integer.parseInt(key));
     }

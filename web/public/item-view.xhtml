@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Web Store - Item View</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../resources/imgs/dollar.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" href="../resources/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../resources/Custom%20CSS/ItemView.css"/>
+</h:head>
+
+
+<h:body>
+    <ui:insert name="navBar">
+        <ui:include src="navBar.xhtml"/>
+    </ui:insert>
+        <h:inputHidden value="#{item.id}"/>
+        <h:panelGrid id="page" columns="2" styleClass="container jumbotron" style="margin-top: 75px">
+            <h:form>
+            <h:panelGrid columns="2" styleClass="col-md-offset-2">
+                <h:graphicImage
+                        url="https://images-na.ssl-images-amazon.com/images/I/51sTwK7kBxL._SX258_BO1,204,203,200_.jpg"/>
+                <h:panelGrid columns="1" bodyrows="3" style="margin-left: 25px">
+                    <h:outputText style="font-size: 35px;text-decoration:underline"
+                                  value="#{item.name}"/>
+                    <h:panelGrid columns="1" bodyrows="2" styleClass="col-md-offset-3">
+                        <h:panelGrid columns="2">
+                            <h:outputLabel style="font-size: 15px" for="item_condition">Item Condition: </h:outputLabel>
+                            <h:outputText style="width: 20px" id="item_condition" value="#{item.getConstValueByKey(item.conditions,item.condition)}"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <h:panelGrid columns="2">
+                                <h:outputLabel style="font-size: 15px" for="qunti">Quantity: </h:outputLabel>
+                                <h:inputText style="width: 30px" id="qunti" value="#{item.numOfItemsToBuy}"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" style="margin-left: 10px">
+                                <h:outputLabel style="font-size: 15px"
+                                               for="items_availble">Items Availble: </h:outputLabel>
+                                <h:outputText style="width: 20px" id="items_availble" value="#{item.numOfItems}"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" styleClass="col-md-offset-3">
+                        <h:panelGrid columns="2" style="margin-left: 10px">
+                            <h:outputLabel style="font-size: 17px"
+                                           for="price">Price: </h:outputLabel>
+                            <h:outputText style="width: 20px;font-size: 17px" id="price" value="#{item.price}"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" bodyrows="3" style="margin-left: 25px">
+                            <div class="btn-group">
+                                <h:commandButton disabled="#{!userController.checkIfUserLoggedIn()}" style="margin-bottom: 10px;width:137px;" styleClass="btn btn-primary"
+                                                 value="Buy It Now" action="#{itemController.buyItemNow(session.getAttribute('itemId'),item.numOfItemsToBuy)}"/>
+                                <h:commandButton disabled="#{!userController.checkIfUserLoggedIn()}" style="margin-bottom: 10px; width: 137px" styleClass="btn btn-success"
+                                                 value="Add To Cart"/>
+                                <h:commandButton disabled="#{!userController.checkIfUserLoggedIn()}" styleClass="btn btn-default" value="Add To Watch List"/>
+                            </div>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </h:panelGrid>
+            </h:form>
+        </h:panelGrid>
+
+
+    <h:panelGrid columns="2" styleClass="container jumbotron">
+        <h:panelGrid bodyrows="2" style="width: 300px;border: 1px" styleClass="col-md-offset-2">
+            <h:outputLabel>Item Specifications</h:outputLabel>
+            <h:panelGrid bodyrows="7" rendered="#{item.category eq 1}">
+                <ui:include src="../secured/ItemCategoryPages/noEditBook.xhtml"/>
+            </h:panelGrid>
+            <h:panelGrid bodyrows="7" rendered="#{item.category eq 2}">
+                <ui:include src="../secured/ItemCategoryPages/noEditCellphone.xhtml"/>
+            </h:panelGrid>
+            <h:panelGrid bodyrows="7" rendered="#{item.category eq 3}">
+                <ui:include src="../secured/ItemCategoryPages/noEditComputer.xhtml"/>
+            </h:panelGrid>
+            <h:panelGrid bodyrows="7" rendered="#{item.category eq 4}">
+                <ui:include src="../secured/ItemCategoryPages/noEditMovie.xhtml"/>
+            </h:panelGrid>
+            <h:panelGrid bodyrows="7" rendered="#{item.category eq 5}">
+                <ui:include src="../secured/ItemCategoryPages/other.xhtml"/>
+            </h:panelGrid>
+        </h:panelGrid>
+        <h:panelGrid bodyrows="2">
+            <h:outputLabel for="items_desc">Items Description</h:outputLabel>
+            <p id="items_desc">#{item.itemDesc}</p>
+        </h:panelGrid>
+    </h:panelGrid>
+</h:body>
+</html>

@@ -73,9 +73,9 @@ public class CellPhone extends Item {
         this.storageCaps = storageCaps;
     }
 
-    public CellPhone(String name, float price, String itemDesc, int category, int condition,float shippingPrice, UploadedFile uploadedFile, int numOfItems,
+    public CellPhone(String name, float price, String itemDesc, int category, int condition,float shippingPrice,int numOfItemsToBuy, UploadedFile uploadedFile, int numOfItems,
                      double screenSize, int ram, int brand, String model, int memoryCardType, int os, int storage, int batteryCapacity) {
-        super(name, price, itemDesc, category, condition,shippingPrice, uploadedFile, numOfItems);
+        super(name, price, itemDesc, category, condition,shippingPrice, uploadedFile, numOfItems,numOfItemsToBuy);
         this.screenSize = screenSize;
         this.ram = ram;
         this.brand = brand;

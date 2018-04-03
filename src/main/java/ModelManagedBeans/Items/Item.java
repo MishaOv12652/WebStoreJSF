@@ -39,6 +39,7 @@ public class Item implements Serializable {
 
     private int sellerId;
     private int numOfItems;
+    private int numOfItemsToBuy;
 
     private Hashtable<Integer, String> categories;
     private Hashtable<Integer, String> conditions;
@@ -46,7 +47,7 @@ public class Item implements Serializable {
     public Item() {
     }
 
-    public Item(String name, float price, String itemDesc, int category, int condition, float shippingPrice, UploadedFile uploadedFile, int numOfItems) {
+    public Item(String name, float price, String itemDesc, int category, int condition, float shippingPrice, UploadedFile uploadedFile, int numOfItems,int numOfItemsToBuy) {
         this.name = name;
         this.price = price;
         this.itemDesc = itemDesc;
@@ -55,6 +56,7 @@ public class Item implements Serializable {
         this.img = uploadedFile;
         this.numOfItems = numOfItems;
         this.shippingPrice = shippingPrice;
+        this.numOfItemsToBuy = numOfItemsToBuy;
     }
 
 

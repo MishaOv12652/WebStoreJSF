@@ -43,7 +43,8 @@ public class ItemController implements Serializable {
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
             "/NewSadna_war_exploded/secured/profile-selling-items.xhtml?faces-redirect=true";
     private static final String EDIT_ITEM_PAGE = "/secured/edit-item";
-    private static final String VIEW_ITEM_PAGE = "/item-view";
+    private static final String CHECKOUT_PAGE = "/secured/checkOut";
+    private static final String VIEW_ITEM_PAGE = "/public/item-view";
     private static final String SEARCH_RESULT_PAGE = "/NewSadna_war_exploded/public/searchResults.xhtml";
 
 
@@ -104,12 +105,15 @@ public class ItemController implements Serializable {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
             Map<String, Object> requestMap = externalContext.getRequestMap();
             requestMap.put("item", this.item);
+            SessionUtils.getSession().setAttribute("itemId",id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         if(edit){
             return EDIT_ITEM_PAGE;
         }else{
+            SessionUtils.getSession().setAttribute("itemId",id);
+            SessionUtils.getSession().setAttribute("sellerEmail",CommonUtils.getEmailByUserId(CommonUtils.getSellerIdByItemId(id)));
             return VIEW_ITEM_PAGE;
         }
 
@@ -208,6 +212,24 @@ public class ItemController implements Serializable {
             e.printStackTrace();
         }
 
+    }
+
+    public String buyItemNow(Integer id,int numOfItemsToBuy){
+        try {
+            this.item = this.getItemDBUtils().loadItemForSale(id);
+            this.item.setNumOfItemsToBuy(numOfItemsToBuy);
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            Map<String, Object> requestMap = externalContext.getRequestMap();
+            requestMap.put("item", this.item);
+            if(item.getNumOfItemsToBuy()>item.getNumOfItems() || item.getNumOfItemsToBuy()==0){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Something went wrong on action buy it now",
+                        "Something went wrong on action buy it now"));
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return CHECKOUT_PAGE;
     }
 
 }

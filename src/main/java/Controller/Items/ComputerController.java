@@ -5,6 +5,7 @@ import ModelManagedBeans.Items.Book;
 import ModelManagedBeans.Items.Computer;
 import ModelManagedBeans.Items.Item;
 import Utils.CommonUtils;
+import Utils.SessionUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,7 +34,7 @@ public class ComputerController extends ItemController implements Serializable{
     private ComputerDBUtils computerDBUtils;
     private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
             "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";
-    private static final String VIEW_ITEM_PAGE = "/item-view";
+    private static final String VIEW_ITEM_PAGE = "/public/item-view";
     private static final String EDIT_ITEM_PAGE = "/secured/edit-item";
 
     public ComputerController(){
@@ -47,7 +48,7 @@ public class ComputerController extends ItemController implements Serializable{
      */
     public void addComputerForSale(Computer computer, String email){
         Computer computerWithItemSpecs = new Computer(this.itemBean.getName(),this.itemBean.getPrice(),this.itemBean.getItemDesc()
-                ,this.itemBean.getCategory(),this.itemBean.getCondition(),this.itemBean.getShippingPrice(),this.itemBean.getImg(),this.itemBean.getNumOfItems()
+                ,this.itemBean.getCategory(),this.itemBean.getCondition(),this.itemBean.getShippingPrice(),this.itemBean.getNumOfItemsToBuy(),this.itemBean.getImg(),this.itemBean.getNumOfItems()
                 ,computer.getType(),computer.getModel(),computer.getOs(),computer.getCpu(),computer.getCpuSpeed()
                 ,computer.getMemory(),computer.getGpu(),computer.getBrand(),computer.getScreenSize(),computer.getReleaseYear()
                 ,computer.getHdd(),computer.getSsd());
@@ -99,6 +100,8 @@ public class ComputerController extends ItemController implements Serializable{
         if(edit){
             return EDIT_ITEM_PAGE;
         }else{
+            SessionUtils.getSession().setAttribute("itemId",itemId);
+            SessionUtils.getSession().setAttribute("sellerEmail",CommonUtils.getEmailByUserId(CommonUtils.getSellerIdByItemId(itemId)));
             return VIEW_ITEM_PAGE;
         }
     }
