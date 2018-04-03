@@ -68,6 +68,7 @@ public class ItemDBUtils {
                     resultSet.getString("item_desc"),
                     resultSet.getInt("category"),
                     resultSet.getInt("condition_id"),
+                    resultSet.getFloat("shippingPrice"),
                     null,
 //                    resultSet.getBlob("img"),
                     resultSet.getInt("numOfItems"),
@@ -101,6 +102,7 @@ public class ItemDBUtils {
                     resultSet.getString("item_desc"),
                     resultSet.getInt("category"),
                     resultSet.getInt("condition_id"),
+                    resultSet.getFloat("shippingPrice"),
                     null,
 //                    resultSet.getBlob("img"),
                     resultSet.getInt("numOfItems"),
@@ -120,8 +122,8 @@ public class ItemDBUtils {
     }
 
     protected int addItemForSale(Item item, int idOfUser, Connection con) throws SQLException {
-        String sql = "INSERT INTO dreambuy.products(name, price, item_desc, category, condition_id, seller_id,numOfItems,book_spec_id,cellphone_spec_id,computer_spec_id,movie_spec_id)" +
-                "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO dreambuy.products(name, price, item_desc, category, condition_id, seller_id,numOfItems,book_spec_id,cellphone_spec_id,computer_spec_id,movie_spec_id,shippingPrice)" +
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, item.getName());
@@ -136,6 +138,7 @@ public class ItemDBUtils {
             stmt.setObject(9, item.getCellSpecs());
             stmt.setObject(10, item.getCompSpecs());
             stmt.setObject(11, item.getMovieSpecs());
+            stmt.setFloat(12, item.getShippingPrice());
 
             stmt.execute();
             ResultSet generatedKey = stmt.getGeneratedKeys();
@@ -151,7 +154,7 @@ public class ItemDBUtils {
 
     protected void updateItemForSale(Item item, Connection connection) throws SQLException {
         String sql = "UPDATE dreambuy.products SET name=?, price=?, item_desc=?, category=?, condition_id=?," +
-                "numOfItems=?,book_spec_id=?,cellphone_spec_id=?,computer_spec_id=?,movie_spec_id=? WHERE id=?";
+                "numOfItems=?,book_spec_id=?,cellphone_spec_id=?,computer_spec_id=?,movie_spec_id=?,shippingPrice=? WHERE id=?";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setString(1, item.getName());
         stmt.setFloat(2, item.getPrice());
@@ -164,7 +167,8 @@ public class ItemDBUtils {
         stmt.setObject(8, item.getCellSpecs());
         stmt.setObject(9, item.getCompSpecs());
         stmt.setObject(10, item.getMovieSpecs());
-        stmt.setInt(11, item.getId());
+        stmt.setObject(11, item.getShippingPrice());
+        stmt.setInt(12, item.getId());
         stmt.execute();
         this.dbManager.Disconnect();
     }
@@ -197,6 +201,7 @@ public class ItemDBUtils {
                     resultSet.getString("item_desc"),
                     resultSet.getInt("category"),
                     resultSet.getInt("condition_id"),
+                    resultSet.getFloat("shippingPrice"),
                     null,
 //                    resultSet.getBlob("img"),
                     resultSet.getInt("numOfItems"),

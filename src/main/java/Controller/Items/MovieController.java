@@ -48,7 +48,7 @@ public class MovieController extends ItemController implements Serializable{
      */
     public void addMovieForSale(Movie movie,String email){
         Movie movieWithItemSpecs = new Movie(this.itemBean.getName(),this.itemBean.getPrice(),this.itemBean.getItemDesc()
-                ,this.itemBean.getCategory(),this.itemBean.getCondition(),this.itemBean.getImg(),this.itemBean.getNumOfItems()
+                ,this.itemBean.getCategory(),this.itemBean.getCondition(),this.itemBean.getShippingPrice(),this.itemBean.getImg(),this.itemBean.getNumOfItems()
                 ,movie.getDirector(),movie.getLength(),movie.getYear(),movie.getAgeLvl(),movie.getKnownActor(),movie.getGenre());
         try {
            this.addItemForSale(movieWithItemSpecs,email,this.movieDBUtils);

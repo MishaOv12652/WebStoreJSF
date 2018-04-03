@@ -47,7 +47,7 @@ public class CellPhoneController extends ItemController implements Serializable 
      */
     public void addCellPhoneForSale(CellPhone cellPhone, String email){
         CellPhone cellPhoneWithItemSpecs = new CellPhone(this.itemBean.getName(),this.itemBean.getPrice(),this.itemBean.getItemDesc()
-                ,this.itemBean.getCategory(),this.itemBean.getCondition(),this.itemBean.getImg(),this.itemBean.getNumOfItems()
+                ,this.itemBean.getCategory(),this.itemBean.getCondition(),this.itemBean.getShippingPrice(),this.itemBean.getImg(),this.itemBean.getNumOfItems()
                 ,cellPhone.getScreenSize(),cellPhone.getRam(),cellPhone.getBrand(),cellPhone.getModel(),cellPhone.getMemoryCardType()
                 ,cellPhone.getOs(),cellPhone.getStorage(),cellPhone.getBatteryCapacity());
         try {

@@ -47,7 +47,7 @@ public class BookController extends ItemController implements Serializable {
      */
     public void addBookForSale(Book book, String email) {
         Book bookWithItemSpecs = new Book(this.itemBean.getName(), this.itemBean.getPrice(), this.itemBean.getItemDesc()
-                , this.itemBean.getCategory(), this.itemBean.getCondition(), this.itemBean.getImg(), this.itemBean.getNumOfItems()
+                , this.itemBean.getCategory(), this.itemBean.getCondition(), this.itemBean.getImg(), this.itemBean.getNumOfItems(),this.itemBean.getShippingPrice()
                 , book.getAuthor(), book.getGenre(), book.getSeries(), book.getAgeLvl());
         try {
             this.addItemForSale(bookWithItemSpecs, email, this.bookDBUtils);

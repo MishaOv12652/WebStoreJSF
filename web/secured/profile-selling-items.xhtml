@@ -45,6 +45,10 @@
                     <h:outputText value="#{itemsForSale.price}"/>
                 </p:column>
 
+                <p:column headerText="Shipping Price" style="width:100px;text-align: center">
+                    <h:outputText value="#{itemsForSale.shippingPrice}"/>
+                </p:column>
+
                 <p:column headerText="Condition" style="width:150px;text-align: center">
                     <h:outputText
                             value="#{item.getConstValueByKey(item.conditions,itemsForSale.condition)}"/>
