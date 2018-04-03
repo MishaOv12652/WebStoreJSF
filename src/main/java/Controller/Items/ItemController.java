@@ -232,4 +232,14 @@ public class ItemController implements Serializable {
         return CHECKOUT_PAGE;
     }
 
+    public void confirmPayment(int numOfItemsBought){
+        String sellerEmail = (String) SessionUtils.getSession().getAttribute("sellerEmail");
+        try {
+            this.itemDBUtils.confirmPayment(sellerEmail,numOfItemsBought);
+            FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT_SELLING_LIST);
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

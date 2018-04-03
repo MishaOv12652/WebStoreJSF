@@ -216,4 +216,16 @@ public class ItemDBUtils {
         this.dbManager.Disconnect();
         return arrayList;
     }
+
+    public void confirmPayment(String sellerEmail,int numOfItemsBought) throws SQLException {
+
+        String sql = "UPDATE dreambuy.products SET numOfItems=numOfItems-? WHERE seller_id=?";
+        this.dbManager.Connect();
+        Connection connection = this.dbManager.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1,numOfItemsBought);
+        preparedStatement.setInt(2,CommonUtils.getUserIdByEmail(sellerEmail));
+        preparedStatement.execute();
+        this.dbManager.Disconnect();
+    }
 }
