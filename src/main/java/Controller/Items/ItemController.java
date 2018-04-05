@@ -35,6 +35,7 @@ public class ItemController implements Serializable {
     private ItemDBUtils itemDBUtils;
 
     private ArrayList<Item> itemsForSale;
+    private ArrayList<Item> wishListItems;
 
     private String inputSearchString;
     private int category;
@@ -45,6 +46,7 @@ public class ItemController implements Serializable {
     private static final String EDIT_ITEM_PAGE = "/secured/edit-item";
     private static final String CHECKOUT_PAGE = "/secured/checkOut";
     private static final String VIEW_ITEM_PAGE = "/public/item-view";
+    private static final String WISH_LIST_PAGE = "/NewSadna_war_exploded/secured/wishlist.xhtml";
     private static final String SEARCH_RESULT_PAGE = "/NewSadna_war_exploded/public/searchResults.xhtml";
 
 
@@ -54,21 +56,22 @@ public class ItemController implements Serializable {
 
     /**
      * adds item for sale - category other
-     * @param item - item to insert
+     *
+     * @param item  - item to insert
      * @param email - email of the seller to get the id
      */
     public void addItemForSale(Item item, String email) {
         try {
-            if(item.getBookSpecs()==null || item.getBookSpecs()==0){
+            if (item.getBookSpecs() == null || item.getBookSpecs() == 0) {
                 item.setBookSpecs(null);
             }
-            if(item.getBookSpecs()==null || item.getMovieSpecs()==0){
+            if (item.getBookSpecs() == null || item.getMovieSpecs() == 0) {
                 item.setMovieSpecs(null);
             }
-            if(item.getBookSpecs()==null || item.getCellSpecs()==0){
+            if (item.getBookSpecs() == null || item.getCellSpecs() == 0) {
                 item.setCellSpecs(null);
             }
-            if(item.getBookSpecs()==null || item.getCompSpecs()==0){
+            if (item.getBookSpecs() == null || item.getCompSpecs() == 0) {
                 item.setCompSpecs(null);
             }
             this.addItemForSale(item, email, this.itemDBUtils);
@@ -83,6 +86,7 @@ public class ItemController implements Serializable {
 
     /**
      * loads list of items the user sells
+     *
      * @param email - email of the user
      */
     public void loadListItemForSale(String email) {
@@ -95,7 +99,8 @@ public class ItemController implements Serializable {
 
     /**
      * loads item for sale - for update or view
-     * @param id - item id
+     *
+     * @param id   - item id
      * @param edit - edit or view page bool
      * @return return a string of the url to populate data to
      */
@@ -105,15 +110,15 @@ public class ItemController implements Serializable {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
             Map<String, Object> requestMap = externalContext.getRequestMap();
             requestMap.put("item", this.item);
-            SessionUtils.getSession().setAttribute("itemId",id);
+            SessionUtils.getSession().setAttribute("itemId", id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if(edit){
+        if (edit) {
             return EDIT_ITEM_PAGE;
-        }else{
-            SessionUtils.getSession().setAttribute("itemId",id);
-            SessionUtils.getSession().setAttribute("sellerEmail",CommonUtils.getEmailByUserId(CommonUtils.getSellerIdByItemId(id)));
+        } else {
+            SessionUtils.getSession().setAttribute("itemId", id);
+            SessionUtils.getSession().setAttribute("sellerEmail", CommonUtils.getEmailByUserId(CommonUtils.getSellerIdByItemId(id)));
             return VIEW_ITEM_PAGE;
         }
 
@@ -121,20 +126,21 @@ public class ItemController implements Serializable {
 
     /**
      * updates an item for sale - category other
+     *
      * @param item - item object to update
      */
     public void updateItemForSale(Item item) {
         try {
-            if(item.getBookSpecs()==null || item.getBookSpecs()==0){
+            if (item.getBookSpecs() == null || item.getBookSpecs() == 0) {
                 item.setBookSpecs(null);
             }
-            if(item.getBookSpecs()==null || item.getMovieSpecs()==0){
+            if (item.getBookSpecs() == null || item.getMovieSpecs() == 0) {
                 item.setMovieSpecs(null);
             }
-            if(item.getBookSpecs()==null || item.getCellSpecs()==0){
+            if (item.getBookSpecs() == null || item.getCellSpecs() == 0) {
                 item.setCellSpecs(null);
             }
-            if(item.getBookSpecs()==null || item.getCompSpecs()==0){
+            if (item.getBookSpecs() == null || item.getCompSpecs() == 0) {
                 item.setCompSpecs(null);
             }
             this.itemDBUtils.updateItemForSale(item);
@@ -147,11 +153,12 @@ public class ItemController implements Serializable {
 
     /**
      * adds an item for sale - for use of other categories controllers
-     * @param item - item to add for selling - for attributes like name and ec.
-     * @param email - email of the seller
+     *
+     * @param item        - item to add for selling - for attributes like name and ec.
+     * @param email       - email of the seller
      * @param itemDBUtils - DBUtils object of the category
      * @throws SQLException - thrown if something fails in inserting to db stage
-     * @throws IOException - thrown if there is a problem with the redirect
+     * @throws IOException  - thrown if there is a problem with the redirect
      */
     protected void addItemForSale(Item item, String email, ItemDBUtils itemDBUtils) throws SQLException, IOException {
         int idOfUser = CommonUtils.getUserIdByEmail(email);
@@ -171,9 +178,10 @@ public class ItemController implements Serializable {
 
     /**
      * deletes item for sale - category other
+     *
      * @param id - id of the item
      */
-    public void deleteItemForSale(Integer id){
+    public void deleteItemForSale(Integer id) {
         try {
             this.itemDBUtils.deleteItemForSale(id);
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
@@ -185,14 +193,15 @@ public class ItemController implements Serializable {
 
     /**
      * loads items the were found - excluding items the user sells
+     *
      * @param email - email of the user
      */
-    public void loadItemsToBuy(String email){
+    public void loadItemsToBuy(String email) {
         HttpSession httpSession = SessionUtils.getSession();
         this.inputSearchString = (String) httpSession.getAttribute("searchInput");
         this.category = (Integer) httpSession.getAttribute("category");
         try {
-            this.searchResults =  this.itemDBUtils.searchForItemsToBuy(this.inputSearchString,CommonUtils.getUserIdByEmail(email),this.category);
+            this.searchResults = this.itemDBUtils.searchForItemsToBuy(this.inputSearchString, CommonUtils.getUserIdByEmail(email), this.category);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -202,10 +211,10 @@ public class ItemController implements Serializable {
      * searches for items for buying by an input string and category
      * saves the input string and category to session for loading later
      */
-    public void searchForItemsToBuy(){
+    public void searchForItemsToBuy() {
         HttpSession httpSession = SessionUtils.getSession();
-        httpSession.setAttribute("searchInput",this.inputSearchString);
-        httpSession.setAttribute("category",this.category);
+        httpSession.setAttribute("searchInput", this.inputSearchString);
+        httpSession.setAttribute("category", this.category);
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect(SEARCH_RESULT_PAGE);
         } catch (IOException e) {
@@ -214,14 +223,14 @@ public class ItemController implements Serializable {
 
     }
 
-    public String buyItemNow(Integer id,int numOfItemsToBuy){
+    public String buyItemNow(Integer id, int numOfItemsToBuy) {
         try {
             this.item = this.getItemDBUtils().loadItemForSale(id);
             this.item.setNumOfItemsToBuy(numOfItemsToBuy);
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
             Map<String, Object> requestMap = externalContext.getRequestMap();
             requestMap.put("item", this.item);
-            if(item.getNumOfItemsToBuy()>item.getNumOfItems() || item.getNumOfItemsToBuy()==0){
+            if (item.getNumOfItemsToBuy() > item.getNumOfItems() || item.getNumOfItemsToBuy() == 0) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Something went wrong on action buy it now",
                         "Something went wrong on action buy it now"));
                 return null;
@@ -232,14 +241,40 @@ public class ItemController implements Serializable {
         return CHECKOUT_PAGE;
     }
 
-    public void confirmPayment(int numOfItemsBought){
+    public void confirmPayment(int numOfItemsBought) {
         String sellerEmail = (String) SessionUtils.getSession().getAttribute("sellerEmail");
         try {
-            this.itemDBUtils.confirmPayment(sellerEmail,numOfItemsBought);
+            this.itemDBUtils.confirmPayment(sellerEmail, numOfItemsBought);
             FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT_SELLING_LIST);
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
+
+    public void loadWishList(String email) {
+        try {
+            this.wishListItems = this.itemDBUtils.loadWishList(email);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addItemToWishList(String email, int itemId){
+        try {
+            this.itemDBUtils.addItemToWishList(email,itemId);
+            FacesContext.getCurrentInstance().getExternalContext().redirect(WISH_LIST_PAGE);
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeItemFromWishList(int itemId){
+        try {
+            this.itemDBUtils.removeItemFromWishList(itemId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
