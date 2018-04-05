@@ -52,7 +52,13 @@ public class UserDBUtils {
                 preparedStatement.setInt(1,buyerId);
                 preparedStatement.setInt(2,buyerId);
                 preparedStatement.execute();
+
+                String wishList = "INSERT INTO dreambuy.wish_lists SET buyer_id=?";
+                PreparedStatement prepStmtWishList = con.prepareStatement(wishList);
+                prepStmtWishList.setInt(1,buyerId);
+                prepStmtWishList.execute();
             }
+
             this.dbManager.Disconnect();
 
         } finally {

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:event type="preRenderView" listener="#{profileController.loadProfileInfo}"/>
+    <f:event type="preRenderView" listener="#{itemController.loadWishList(user.email)}"/>
+</f:metadata>
+
+<h:head>
+    <h:head>
+        <title>Web Store - Wish List</title>
+        <link rel="shortcut icon" type="image/x-icon" href="../resources/imgs/dollar.png"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link rel="stylesheet" href="../resources/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../resources/Custom%20CSS/profile.css"/>
+        <link rel="stylesheet" href="../resources/Custom%20CSS/navBar.css"/>
+    </h:head>
+</h:head>
+<h:body>
+    <ui:insert name="navBar">
+        <ui:include src="../public/navBar.xhtml"/>
+    </ui:insert>
+
+
+
+    <p:dataTable value="#{itemController.wishListItems}" var="wishListItem" >
+        <f:facet name="header">
+            <div style="margin-top: 50px">
+                <h2 style="text-decoration: underline">Wish List</h2>
+            </div>
+        </f:facet>
+        <p:column>
+            <h:graphicImage url="https://images-na.ssl-images-amazon.com/images/I/51sTwK7kBxL._SX258_BO1,204,203,200_.jpg"/>
+        </p:column>
+        <p:column>
+            <ul class="meta-search" style="margin-left: 15px">
+                <!--<li><i class="glyphicon glyphicon-calendar"/> <span>01/25/2018</span></li>-->
+                <li><i class="glyphicon glyphicon-tags"/>
+                    <span>#{item.getConstValueByKey(wishListItem.categories,wishListItem.category)}</span>
+                </li>
+                <li><i class="glyphicon glyphicon-usd"/> <span>#{wishListItem.price}</span></li>
+            </ul>
+        </p:column>
+        <p:column>
+            <h:form>
+                <div style="margin-left: 15px">
+                    <h:panelGrid columns="1">
+                        <h:commandLink rendered="#{wishListItem.category eq 1}" styleClass="page-header"
+                                       style="font-size: 32px"
+                                       action="#{bookController.loadBookForUpdate(wishListItem.bookSpecs,wishListItem.id,false)}"
+                                       value="#{wishListItem.name}"/>
+                        <h:commandLink rendered="#{wishListItem.category eq 2}" styleClass="page-header"
+                                       style="font-size: 32px"
+                                       action="#{cellPhoneController.loadCellPhoneForUpdate(wishListItem.cellSpecs,wishListItem.id,false)}"
+                                       value="#{wishListItem.name}"/>
+                        <h:commandLink rendered="#{wishListItem.category eq 3}" styleClass="page-header"
+                                       style="font-size: 32px"
+                                       action="#{computerController.loadComputerForUpdate(wishListItem.compSpecs,wishListItem.id,false)}"
+                                       value="#{wishListItem.name}"/>
+                        <h:commandLink rendered="#{wishListItem.category eq 4}" styleClass="page-header"
+                                       style="font-size: 32px"
+                                       action="#{movieController.loadMovieForUpdate(wishListItem.movieSpecs,wishListItem.id,false)}"
+                                       value="#{wishListItem.name}"/>
+                        <h:commandLink rendered="#{wishListItem.category eq 5}" styleClass="page-header"
+                                       style="font-size: 32px"
+                                       action="#{itemController.loadItemForSale(wishListItem.id,false)}"
+                                       value="#{wishListItem.name}"/>
+                    </h:panelGrid>
+                </div>
+            </h:form>
+        </p:column>
+        <p:column>
+            <h:form>
+                <h:commandButton styleClass="btn btn-danger" value="Remove" actionListener="#{itemController.removeItemFromWishList(wishListItem.id)}"/>
+            </h:form>
+        </p:column>
+    </p:dataTable>
+</h:body>
+</html>

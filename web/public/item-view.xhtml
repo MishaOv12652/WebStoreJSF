@@ -56,7 +56,8 @@
                                                  value="Buy It Now" action="#{itemController.buyItemNow(session.getAttribute('itemId'),item.numOfItemsToBuy)}"/>
                                 <h:commandButton disabled="#{!userController.checkIfUserLoggedIn()}" style="margin-bottom: 10px; width: 137px" styleClass="btn btn-success"
                                                  value="Add To Cart"/>
-                                <h:commandButton disabled="#{!userController.checkIfUserLoggedIn()}" styleClass="btn btn-default" value="Add To Watch List"/>
+                                <h:commandButton disabled="#{!userController.checkIfUserLoggedIn()}" styleClass="btn btn-default" value="Add To Watch List"
+                                                 action="#{itemController.addItemToWishList(session.getAttribute('userEmail'),session.getAttribute('itemId'))}"/>
                             </div>
                         </h:panelGrid>
                     </h:panelGrid>
