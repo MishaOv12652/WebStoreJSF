@@ -29,7 +29,7 @@ public class Item implements Serializable {
     private String itemDesc;
     private int category;
     private int condition;
-    private UploadedFile img;
+    private Part img;
     private float shippingPrice;
 
     private Integer bookSpecs;
@@ -47,7 +47,7 @@ public class Item implements Serializable {
     public Item() {
     }
 
-    public Item(String name, float price, String itemDesc, int category, int condition, float shippingPrice, UploadedFile uploadedFile, int numOfItems,int numOfItemsToBuy) {
+    public Item(String name, float price, String itemDesc, int category, int condition, float shippingPrice, Part uploadedFile, int numOfItems,int numOfItemsToBuy) {
         this.name = name;
         this.price = price;
         this.itemDesc = itemDesc;
@@ -60,7 +60,7 @@ public class Item implements Serializable {
     }
 
 
-    public Item(int id, String name, float price, String itemDesc, int category, int condition, float shippingPrice, UploadedFile uploadedFile, int numOfItems, Integer bookSpecs, Integer movieSpecs, Integer cellSpecs, Integer compSpecs) {
+    public Item(int id, String name, float price, String itemDesc, int category, int condition, float shippingPrice, Part uploadedFile, int numOfItems, Integer bookSpecs, Integer movieSpecs, Integer cellSpecs, Integer compSpecs) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -76,7 +76,7 @@ public class Item implements Serializable {
         this.compSpecs = compSpecs;
     }
 
-    public Item(int id, String name, float price, String itemDesc, int category, int condition, float shippingPrice, UploadedFile uploadedFile, int numOfItems, Integer bookSpecs, Integer movieSpecs, Integer cellSpecs, Integer compSpecs, Hashtable<Integer, String> conditions, Hashtable<Integer, String> categories) {
+    public Item(int id, String name, float price, String itemDesc, int category, int condition, float shippingPrice, Part uploadedFile, int numOfItems, Integer bookSpecs, Integer movieSpecs, Integer cellSpecs, Integer compSpecs, Hashtable<Integer, String> conditions, Hashtable<Integer, String> categories) {
         this.id = id;
         this.name = name;
         this.price = price;

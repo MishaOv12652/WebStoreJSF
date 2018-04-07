@@ -7,6 +7,7 @@ import Utils.RedirectHelper;
 import Utils.SessionUtils;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.io.FilenameUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -16,8 +17,11 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -78,6 +82,15 @@ public class ItemController implements Serializable {
         }
     }
 
+    public String loadImageOfItemByItemId(int itemId){
+        try {
+            return this.itemDBUtils.loadImageOfItemByItemId(itemId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * loads list of items the user sells
      *
@@ -108,13 +121,7 @@ public class ItemController implements Serializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (edit) {
-            return RedirectHelper.EDIT_ITEM_PAGE;
-        } else {
-            SessionUtils.getSession().setAttribute("itemId", id);
-            SessionUtils.getSession().setAttribute("sellerEmail", CommonUtils.getEmailByUserId(CommonUtils.getSellerIdByItemId(id)));
-            return RedirectHelper.VIEW_ITEM_PAGE;
-        }
+        return this.checkIfEdit(edit,id);
 
     }
 
@@ -156,7 +163,16 @@ public class ItemController implements Serializable {
      */
     protected void addItemForSale(Item item, String email, ItemDBUtils itemDBUtils) throws SQLException, IOException {
         int idOfUser = CommonUtils.getUserIdByEmail(email);
+
         int idOfItem = itemDBUtils.addItemForSale(item, idOfUser);
+        String extension = FilenameUtils.getExtension(item.getImg().getSubmittedFileName());
+        String fileName = email + "-" + idOfItem + "." + extension;
+        String uploadFolder = "C:\\Users\\Misha\\IdeaProjects\\DreamBuyAndSellProject\\web\\resources\\imageUploads\\";
+
+        try (InputStream inputStream = item.getImg().getInputStream()){
+
+            Files.copy(inputStream,new File(uploadFolder,fileName).toPath());
+        }
         if (idOfItem == -1) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Item Wasn't Successfully added",
                     "The item " + item.getName() + " wasn't added for sale"));

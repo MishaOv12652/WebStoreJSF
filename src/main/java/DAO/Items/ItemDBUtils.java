@@ -5,6 +5,7 @@ import Utils.CommonUtils;
 import Utils.DBManager;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.io.FilenameUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -32,6 +33,20 @@ public class ItemDBUtils {
     public int addItemForSale(Item item, int idOfUser) throws SQLException {
         this.dbManager.Connect();
         return this.addItemForSale(item, idOfUser, this.dbManager.getConnection());
+    }
+
+    public String loadImageOfItemByItemId(int itemId) throws SQLException {
+        String sql = "SELECT img FROM dreamdb.products WHERE id=?";
+        this.dbManager.Connect();
+        Connection connection = this.dbManager.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1,itemId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if(resultSet.next()){
+            return resultSet.getString("img");
+        }
+        return null;
+
     }
 
     /**
@@ -139,11 +154,18 @@ public class ItemDBUtils {
             stmt.setObject(10, item.getCompSpecs());
             stmt.setObject(11, item.getMovieSpecs());
             stmt.setFloat(12, item.getShippingPrice());
-
             stmt.execute();
+
             ResultSet generatedKey = stmt.getGeneratedKeys();
             if (generatedKey.next()) {
-                return generatedKey.getInt(1);
+                int idOfItem = generatedKey.getInt(1);
+                sql = "UPDATE dreamdb.products SET img=? WHERE id=?";
+                String extension = FilenameUtils.getExtension(item.getImg().getSubmittedFileName());
+                stmt = con.prepareStatement(sql);
+                stmt.setString(1,"../resources/imageUploads/" + CommonUtils.getEmailByUserId(idOfUser) + "-" + idOfItem + "." + extension);
+                stmt.setInt(2,idOfItem);
+                stmt.execute();
+                return idOfItem;
             } else {
                 return -1;
             }

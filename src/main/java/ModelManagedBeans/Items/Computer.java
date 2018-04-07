@@ -8,6 +8,7 @@ import org.primefaces.model.UploadedFile;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.Part;
 import java.io.Serializable;
 import java.util.Hashtable;
 
@@ -84,7 +85,7 @@ public class Computer extends Item implements Serializable {
         this.brandList = brandList;
     }
 
-    public Computer(String name, float price, String itemDesc, int category, int condition,float shippingPrice,int numOfItemsToBuy, UploadedFile uploadedFile, int numOfItems,
+    public Computer(String name, float price, String itemDesc, int category, int condition, float shippingPrice, int numOfItemsToBuy, Part uploadedFile, int numOfItems,
                     String type, String model, int os, int cpu, double cpuSpeed, int memory, int gpu, int brand, double screenSize, int releaseYear, int hdd, int ssd) {
         super(name, price, itemDesc, category, condition, shippingPrice,uploadedFile, numOfItems,numOfItemsToBuy);
         this.type = type;

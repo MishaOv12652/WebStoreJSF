@@ -552,7 +552,7 @@ create table IF NOT EXISTS dreamDB.shopping_cart_products
 (
   shopping_cart_id INT NOT NULL,
   product_id INT NOT NULL,
-  numOfItems INT,
+  buyAmount INT,
   CONSTRAINT PRIMARY KEY (product_id,shopping_cart_id),
   CONSTRAINT shopping_cart_products_shopping_carts_id_fk FOREIGN KEY (shopping_cart_id) REFERENCES dreamDB.shopping_carts (id),
   CONSTRAINT shopping_cart_products_products_id_fk FOREIGN KEY (product_id) REFERENCES dreamDB.products (id)

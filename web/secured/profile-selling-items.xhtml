@@ -122,8 +122,8 @@
                     <p:panelGrid id="other" columns="2" columnClasses="label,value" style="width:300px"
                                  rendered="#{itemsForSale.category eq 5}">
                         <f:facet name="header">
-                            <h:outputText value="#{itemsForSale.name}"/>
-                            <!--<p:graphicImage name="demo/images/car/#{item.img}-big.gif"/>-->
+                            <!--<h:outputText value="#{itemsForSale.name}"/>-->
+                            <p:graphicImage rendered="#{itemsForSale.category eq 5}" styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}"/>
                         </f:facet>
                     </p:panelGrid>
 
@@ -132,8 +132,8 @@
                                  value="#{movieController.loadMovieForSale(itemsForSale.movieSpecs)}"
                                  var="movieForsale">
                         <f:facet name="header">
-                            <h:outputText value="#{itemsForSale.name}"/>
-                            <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
+                            <!--<h:outputText value="#{itemsForSale.name}"/>-->
+                            <p:graphicImage styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}"/>
                         </f:facet>
 
 
@@ -175,8 +175,8 @@
                                  var="computerForSale">
 
                         <f:facet name="header">
-                            <h:outputText value="#{itemsForSale.name}"/>
-                            <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
+                            <!--<h:outputText value="#{itemsForSale.name}"/>-->
+                            <p:graphicImage styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}"/>
                         </f:facet>
 
 
@@ -242,8 +242,8 @@
                                  var="cellPhoneForSale">
 
                         <f:facet name="header">
-                            <h:outputText value="#{itemsForSale.name}"/>
-                            <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
+                            <!--<h:outputText value="#{itemsForSale.name}"/>-->
+                            <p:graphicImage styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}"/>
                         </f:facet>
 
                         <h:column>
@@ -293,8 +293,8 @@
                                  value="#{bookController.loadBookForSale(itemsForSale.bookSpecs)}"
                                  var="bookForsale">
                         <f:facet name="header">
-                            <h:outputText value="#{itemsForSale.name}"/>
-                            <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
+                            <!--<h:outputText value="#{itemsForSale.name}"/>-->
+                            <p:graphicImage  styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}"/>
                         </f:facet>
 
                         <h:column>

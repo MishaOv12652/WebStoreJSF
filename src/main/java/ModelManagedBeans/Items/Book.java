@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.Part;
 import java.io.Serializable;
 import java.util.Hashtable;
 
@@ -52,7 +53,7 @@ public class Book extends Item implements Serializable {
         this.ageLevels = ageLevels;
     }
 
-    public Book(String name, float price, String itemDesc, int category, int condition, UploadedFile uploadedFile, int numOfItems,float shippingPrice,int numOfItemsToBuy, int author, int genre, String series, int ageLvl) {
+    public Book(String name, float price, String itemDesc, int category, int condition, Part uploadedFile, int numOfItems, float shippingPrice, int numOfItemsToBuy, int author, int genre, String series, int ageLvl) {
         super(name, price, itemDesc, category, condition,shippingPrice, uploadedFile, numOfItems,numOfItemsToBuy);
         this.author = author;
         this.genre = genre;

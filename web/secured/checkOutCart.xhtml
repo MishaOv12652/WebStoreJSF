@@ -28,8 +28,7 @@
         <h:panelGrid columns="3">
             <p:dataTable var="shopItems" value="#{session.getAttribute('cart').entrySet().toArray()}">
                 <p:column>
-                    <h:graphicImage styleClass="img"
-                                    url="http://vignette4.wikia.nocookie.net/harrypotter/images/e/e0/Chamber_of_secrets-cover.jpg/revision/latest?cb=20070328184517"/>
+                    <p:graphicImage  styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(shopItems.key.id)}"/>
                 </p:column>
                 <p:column>
                     <h:outputText style="font-size: 17px;" value="#{shopItems.key.name}"/>

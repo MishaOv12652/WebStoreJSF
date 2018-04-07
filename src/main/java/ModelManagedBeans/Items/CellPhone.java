@@ -9,6 +9,7 @@ import org.primefaces.model.UploadedFile;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.Part;
 import java.sql.Blob;
 import java.util.Hashtable;
 
@@ -73,7 +74,7 @@ public class CellPhone extends Item {
         this.storageCaps = storageCaps;
     }
 
-    public CellPhone(String name, float price, String itemDesc, int category, int condition,float shippingPrice,int numOfItemsToBuy, UploadedFile uploadedFile, int numOfItems,
+    public CellPhone(String name, float price, String itemDesc, int category, int condition, float shippingPrice, int numOfItemsToBuy, Part uploadedFile, int numOfItems,
                      double screenSize, int ram, int brand, String model, int memoryCardType, int os, int storage, int batteryCapacity) {
         super(name, price, itemDesc, category, condition,shippingPrice, uploadedFile, numOfItems,numOfItemsToBuy);
         this.screenSize = screenSize;
