@@ -3,6 +3,7 @@ package Controller.Lists;
 import DAO.Lists.ShoppingCartDBUtils;
 import ModelManagedBeans.Items.Item;
 import ModelManagedBeans.Lists.ShoppingCart;
+import Utils.SessionUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,6 +30,9 @@ public class ShoppingCartController implements Serializable{
 
     private static final String SHOPPING_CART_REDIRECT =
             "/NewSadna_war_exploded/secured/shoppingCart.xhtml";
+
+    private static final String CHECKOUT_PAGE_REDIRECT =
+            "/NewSadna_war_exploded/secured/checkOutCart.xhtml";
 
     private ShoppingCartDBUtils shoppingCartDBUtils;
     @ManagedProperty(value = "#{shoppingCart}")
@@ -64,6 +68,15 @@ public class ShoppingCartController implements Serializable{
         try {
             this.shoppingCart.setShoppingCartItems(this.shoppingCartDBUtils.loadShoppingCart(email));
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void proceedToCheckOut(){
+        SessionUtils.getSession().setAttribute("cart",this.shoppingCart.getShoppingCartItems());
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect(CHECKOUT_PAGE_REDIRECT);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

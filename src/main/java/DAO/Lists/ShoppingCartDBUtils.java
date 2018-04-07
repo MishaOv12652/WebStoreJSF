@@ -25,7 +25,7 @@ public class ShoppingCartDBUtils {
         Connection connection = this.dbManager.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1,itemId);
-        preparedStatement.setInt(2, this.getShoppingCartIdByBuyerId(CommonUtils.getUserIdByEmail(email)));
+        preparedStatement.setInt(2, this.getShoppingCartIdByBuyerId(CommonUtils.getUserIdByEmail(email),connection));
         preparedStatement.setInt(3,numOfItemsToBuy);
         preparedStatement.execute();
         this.dbManager.Disconnect();
@@ -39,7 +39,7 @@ public class ShoppingCartDBUtils {
         Connection connection = this.dbManager.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1,itemId);
-        preparedStatement.setInt(2, this.getShoppingCartIdByBuyerId(CommonUtils.getUserIdByEmail(email)));
+        preparedStatement.setInt(2, this.getShoppingCartIdByBuyerId(CommonUtils.getUserIdByEmail(email),connection));
         preparedStatement.execute();
         this.dbManager.Disconnect();
     }
@@ -51,7 +51,7 @@ public class ShoppingCartDBUtils {
         this.dbManager.Connect();
         Connection con = this.dbManager.getConnection();
         PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        preparedStatement.setInt(1, this.getShoppingCartIdByBuyerId(CommonUtils.getUserIdByEmail(email)));
+        preparedStatement.setInt(1, this.getShoppingCartIdByBuyerId(CommonUtils.getUserIdByEmail(email),con));
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             itemsInCart.put(new Item(
@@ -77,10 +77,9 @@ public class ShoppingCartDBUtils {
         return itemsInCart;
     }
 
-    private int getShoppingCartIdByBuyerId(int buyerId){
+    protected int getShoppingCartIdByBuyerId(int buyerId,Connection connection){
         try {
-            Connection con = this.dbManager.getConnection();
-            Statement stmt = con.createStatement();
+            Statement stmt = connection.createStatement();
             String query = "SELECT id FROM dreamdb.shopping_carts WHERE buyer_id='" + buyerId+ "'";
             ResultSet rs = stmt.executeQuery(query);
             if (rs.next()) {

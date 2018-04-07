@@ -34,6 +34,7 @@
                                         url="http://vignette4.wikia.nocookie.net/harrypotter/images/e/e0/Chamber_of_secrets-cover.jpg/revision/latest?cb=20070328184517"/>
                     </p:column>
                     <p:column >
+                        <h:outputText style="font-size: 17px;" value="#{shoppingCartItem.key.name}"/>
                         <h:panelGrid columns="2" style="margin-left: 15px">
                             <h:outputLabel style="font-size: 17px" for="cat" value="Category:"/>
                             <h:outputText style="font-size: 17px" id="cat" value="#{shoppingCartItem.key.getConstValueByKey(shoppingCartItem.key.categories,shoppingCartItem.key.category)}"/>
@@ -98,7 +99,7 @@
                             </h:panelGrid>
                         </h:panelGrid>
                         <h:panelGrid columns="2">
-                            <h:commandButton styleClass="btn btn-primary" value="Procced To Checkout"/>
+                            <h:commandButton styleClass="btn btn-primary" value="Procced To Checkout" actionListener="#{shoppingCartController.proceedToCheckOut()}"/>
                             <h:button styleClass="btn btn-danger" value="Continue Shopping" outcome="/index.xhtml?faces-redirect=true"/>
                         </h:panelGrid>
                     </h:panelGrid>
