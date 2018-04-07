@@ -2,6 +2,7 @@ package Controller;
 
 import DAO.UserDBUtils;
 import ModelManagedBeans.User;
+import Utils.RedirectHelper;
 import Utils.SessionUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,10 +23,6 @@ import java.sql.SQLException;
 @SessionScoped
 @ViewScoped
 public class UserController {
-    private static final String PROFILE_PAGE_REDIRECT =
-            "/NewSadna_war_exploded/secured/profile-personal-info.xhtml";
-    private static final String LOGOUT_PAGE_REDIRECT =
-            "/logout.xhtml?faces-redirect=true";
     private UserDBUtils userDBUtils;
 
 
@@ -44,7 +41,7 @@ public class UserController {
             SessionUtils.getSession().setAttribute("userEmail", user.getEmail());
             SessionUtils.getSession().setAttribute("userName",user.getFirstName());
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-            FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT);
+            RedirectHelper.redirectToProfileInfoPage();
         } catch (SQLException e) {
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Unsuccessful Registration", "Something Went Wrong On Registration"));
@@ -63,7 +60,7 @@ public class UserController {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful Login", "You Have Logged in Successfully"));
                 SessionUtils.getSession().setAttribute("userEmail", user.getEmail());
                 FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-                FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT);
+                RedirectHelper.redirectToProfileInfoPage();
             }else{
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Unsuccessful Login", "Something Went Wrong On Login"));
             }
@@ -91,7 +88,7 @@ public class UserController {
         httpSession.removeAttribute("userEmail");
         httpSession.removeAttribute("userName");
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/NewSadna_war_exploded/public/login.xhtml");
+            RedirectHelper.redirectToLogin();
         } catch (IOException e) {
             e.printStackTrace();
         }

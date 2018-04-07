@@ -3,6 +3,7 @@ package Controller.Lists;
 import DAO.Lists.CheckOutDBUtils;
 import ModelManagedBeans.Items.Item;
 import Utils.CommonUtils;
+import Utils.RedirectHelper;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,8 +27,8 @@ import java.util.Set;
 public class CheckOutController implements Serializable{
     private static DecimalFormat df2 = new DecimalFormat(".##");
     private CheckOutDBUtils checkOutDBUtils;
-    private static final String SHOPPING_CART_REDIRECT =
-            "/NewSadna_war_exploded/secured/shoppingCart.xhtml";
+//    private static final String SHOPPING_CART_REDIRECT =
+//            "/NewSadna_war_exploded/secured/shoppingCart.xhtml";
 
     public CheckOutController(){
         this.checkOutDBUtils = new CheckOutDBUtils();
@@ -60,7 +61,7 @@ public class CheckOutController implements Serializable{
 
         try {
             this.checkOutDBUtils.confirmPayment(items, CommonUtils.getUserIdByEmail(email));
-            FacesContext.getCurrentInstance().getExternalContext().redirect(SHOPPING_CART_REDIRECT);
+            RedirectHelper.redirectToShoppinCart();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }

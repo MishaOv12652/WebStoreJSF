@@ -3,6 +3,7 @@ package Controller.Lists;
 import DAO.Lists.ShoppingCartDBUtils;
 import ModelManagedBeans.Items.Item;
 import ModelManagedBeans.Lists.ShoppingCart;
+import Utils.RedirectHelper;
 import Utils.SessionUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,11 +29,11 @@ import java.util.Set;
 public class ShoppingCartController implements Serializable{
     private static DecimalFormat df2 = new DecimalFormat(".##");
 
-    private static final String SHOPPING_CART_REDIRECT =
-            "/NewSadna_war_exploded/secured/shoppingCart.xhtml";
-
-    private static final String CHECKOUT_PAGE_REDIRECT =
-            "/NewSadna_war_exploded/secured/checkOutCart.xhtml";
+//    private static final String SHOPPING_CART_REDIRECT =
+//            "/NewSadna_war_exploded/secured/shoppingCart.xhtml";
+//
+//    private static final String CHECKOUT_PAGE_REDIRECT =
+//            "/NewSadna_war_exploded/secured/checkOutCart.xhtml";
 
     private ShoppingCartDBUtils shoppingCartDBUtils;
     @ManagedProperty(value = "#{shoppingCart}")
@@ -46,7 +47,7 @@ public class ShoppingCartController implements Serializable{
     public void addItemToCart(String email, int itemId, int numOfItems) {
         try {
             this.shoppingCartDBUtils.addItemToCart(email, itemId, numOfItems);
-            FacesContext.getCurrentInstance().getExternalContext().redirect(SHOPPING_CART_REDIRECT);
+            RedirectHelper.redirectToShoppinCart();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
@@ -57,7 +58,7 @@ public class ShoppingCartController implements Serializable{
     public void removeItemFromCart(String email, Item item) {
         try {
             this.shoppingCartDBUtils.removeItemFromCart(email, item.getId());
-            FacesContext.getCurrentInstance().getExternalContext().redirect(SHOPPING_CART_REDIRECT);
+            RedirectHelper.redirectToShoppinCart();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
@@ -75,7 +76,7 @@ public class ShoppingCartController implements Serializable{
     public void proceedToCheckOut(){
         SessionUtils.getSession().setAttribute("cart",this.shoppingCart.getShoppingCartItems());
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect(CHECKOUT_PAGE_REDIRECT);
+            RedirectHelper.redirectToCheckOut();
         } catch (IOException e) {
             e.printStackTrace();
         }

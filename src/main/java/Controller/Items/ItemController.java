@@ -3,6 +3,7 @@ package Controller.Items;
 import DAO.Items.ItemDBUtils;
 import ModelManagedBeans.Items.Item;
 import Utils.CommonUtils;
+import Utils.RedirectHelper;
 import Utils.SessionUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,13 +42,6 @@ public class ItemController implements Serializable {
     private int category;
     private ArrayList<Item> searchResults;
 
-    private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
-            "/NewSadna_war_exploded/secured/profile-selling-items.xhtml?faces-redirect=true";
-    private static final String EDIT_ITEM_PAGE = "/secured/edit-item";
-    private static final String CHECKOUT_PAGE = "/secured/checkOut";
-    private static final String VIEW_ITEM_PAGE = "/public/item-view";
-    private static final String WISH_LIST_PAGE = "/NewSadna_war_exploded/secured/wishlist.xhtml";
-    private static final String SEARCH_RESULT_PAGE = "/NewSadna_war_exploded/public/searchResults.xhtml";
 
 
     public ItemController() {
@@ -115,11 +109,11 @@ public class ItemController implements Serializable {
             e.printStackTrace();
         }
         if (edit) {
-            return EDIT_ITEM_PAGE;
+            return RedirectHelper.EDIT_ITEM_PAGE;
         } else {
             SessionUtils.getSession().setAttribute("itemId", id);
             SessionUtils.getSession().setAttribute("sellerEmail", CommonUtils.getEmailByUserId(CommonUtils.getSellerIdByItemId(id)));
-            return VIEW_ITEM_PAGE;
+            return RedirectHelper.VIEW_ITEM_PAGE;
         }
 
     }
@@ -145,7 +139,7 @@ public class ItemController implements Serializable {
             }
             this.itemDBUtils.updateItemForSale(item);
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-            FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT_SELLING_LIST);
+            RedirectHelper.redirectToProfileSellingList();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
@@ -172,7 +166,7 @@ public class ItemController implements Serializable {
                     "The item " + item.getName() + " was added for sale"));
             item.setId(idOfItem);
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-            FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT_SELLING_LIST);
+            RedirectHelper.redirectToProfileSellingList();
         }
     }
 
@@ -185,7 +179,7 @@ public class ItemController implements Serializable {
         try {
             this.itemDBUtils.deleteItemForSale(id);
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-            FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT_SELLING_LIST);
+            RedirectHelper.redirectToProfileSellingList();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
@@ -216,7 +210,7 @@ public class ItemController implements Serializable {
         httpSession.setAttribute("searchInput", this.inputSearchString);
         httpSession.setAttribute("category", this.category);
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect(SEARCH_RESULT_PAGE);
+            RedirectHelper.redirectToSearchResults();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -238,14 +232,14 @@ public class ItemController implements Serializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return CHECKOUT_PAGE;
+        return RedirectHelper.CHECKOUT_PAGE;
     }
 
     public void confirmPayment(int numOfItemsBought) {
         String sellerEmail = (String) SessionUtils.getSession().getAttribute("sellerEmail");
         try {
             this.itemDBUtils.confirmPayment(sellerEmail, numOfItemsBought);
-            FacesContext.getCurrentInstance().getExternalContext().redirect(PROFILE_PAGE_REDIRECT_SELLING_LIST);
+            RedirectHelper.redirectToProfileSellingList();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
@@ -262,7 +256,7 @@ public class ItemController implements Serializable {
     public void addItemToWishList(String email, int itemId){
         try {
             this.itemDBUtils.addItemToWishList(email,itemId);
-            FacesContext.getCurrentInstance().getExternalContext().redirect(WISH_LIST_PAGE);
+            RedirectHelper.redirectToWishList();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
@@ -273,6 +267,16 @@ public class ItemController implements Serializable {
             this.itemDBUtils.removeItemFromWishList(itemId);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    protected String checkIfEdit(boolean edit,Integer itemId){
+        if(edit){
+            return RedirectHelper.EDIT_ITEM_PAGE;
+        }else{
+            SessionUtils.getSession().setAttribute("itemId",itemId);
+            SessionUtils.getSession().setAttribute("sellerEmail",CommonUtils.getEmailByUserId(CommonUtils.getSellerIdByItemId(itemId)));
+            return RedirectHelper.VIEW_ITEM_PAGE;
         }
     }
 

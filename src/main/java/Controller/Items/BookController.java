@@ -4,6 +4,7 @@ import DAO.Items.BookDBUtils;
 import ModelManagedBeans.Items.Book;
 import ModelManagedBeans.Items.Item;
 import Utils.CommonUtils;
+import Utils.RedirectHelper;
 import Utils.SessionUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,10 +33,6 @@ public class BookController extends ItemController implements Serializable {
 
     private Book book;
     private BookDBUtils bookDBUtils;
-    private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
-            "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";
-    private static final String EDIT_ITEM_PAGE = "/secured/edit-item";
-    private static final String VIEW_ITEM_PAGE = "/public/item-view";
 
     public BookController() {
         this.bookDBUtils = new BookDBUtils();
@@ -95,13 +92,7 @@ public class BookController extends ItemController implements Serializable {
                 e.printStackTrace();
             }
         }
-        if(edit){
-            return EDIT_ITEM_PAGE;
-        }else{
-            SessionUtils.getSession().setAttribute("itemId",itemId);
-            SessionUtils.getSession().setAttribute("sellerEmail",CommonUtils.getEmailByUserId(CommonUtils.getSellerIdByItemId(itemId)));
-            return VIEW_ITEM_PAGE;
-        }
+        return this.checkIfEdit(edit,itemId);
     }
 
     /**
