@@ -4,7 +4,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:p="http://java.sun.com/jsf/html">
+<f:metadata>
+    <f:event type="preRenderView" listener="#{shoppingCartController.loadCart(session.getAttribute('userEmail'))}"/>
+    <f:event type="preRenderView" listener="#{shoppingCartController.calculateShippingPrice}"/>
+    <f:event type="preRenderView" listener="#{shoppingCartController.calculatePriceWithoutShipping}"/>
+    <f:event type="preRenderView" listener="#{shoppingCartController.calculateTotal}"/>
+</f:metadata>
+
 <h:head>
     <title>Web Store - Shopping Cart</title>
     <link rel="shortcut icon" type="image/x-icon" href="../resources/imgs/dollar.png"/>
@@ -18,147 +26,86 @@
     </ui:insert>
     <div class="jumbotron">
         <h2 style="text-decoration: underline">Your Shopping Cart</h2>
-        <h:panelGrid columns="2">
-            <h:panelGrid bodyrows="2" styleClass="col-md-offset-2" border="1">
-                <h:panelGrid bodyrows="3" styleClass="item">
-                    <h:panelGrid columns="2">
-                        <h:outputLabel for="seller">Seller: </h:outputLabel>
-                        <h:outputText style="font-size: 15px" id="seller" value="JJ"/>
-                    </h:panelGrid>
-                    <h:panelGrid columns="4">
+        <h:form>
+            <h:panelGrid columns="2" >
+                <p:dataTable  var="shoppingCartItem" value="#{shoppingCartController.shoppingCart.shoppingCartItems.entrySet().toArray()}" styleClass="pull-left">
+                    <p:column>
                         <h:graphicImage styleClass="img"
                                         url="http://vignette4.wikia.nocookie.net/harrypotter/images/e/e0/Chamber_of_secrets-cover.jpg/revision/latest?cb=20070328184517"/>
-                        <h:panelGrid bodyrows="3" style="margin-left: 15px" columnClasses="name_column">
-                            <h:outputText style="font-size: 17px;" value="Harry Potter and the Chamber of Secrets"/>
-                            <h:panelGrid columns="2">
-                                <h:outputLabel style="font-size: 17px" for="cat" value="Categorie:"/>
-                                <h:outputText style="font-size: 17px" id="cat" value="Book"/>
-                            </h:panelGrid>
-                            <h:panelGrid columns="2">
-                                <h:outputLabel style="font-size: 17px" for="con" value="Condition"/>
-                                <h:outputText style="font-size: 17px" id="con" value="New"/>
-                            </h:panelGrid>
+                    </p:column>
+                    <p:column >
+                        <h:panelGrid columns="2" style="margin-left: 15px">
+                            <h:outputLabel style="font-size: 17px" for="cat" value="Category:"/>
+                            <h:outputText style="font-size: 17px" id="cat" value="#{shoppingCartItem.key.getConstValueByKey(shoppingCartItem.key.categories,shoppingCartItem.key.category)}"/>
                         </h:panelGrid>
-
-                        <h:panelGrid columns="2">
+                        <h:panelGrid columns="2" style="margin-left: 15px">
+                            <h:outputLabel style="font-size: 17px" for="con" value="Condition:"/>
+                            <h:outputText style="font-size: 17px" id="con" value="#{shoppingCartItem.key.getConstValueByKey(shoppingCartItem.key.conditions,shoppingCartItem.key.condition)}"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" style="margin-left: 15px">
                             <h:outputLabel for="qunt"
                                            style="margin-left: 15px;color: #0f0f0f">Quantity: </h:outputLabel>
-                            <h:outputText id="qunt" style="font-size: 17px" value="2"/>
+                            <h:outputText id="qunt" style="font-size: 17px" value="#{shoppingCartItem.value}"/>
                         </h:panelGrid>
-                        <h:panelGrid bodyrows="2" style="margin-left: 15px;text-align: center">
+                    </p:column>
+                    <p:column style="margin-left: 15px">
+                        <h:panelGrid columns="2" style="margin-left: 15px">
+                            <h:outputLabel for="price" value="Price:"/>
                             <h:panelGrid columns="2">
-                                <h:outputLabel for="price" value="Price:"/>
-                                <h:panelGrid columns="2">
-                                    <h:outputText id="price" style="font-size: 20px" value="50"/>
-                                    <i class="glyphicon glyphicon-usd"/>
-                                </h:panelGrid>
-                            </h:panelGrid>
-                            <h:panelGrid columns="2">
-                                <h:outputLabel for="shipping" value="Shipping:"/>
-                                <h:panelGrid columns="2">
-                                    <h:outputText id="shipping" style="font-size: 20px" value="50"/>
-                                    <i class="glyphicon glyphicon-usd"/>
-                                </h:panelGrid>
-                            </h:panelGrid>
-
-
-                        </h:panelGrid>
-                    </h:panelGrid>
-                    <h:commandButton styleClass="btn btn-primary col-md-offset-10" value="remove"/>
-                </h:panelGrid>
-
-                <h:panelGrid id="s_item" bodyrows="3" styleClass="item">
-                    <h:panelGrid columns="2">
-                        <h:outputLabel for="seller">Seller: </h:outputLabel>
-                        <h:outputText style="font-size: 15px" id="seller1" value="MO12652"/>
-                    </h:panelGrid>
-                    <h:panelGrid columns="4">
-                        <h:graphicImage styleClass="img"
-                                        url="https://images-eu.ssl-images-amazon.com/images/I/31xlYl2nVbL._SX300_QL70_.jpg"/>
-                        <h:panelGrid bodyrows="3" style="margin-left: 15px" columnClasses="name_column">
-                            <h:outputText style="font-size: 17px;" value="HP 15-AY019TU 15.6-inch Laptop"/>
-                            <h:panelGrid columns="2">
-                                <h:outputLabel style="font-size: 17px" for="cat1" value="Categorie:"/>
-                                <h:outputText style="font-size: 17px" id="cat1" value="Book"/>
-                            </h:panelGrid>
-                            <h:panelGrid columns="2">
-                                <h:outputLabel style="font-size: 17px" for="con1" value="Condition"/>
-                                <h:outputText style="font-size: 17px" id="con1" value="New"/>
+                                <h:outputText id="price" style="font-size: 20px" value="#{shoppingCartItem.key.price}"/>
+                                <i class="glyphicon glyphicon-usd"/>
                             </h:panelGrid>
                         </h:panelGrid>
+                        <h:panelGrid columns="2" style="margin-left: 15px">
+                            <h:outputLabel for="shipping" value="Shipping:"/>
+                            <h:panelGrid columns="2">
+                                <h:outputText id="shipping" style="font-size: 20px" value="#{shoppingCartItem.key.shippingPrice}"/>
+                                <i class="glyphicon glyphicon-usd"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </p:column>
+                    <p:column style="margin-left: 15px">
+                        <h:commandButton styleClass="btn btn-primary col-md-offset-1" value="remove"
+                                         action="#{shoppingCartController.removeItemFromCart(session.getAttribute('userEmail'),shoppingCartItem.key)}"/>
+                    </p:column>
+                </p:dataTable>
 
+                <h:panelGrid bodyrows="2" style="margin-left: 20px" styleClass="pull-right text-center">
+                    <h2>Cart Summery</h2>
+                    <h:panelGrid bodyrows="5" border="1">
                         <h:panelGrid columns="2">
-                            <h:outputLabel for="qunt1"
-                                           style="margin-left: 15px;color: #0f0f0f">Quantity: </h:outputLabel>
-                            <h:outputText id="qunt1" style="font-size: 17px" value="1"/>
-                        </h:panelGrid>
-                        <h:panelGrid bodyrows="2" style="margin-left: 15px;text-align: center">
+                            <h:outputLabel for="sub_total" value="Subtotal:"/>
+
                             <h:panelGrid columns="2">
-                                <h:outputLabel for="price1" value="Price:"/>
-                                <h:panelGrid columns="2">
-                                    <h:outputText id="price1" style="font-size: 20px" value="300"/>
-                                    <i class="glyphicon glyphicon-usd"/>
-                                </h:panelGrid>
+                                <h:outputText id="sub_total" value="#{shoppingCartController.shoppingCart.priceWithoutShipping}"/>
+                                <i class="glyphicon glyphicon-usd"/>
                             </h:panelGrid>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel for="sub_ship" value="Shipping:"/>
+
                             <h:panelGrid columns="2">
-                                <h:outputLabel for="shipping1" value="Shipping:"/>
-                                <h:panelGrid columns="2">
-                                    <h:outputText id="shipping1" style="font-size: 20px" value="100"/>
-                                    <i class="glyphicon glyphicon-usd"/>
-                                </h:panelGrid>
+                                <h:outputText id="sub_ship" value="#{shoppingCartController.shoppingCart.priceOfShipping}"/>
+                                <i class="glyphicon glyphicon-usd"/>
                             </h:panelGrid>
-
-
                         </h:panelGrid>
-                    </h:panelGrid>
-                    <h:commandButton styleClass="btn btn-primary col-md-offset-10" value="remove"/>
-                </h:panelGrid>
-            </h:panelGrid>
-
-            <h:panelGrid bodyrows="2" styleClass="col-md-offset-5 text-center">
-                <h2>Cart Summery</h2>
-                <h:panelGrid bodyrows="5" border="1">
-                    <h:panelGrid columns="2">
-                        <h:outputLabel for="sub_total" value="Subtotal:"/>
-
                         <h:panelGrid columns="2">
-                            <h:outputText id="sub_total" value="350"/>
-                            <i class="glyphicon glyphicon-usd"/>
-                        </h:panelGrid>
-                    </h:panelGrid>
-                    <h:panelGrid columns="2">
-                        <h:outputLabel for="sub_ship" value="Shipping:"/>
+                            <h:outputLabel for="total" value="Total:"/>
 
-                        <h:panelGrid columns="2">
-                            <h:outputText id="sub_ship" value="150"/>
-                            <i class="glyphicon glyphicon-usd"/>
+                            <h:panelGrid columns="2">
+                                <h:outputText id="total" value="#{shoppingCartController.shoppingCart.total}"/>
+                                <i class="glyphicon glyphicon-usd"/>
+                            </h:panelGrid>
                         </h:panelGrid>
-                    </h:panelGrid>
-                    <h:panelGrid columns="2">
-                        <h:outputLabel for="discount" value="Discount:"/>
-
                         <h:panelGrid columns="2">
-                            <h:outputText id="discount" value="0"/>
-                            <i class="glyphicon glyphicon-usd"/>
+                            <h:commandButton styleClass="btn btn-primary" value="Procced To Checkout"/>
+                            <h:commandButton styleClass="btn btn-danger" value="Continue Shopping"/>
                         </h:panelGrid>
-                    </h:panelGrid>
-                    <h:panelGrid columns="2">
-                        <h:outputLabel for="total" value="Total:"/>
-
-                        <h:panelGrid columns="2">
-                            <h:outputText id="total" value="500"/>
-                            <i class="glyphicon glyphicon-usd"/>
-                        </h:panelGrid>
-                    </h:panelGrid>
-                    <h:panelGrid columns="2">
-                        <h:commandButton styleClass="btn btn-primary" value="Procced To Checkout"/>
-                        <h:commandButton styleClass="btn btn-danger" value="Continue Shopping"/>
                     </h:panelGrid>
                 </h:panelGrid>
             </h:panelGrid>
-        </h:panelGrid>
+        </h:form>
 
     </div>
-
 </h:body>
 </html>

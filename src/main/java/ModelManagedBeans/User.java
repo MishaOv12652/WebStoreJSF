@@ -35,14 +35,14 @@ public class User {
     private int creditCardExpMonth;
     private int creditCardExpYear;
 
-    //const lists
+    //const Lists
     private Hashtable<Integer, String> cities;
     private Hashtable<Integer, String> creditCardCompanies;
 
     @PostConstruct
     public void init() {
-        this.cities = CommonUtils.getConstLists("dreambuy.city", "name");
-        this.creditCardCompanies = CommonUtils.getConstLists("dreambuy.credit_companies", "name");
+        this.cities = CommonUtils.getConstLists("dreamdb.city", "name");
+        this.creditCardCompanies = CommonUtils.getConstLists("dreamdb.credit_companies", "name");
         if(SessionUtils.getSession().getAttribute("userName")!=null){
             this.firstName = (String) SessionUtils.getSession().getAttribute("userName");
         }

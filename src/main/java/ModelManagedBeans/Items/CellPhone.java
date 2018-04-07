@@ -31,7 +31,7 @@ public class CellPhone extends Item {
     private int storage;
     private int batteryCapacity;
 
-    //const lists
+    //const Lists
     private Hashtable<Integer, String> brands;
     private Hashtable<Integer, String> colours;
     private Hashtable<Integer, String> osSys;
@@ -89,15 +89,15 @@ public class CellPhone extends Item {
     @PostConstruct
     public void init() {
         //get hash of brands options
-        this.brands = CommonUtils.getConstLists("dreambuy.cellphone_brands", "brand");
+        this.brands = CommonUtils.getConstLists("dreamdb.cellphone_brands", "brand");
         //get hash of colours options
-        this.colours = CommonUtils.getConstLists("dreambuy.colours", "colour");
+        this.colours = CommonUtils.getConstLists("dreamdb.colours", "colour");
         //get has of os options
-        this.osSys = CommonUtils.getConstLists("dreambuy.os_systems", "os");
+        this.osSys = CommonUtils.getConstLists("dreamdb.os_systems", "os");
         //get storage type - memory card type
-        this.storageTypes = CommonUtils.getConstLists("dreambuy.storage_type", "storage_type");
+        this.storageTypes = CommonUtils.getConstLists("dreamdb.storage_type", "storage_type");
         //get hash of storage capacity options
-        this.storageCaps = CommonUtils.getConstLists("dreambuy.storage_capacity", "capacity");
+        this.storageCaps = CommonUtils.getConstLists("dreamdb.storage_capacity", "capacity");
     }
 
     @Override

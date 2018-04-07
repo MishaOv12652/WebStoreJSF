@@ -65,13 +65,13 @@ public class ItemController implements Serializable {
             if (item.getBookSpecs() == null || item.getBookSpecs() == 0) {
                 item.setBookSpecs(null);
             }
-            if (item.getBookSpecs() == null || item.getMovieSpecs() == 0) {
+            if (item.getMovieSpecs() == null || item.getMovieSpecs() == 0) {
                 item.setMovieSpecs(null);
             }
-            if (item.getBookSpecs() == null || item.getCellSpecs() == 0) {
+            if (item.getCellSpecs() == null || item.getCellSpecs() == 0) {
                 item.setCellSpecs(null);
             }
-            if (item.getBookSpecs() == null || item.getCompSpecs() == 0) {
+            if (item.getCompSpecs() == null || item.getCompSpecs() == 0) {
                 item.setCompSpecs(null);
             }
             this.addItemForSale(item, email, this.itemDBUtils);
@@ -134,13 +134,13 @@ public class ItemController implements Serializable {
             if (item.getBookSpecs() == null || item.getBookSpecs() == 0) {
                 item.setBookSpecs(null);
             }
-            if (item.getBookSpecs() == null || item.getMovieSpecs() == 0) {
+            if (item.getMovieSpecs() == null || item.getMovieSpecs() == 0) {
                 item.setMovieSpecs(null);
             }
-            if (item.getBookSpecs() == null || item.getCellSpecs() == 0) {
+            if (item.getCellSpecs() == null || item.getCellSpecs() == 0) {
                 item.setCellSpecs(null);
             }
-            if (item.getBookSpecs() == null || item.getCompSpecs() == 0) {
+            if (item.getCompSpecs() == null || item.getCompSpecs() == 0) {
                 item.setCompSpecs(null);
             }
             this.itemDBUtils.updateItemForSale(item);

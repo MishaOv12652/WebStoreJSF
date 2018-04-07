@@ -31,7 +31,7 @@ public class ComputerDBUtils extends ItemDBUtils {
 
     private int addComputerSpecs(Computer computer) throws SQLException {
         Connection con = this.getDbManager().getConnection();
-        String sql = "INSERT INTO dreambuy.computer_specs(type, os, cpu,cpu_speed," +
+        String sql = "INSERT INTO dreamdb.computer_specs(type, os, cpu,cpu_speed," +
                 "ram,gpu,brand,screen_size,release_year,ssd,hdd,model) " + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
             PreparedStatement prpStmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -61,7 +61,7 @@ public class ComputerDBUtils extends ItemDBUtils {
 
     public Computer loadComputerForSale(Integer id) throws SQLException {
         this.getDbManager().Connect();
-        String sql = "SELECT * FROM dreambuy.computer_specs where id = ?";
+        String sql = "SELECT * FROM dreamdb.computer_specs where id = ?";
         Connection connection = this.getDbManager().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1,id);
@@ -81,11 +81,11 @@ public class ComputerDBUtils extends ItemDBUtils {
                     resultSet.getInt("release_year"),
                     resultSet.getInt("hdd"),
                     resultSet.getInt("ssd"),
-                    CommonUtils.getConstLists("dreambuy.os_systems", "os"),
-                    CommonUtils.getConstLists("dreambuy.cpu_list", "cpu"),
-                    CommonUtils.getConstLists("dreambuy.gpu_list", "gpu"),
-                    CommonUtils.getConstLists("dreambuy.storage_capacity", "capacity"),
-                    CommonUtils.getConstLists("dreambuy.cellphone_brands", "brand")
+                    CommonUtils.getConstLists("dreamdb.os_systems", "os"),
+                    CommonUtils.getConstLists("dreamdb.cpu_list", "cpu"),
+                    CommonUtils.getConstLists("dreamdb.gpu_list", "gpu"),
+                    CommonUtils.getConstLists("dreamdb.storage_capacity", "capacity"),
+                    CommonUtils.getConstLists("dreamdb.cellphone_brands", "brand")
             );
             this.getDbManager().Disconnect();
             return computer;
@@ -96,7 +96,7 @@ public class ComputerDBUtils extends ItemDBUtils {
 
     public void updateCOmputerSpecs(Computer computer) throws SQLException {
         this.getDbManager().Connect();
-        String sql = "UPDATE dreambuy.computer_specs SET type=?, os=?, cpu=?,cpu_speed=?," +
+        String sql = "UPDATE dreamdb.computer_specs SET type=?, os=?, cpu=?,cpu_speed=?," +
                 "ram=?,gpu=?,brand=?,screen_size=?,release_year=?,ssd=?,hdd=?,model=? WHERE id=?";
         Connection connection = this.getDbManager().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -119,7 +119,7 @@ public class ComputerDBUtils extends ItemDBUtils {
 
     public void deleteComputerForSale(Integer id) throws SQLException {
         this.getDbManager().Connect();
-        String sql = "DELETE FROM dreambuy.computer_specs WHERE id=?";
+        String sql = "DELETE FROM dreamdb.computer_specs WHERE id=?";
         Connection connection = this.getDbManager().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1,id);

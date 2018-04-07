@@ -46,8 +46,8 @@ public class ProfileController implements Serializable {
      * loads consts of the profile - for getting the string value
      */
     public void loadConsts(){
-        this.cities = CommonUtils.getConstLists("dreambuy.city", "name");
-        this.creditCardCompanies = CommonUtils.getConstLists("dreambuy.credit_companies", "name");
+        this.cities = CommonUtils.getConstLists("dreamdb.city", "name");
+        this.creditCardCompanies = CommonUtils.getConstLists("dreamdb.credit_companies", "name");
     }
 
     /**
