@@ -25,7 +25,7 @@ public class ProfileDBUtils {
      * @throws SQLException -
      */
     public User loadProfileInfo(String email) throws SQLException {
-        String query = "SELECT * FROM dreambuy.user WHERE email=?";
+        String query = "SELECT * FROM dreamdb.account WHERE email=?";
         this.dbManager.Connect();
         try {
             Connection con = this.dbManager.getConnection();
@@ -62,7 +62,7 @@ public class ProfileDBUtils {
      * @throws SQLException -
      */
     public void updateProfileInfo(User user) throws SQLException{
-        String sql = "UPDATE dreambuy.user SET f_name=?, l_name = ?, email = ?, phone_number=?, password = ?" +
+        String sql = "UPDATE dreamdb.account SET f_name=?, l_name = ?, email = ?, phone_number=?, password = ?" +
                 ",address = ?,city = ?,zip = ?,credit_card_number = ?,credit_card_exp = ?,credit_card_comp = ? WHERE email =?";
         this.dbManager.Connect();
         try{

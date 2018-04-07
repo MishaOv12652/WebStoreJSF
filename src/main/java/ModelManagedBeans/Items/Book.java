@@ -25,7 +25,7 @@ public class Book extends Item implements Serializable {
     private String series;
     private int ageLvl;
 
-    //const lists
+    //const Lists
     private Hashtable<Integer, String> authors;
     private Hashtable<Integer, String> genres;
     private Hashtable<Integer, String> ageLevels;
@@ -63,11 +63,11 @@ public class Book extends Item implements Serializable {
     @PostConstruct
     public void init() {
         //get author hash from db
-        this.authors = CommonUtils.getConstLists("dreambuy.known_authers", "auther_name");
+        this.authors = CommonUtils.getConstLists("dreamdb.known_authers", "auther_name");
         //get genres hash from db
-        this.genres = CommonUtils.getConstLists("dreambuy.genres", "genre");
+        this.genres = CommonUtils.getConstLists("dreamdb.genres", "genre");
         //get ageLvl hash from db
-        this.ageLevels = CommonUtils.getConstLists("dreambuy.age_lvl", "age_lvl");
+        this.ageLevels = CommonUtils.getConstLists("dreamdb.age_lvl", "age_lvl");
     }
 
     @Override

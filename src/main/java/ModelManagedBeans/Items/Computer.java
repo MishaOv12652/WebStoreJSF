@@ -33,7 +33,7 @@ public class Computer extends Item implements Serializable {
     private int hdd;
     private int ssd;
 
-    //const lists
+    //const Lists
     private Hashtable<Integer, String> osSys;
     private Hashtable<Integer, String> cpuList;
     private Hashtable<Integer, String> gpuList;
@@ -104,15 +104,15 @@ public class Computer extends Item implements Serializable {
     @PostConstruct
     public void init() {
         //get os const list
-        this.osSys = CommonUtils.getConstLists("dreambuy.os_systems", "os");
+        this.osSys = CommonUtils.getConstLists("dreamdb.os_systems", "os");
         //get cpu const list
-        this.cpuList = CommonUtils.getConstLists("dreambuy.cpu_list", "cpu");
+        this.cpuList = CommonUtils.getConstLists("dreamdb.cpu_list", "cpu");
         //get gpu const list
-        this.gpuList = CommonUtils.getConstLists("dreambuy.gpu_list", "gpu");
+        this.gpuList = CommonUtils.getConstLists("dreamdb.gpu_list", "gpu");
         //get storage capacity  const list
-        this.storageCaps = CommonUtils.getConstLists("dreambuy.storage_capacity", "capacity");
+        this.storageCaps = CommonUtils.getConstLists("dreamdb.storage_capacity", "capacity");
         //get brand cont list
-        this.brandList = CommonUtils.getConstLists("dreambuy.cellphone_brands", "brand");
+        this.brandList = CommonUtils.getConstLists("dreamdb.cellphone_brands", "brand");
     }
 
     @Override

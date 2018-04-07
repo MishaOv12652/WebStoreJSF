@@ -96,8 +96,8 @@ public class Item implements Serializable {
 
     @PostConstruct
     public void init() {
-        this.categories = CommonUtils.getConstLists("dreambuy.categories", "category_name");
-        this.conditions = CommonUtils.getConstLists("dreambuy.product_condition", "condition");
+        this.categories = CommonUtils.getConstLists("dreamdb.categories", "category_name");
+        this.conditions = CommonUtils.getConstLists("dreamdb.product_condition", "condition");
         this.category = 5;
     }
 

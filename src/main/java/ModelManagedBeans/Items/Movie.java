@@ -27,7 +27,7 @@ public class Movie extends Item implements Serializable {
     private int ageLvl;
     private int genre;
 
-    //const lists
+    //const Lists
     private Hashtable<Integer, String> directors;
     private Hashtable<Integer, String> knownActors;
     private Hashtable<Integer, String> ageLvls;
@@ -75,13 +75,13 @@ public class Movie extends Item implements Serializable {
     @PostConstruct
     public void init() {
         //get directors hash from db
-        this.directors = CommonUtils.getConstLists("dreambuy.directors", "name");
+        this.directors = CommonUtils.getConstLists("dreamdb.directors", "name");
         //get knownActor hash from
-        this.knownActors = CommonUtils.getConstLists("dreambuy.actors", "name");
+        this.knownActors = CommonUtils.getConstLists("dreamdb.actors", "name");
         //get ageLvl hash from db
-        this.ageLvls = CommonUtils.getConstLists("dreambuy.age_lvl", "age_lvl");
+        this.ageLvls = CommonUtils.getConstLists("dreamdb.age_lvl", "age_lvl");
         //get genres hash from db
-        this.genres = CommonUtils.getConstLists("dreambuy.genres", "genre");
+        this.genres = CommonUtils.getConstLists("dreamdb.genres", "genre");
     }
 
     @Override

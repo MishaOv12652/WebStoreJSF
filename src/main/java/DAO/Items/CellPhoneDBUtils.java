@@ -32,7 +32,7 @@ public class CellPhoneDBUtils extends ItemDBUtils {
     private int addCellPhoneSpecs(CellPhone cellPhone) throws SQLException {
         this.getDbManager().Connect();
 
-        String sql = "INSERT INTO dreambuy.cellphone_specs(screen_size, model, ram,brand," +
+        String sql = "INSERT INTO dreamdb.cellphone_specs(screen_size, model, ram,brand," +
                 "mem_card_type,os,storage,battery_cap) " + "VALUES (?,?,?,?,?,?,?,?)";
 
             Connection con = this.getDbManager().getConnection();
@@ -57,7 +57,7 @@ public class CellPhoneDBUtils extends ItemDBUtils {
 
     public CellPhone loadCellPhoneForSale(Integer id) throws SQLException {
         this.getDbManager().Connect();
-        String sql = "SELECT * FROM dreambuy.cellphone_specs where id = ?";
+        String sql = "SELECT * FROM dreamdb.cellphone_specs where id = ?";
         Connection connection = this.getDbManager().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1,id);
@@ -73,10 +73,10 @@ public class CellPhoneDBUtils extends ItemDBUtils {
                     resultSet.getInt("os"),
                     resultSet.getInt("storage"),
                     resultSet.getInt("battery_cap"),
-                    CommonUtils.getConstLists("dreambuy.cellphone_brands", "brand"),
-                    CommonUtils.getConstLists("dreambuy.os_systems", "os"),
-                    CommonUtils.getConstLists("dreambuy.storage_type", "storage_type"),
-                    CommonUtils.getConstLists("dreambuy.storage_capacity", "capacity")
+                    CommonUtils.getConstLists("dreamdb.cellphone_brands", "brand"),
+                    CommonUtils.getConstLists("dreamdb.os_systems", "os"),
+                    CommonUtils.getConstLists("dreamdb.storage_type", "storage_type"),
+                    CommonUtils.getConstLists("dreamdb.storage_capacity", "capacity")
             );
             this.getDbManager().Disconnect();
             return cellPhone;
@@ -87,7 +87,7 @@ public class CellPhoneDBUtils extends ItemDBUtils {
 
     public void updateCellPhoneSpecs(CellPhone cellPhone) throws SQLException {
         this.getDbManager().Connect();
-        String sql = "UPDATE dreambuy.cellphone_specs SET screen_size=?, model=?, ram=?,brand=?," +
+        String sql = "UPDATE dreamdb.cellphone_specs SET screen_size=?, model=?, ram=?,brand=?," +
                 "mem_card_type=?,os=?,storage=?,battery_cap=? WHERE id=?";
         Connection connection = this.getDbManager().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -106,7 +106,7 @@ public class CellPhoneDBUtils extends ItemDBUtils {
 
     public void deleteCellPhoneForSale(Integer id) throws SQLException {
         this.getDbManager().Connect();
-        String sql = "DELETE FROM dreambuy.cellphone_specs WHERE id=?";
+        String sql = "DELETE FROM dreamdb.cellphone_specs WHERE id=?";
         Connection connection = this.getDbManager().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1,id);

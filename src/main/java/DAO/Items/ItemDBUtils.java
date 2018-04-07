@@ -54,7 +54,7 @@ public class ItemDBUtils {
      */
     public ArrayList<Item> loadItemListForSale(String email) throws SQLException {
         ArrayList<Item> arrayOfItems = new ArrayList<>();
-        String query = "SELECT * FROM dreambuy.products WHERE seller_id = ?";
+        String query = "SELECT * FROM dreamdb.products WHERE seller_id = ?";
         this.dbManager.Connect();
         Connection con = this.dbManager.getConnection();
         PreparedStatement preparedStatement = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -88,7 +88,7 @@ public class ItemDBUtils {
      * @throws SQLException
      */
     public Item loadItemForSale(int id) throws SQLException {
-        String query = "SELECT * FROM dreambuy.products WHERE id = ?";
+        String query = "SELECT * FROM dreamdb.products WHERE id = ?";
         this.dbManager.Connect();
         Connection con = this.dbManager.getConnection();
         PreparedStatement preparedStatement = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -110,8 +110,8 @@ public class ItemDBUtils {
                     resultSet.getInt("movie_spec_id"),
                     resultSet.getInt("cellphone_spec_id"),
                     resultSet.getInt("computer_spec_id"),
-                    CommonUtils.getConstLists("dreambuy.product_condition", "condition"),
-                    CommonUtils.getConstLists("dreambuy.categories", "category_name")
+                    CommonUtils.getConstLists("dreamdb.product_condition", "condition"),
+                    CommonUtils.getConstLists("dreamdb.categories", "category_name")
             );
             this.dbManager.Disconnect();
             return item;
@@ -122,7 +122,7 @@ public class ItemDBUtils {
     }
 
     protected int addItemForSale(Item item, int idOfUser, Connection con) throws SQLException {
-        String sql = "INSERT INTO dreambuy.products(name, price, item_desc, category, condition_id, seller_id,numOfItems,book_spec_id,cellphone_spec_id,computer_spec_id,movie_spec_id,shippingPrice)" +
+        String sql = "INSERT INTO dreamdb.products(name, price, item_desc, category, condition_id, seller_id,numOfItems,book_spec_id,cellphone_spec_id,computer_spec_id,movie_spec_id,shippingPrice)" +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -153,7 +153,7 @@ public class ItemDBUtils {
     }
 
     protected void updateItemForSale(Item item, Connection connection) throws SQLException {
-        String sql = "UPDATE dreambuy.products SET name=?, price=?, item_desc=?, category=?, condition_id=?," +
+        String sql = "UPDATE dreamdb.products SET name=?, price=?, item_desc=?, category=?, condition_id=?," +
                 "numOfItems=?,book_spec_id=?,cellphone_spec_id=?,computer_spec_id=?,movie_spec_id=?,shippingPrice=? WHERE id=?";
         PreparedStatement stmt = connection.prepareStatement(sql);
         stmt.setString(1, item.getName());
@@ -174,7 +174,7 @@ public class ItemDBUtils {
     }
 
     public void deleteItemForSale(Integer id) throws SQLException {
-        String sql = "DELETE FROM dreambuy.products WHERE id=?";
+        String sql = "DELETE FROM dreamdb.products WHERE id=?";
         this.dbManager.Connect();
         Connection connection = this.dbManager.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -185,7 +185,7 @@ public class ItemDBUtils {
 
     public ArrayList<Item> searchForItemsToBuy(String inputSearchString, Integer id, int category) throws SQLException {
         ArrayList<Item> arrayList = new ArrayList<>();
-        String sql = "SELECT * FROM dreambuy.products WHERE name LIKE ? AND seller_id <> ? AND category = ?";
+        String sql = "SELECT * FROM dreamdb.products WHERE name LIKE ? AND seller_id <> ? AND category = ?";
         this.dbManager.Connect();
         Connection connection = this.dbManager.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -209,8 +209,8 @@ public class ItemDBUtils {
                     resultSet.getInt("movie_spec_id"),
                     resultSet.getInt("cellphone_spec_id"),
                     resultSet.getInt("computer_spec_id"),
-                    CommonUtils.getConstLists("dreambuy.product_condition", "condition"),
-                    CommonUtils.getConstLists("dreambuy.categories", "category_name")
+                    CommonUtils.getConstLists("dreamdb.product_condition", "condition"),
+                    CommonUtils.getConstLists("dreamdb.categories", "category_name")
             ));
         }
         this.dbManager.Disconnect();
@@ -219,7 +219,7 @@ public class ItemDBUtils {
 
     public void confirmPayment(String sellerEmail,int numOfItemsBought) throws SQLException {
 
-        String sql = "UPDATE dreambuy.products SET numOfItems=numOfItems-? WHERE seller_id=?";
+        String sql = "UPDATE dreamdb.products SET numOfItems=numOfItems-? WHERE seller_id=?";
         this.dbManager.Connect();
         Connection connection = this.dbManager.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -231,10 +231,10 @@ public class ItemDBUtils {
 
     public ArrayList<Item> loadWishList(String email) throws SQLException {
         ArrayList<Item> arrayOfItems = new ArrayList<>();
-//        String query = "SELECT * FROM dreambuy.wish_lists_products AS wishProducts" +
-//                " JOIN dreambuy.products AS allProducts WHERE allProducts.seller_id = ?" +
+//        String query = "SELECT * FROM dreamdb.wish_lists_products AS wishProducts" +
+//                " JOIN dreamdb.products AS allProducts WHERE allProducts.seller_id = ?" +
 //                " AND wishProducts.wish_list_id = ?";
-        String sql = "SELECT * FROM dreambuy.products AS allP INNER JOIN dreambuy.wish_lists_products AS" +
+        String sql = "SELECT * FROM dreamdb.products AS allP INNER JOIN dreamdb.wish_list_products AS" +
                 " wishP ON allP.id=wishP.product_id WHERE wishP.wish_list_id=?";
         this.dbManager.Connect();
         Connection con = this.dbManager.getConnection();
@@ -258,27 +258,26 @@ public class ItemDBUtils {
                     resultSet.getInt("movie_spec_id"),
                     resultSet.getInt("cellphone_spec_id"),
                     resultSet.getInt("computer_spec_id"),
-                    CommonUtils.getConstLists("dreambuy.product_condition", "condition"),
-                    CommonUtils.getConstLists("dreambuy.categories", "category_name")
+                    CommonUtils.getConstLists("dreamdb.product_condition", "condition"),
+                    CommonUtils.getConstLists("dreamdb.categories", "category_name")
             ));
         }
         return arrayOfItems;
     }
 
     public void addItemToWishList(String email,int itemId) throws SQLException {
-        String sql = "INSERT INTO dreambuy.wish_lists_products SET buyer_id=?,wish_list_id=?,product_id=?";
+        String sql = "INSERT INTO dreamdb.wish_list_products SET wish_list_id=?,product_id=?";
         this.dbManager.Connect();
         Connection connection = this.dbManager.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1,CommonUtils.getUserIdByEmail(email));
-        preparedStatement.setInt(2,CommonUtils.getWishListIdByBuyerId(CommonUtils.getUserIdByEmail(email)));
-        preparedStatement.setInt(3,itemId);
+        preparedStatement.setInt(1,CommonUtils.getWishListIdByBuyerId(CommonUtils.getUserIdByEmail(email)));
+        preparedStatement.setInt(2,itemId);
         preparedStatement.execute();
         this.dbManager.Disconnect();
     }
 
     public void removeItemFromWishList(int itemId) throws SQLException {
-        String sql = "DELETE FROM dreambuy.wish_lists_products WHERE product_id=?";
+        String sql = "DELETE FROM dreamdb.wish_list_products WHERE product_id=?";
         this.dbManager.Connect();
         Connection connection = this.dbManager.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);

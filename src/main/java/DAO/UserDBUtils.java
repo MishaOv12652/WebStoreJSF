@@ -29,7 +29,7 @@ public class UserDBUtils {
         this.dbManager.Connect();
         Connection con = this.dbManager.getConnection();
         try {
-            String sql = "INSERT INTO dreambuy.user(f_name, l_name, email, password, city, address, credit_card_number, credit_card_comp, credit_card_exp, phone_number, zip) " +
+            String sql = "INSERT INTO dreamdb.account(f_name, l_name, email, password, city, address, credit_card_number, credit_card_comp, credit_card_exp, phone_number, zip) " +
                     "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement prepStmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             prepStmt.setString(1, user.getFirstName());
@@ -47,14 +47,19 @@ public class UserDBUtils {
             ResultSet generatedKey = prepStmt.getGeneratedKeys();
             if(generatedKey.next()){
                 int buyerId = generatedKey.getInt(1);//also seller id
-                String sqlToAddBuyerId ="UPDATE dreambuy.user SET buyer_id=? WHERE id=?";
+                String sqlToAddBuyerId ="UPDATE dreamdb.account SET buyer_id=? WHERE id=?";
                 PreparedStatement preparedStatement = con.prepareStatement(sqlToAddBuyerId);
                 preparedStatement.setInt(1,buyerId);
                 preparedStatement.setInt(2,buyerId);
                 preparedStatement.execute();
 
-                String wishList = "INSERT INTO dreambuy.wish_lists SET buyer_id=?";
+                String wishList = "INSERT INTO dreamdb.wish_lists SET buyer_id=?";
                 PreparedStatement prepStmtWishList = con.prepareStatement(wishList);
+                prepStmtWishList.setInt(1,buyerId);
+                prepStmtWishList.execute();
+
+                 wishList = "INSERT INTO dreamdb.shopping_carts SET buyer_id=?";
+                 prepStmtWishList = con.prepareStatement(wishList);
                 prepStmtWishList.setInt(1,buyerId);
                 prepStmtWishList.execute();
             }
@@ -76,7 +81,7 @@ public class UserDBUtils {
         this.dbManager.Connect();
         Connection con = this.dbManager.getConnection();
         try{
-            String query = "SELECT password,f_name FROM dreambuy.user WHERE email=?";
+            String query = "SELECT password,f_name FROM dreamdb.account WHERE email=?";
             PreparedStatement stmt = con.prepareStatement(query);
             stmt.setString(1, user.getEmail());
             ResultSet res = stmt.executeQuery();

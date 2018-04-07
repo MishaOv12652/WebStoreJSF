@@ -23,7 +23,7 @@ public class BookDBUtils extends ItemDBUtils {
 
     public Book loadBooksForSale(Integer id) throws SQLException {
         this.getDbManager().Connect();
-        String sql = "SELECT * FROM dreambuy.books_specs WHERE id = ?";
+        String sql = "SELECT * FROM dreamdb.books_specs WHERE id = ?";
         Connection connection = this.getDbManager().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, id);
@@ -35,9 +35,9 @@ public class BookDBUtils extends ItemDBUtils {
                     resultSet.getInt("genre"),
                     resultSet.getString("series"),
                     resultSet.getInt("age_lvl"),
-                    CommonUtils.getConstLists("dreambuy.known_authers", "auther_name"),
-                    CommonUtils.getConstLists("dreambuy.genres", "genre"),
-                    CommonUtils.getConstLists("dreambuy.age_lvl", "age_lvl")
+                    CommonUtils.getConstLists("dreamdb.known_authers", "auther_name"),
+                    CommonUtils.getConstLists("dreamdb.genres", "genre"),
+                    CommonUtils.getConstLists("dreamdb.age_lvl", "age_lvl")
             );
             this.getDbManager().Disconnect();
             return book;
@@ -56,7 +56,7 @@ public class BookDBUtils extends ItemDBUtils {
 
     public void updateBookSpecs(Book book) throws SQLException {
         this.getDbManager().Connect();
-        String sql = "UPDATE dreambuy.books_specs SET genre=?, series=?, age_lvl=?, author=? WHERE id=?";
+        String sql = "UPDATE dreamdb.books_specs SET genre=?, series=?, age_lvl=?, author=? WHERE id=?";
         Connection connection = this.getDbManager().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, book.getGenre());
@@ -70,7 +70,7 @@ public class BookDBUtils extends ItemDBUtils {
 
     public void deleteBookForSale(Integer id) throws SQLException {
         this.getDbManager().Connect();
-        String sql = "DELETE FROM dreambuy.books_specs WHERE id=?";
+        String sql = "DELETE FROM dreamdb.books_specs WHERE id=?";
         Connection connection = this.getDbManager().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1,id);
@@ -80,7 +80,7 @@ public class BookDBUtils extends ItemDBUtils {
 
     private int addBookSpecs(Book book) throws SQLException {
         this.getDbManager().Connect();
-        String sql = "INSERT INTO dreambuy.books_specs(genre, series, age_lvl, author) " +
+        String sql = "INSERT INTO dreamdb.books_specs(genre, series, age_lvl, author) " +
                 "VALUES (?,?,?,?)";
         Connection connection = this.getDbManager().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
