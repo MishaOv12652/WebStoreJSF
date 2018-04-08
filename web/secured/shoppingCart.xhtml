@@ -5,7 +5,10 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:p="http://java.sun.com/jsf/html">
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:p="http://java.sun.com/jsf/html">
 <f:metadata>
     <f:event type="preRenderView" listener="#{shoppingCartController.loadCart(session.getAttribute('userEmail'))}"/>
     <f:event type="preRenderView" listener="#{shoppingCartController.calculateShippingPrice}"/>
@@ -30,7 +33,7 @@
             <h:panelGrid columns="2" >
                 <p:dataTable  var="shoppingCartItem" value="#{shoppingCartController.shoppingCart.shoppingCartItems.entrySet().toArray()}" styleClass="pull-left">
                     <p:column>
-                        <p:graphicImage  styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(shoppingCartItem.key.id)}"/>
+                        <o:graphicImage styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(shoppingCartItem.key.id)}" dataURI="true" />
                     </p:column>
                     <p:column >
                         <h:outputText style="font-size: 17px;" value="#{shoppingCartItem.key.name}"/>

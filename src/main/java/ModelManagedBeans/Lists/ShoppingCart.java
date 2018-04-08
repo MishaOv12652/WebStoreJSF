@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
 import java.util.Hashtable;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Hashtable;
 @Setter
 @ManagedBean
 @SessionScoped
-public class ShoppingCart {
+public class ShoppingCart implements Serializable{
     private Hashtable<Item,Integer> shoppingCartItems;
     private double priceWithoutShipping;
     private double priceOfShipping;

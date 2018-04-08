@@ -6,7 +6,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui"
-
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
 >
@@ -122,8 +123,7 @@
                     <p:panelGrid id="other" columns="2" columnClasses="label,value" style="width:300px"
                                  rendered="#{itemsForSale.category eq 5}">
                         <f:facet name="header">
-                            <!--<h:outputText value="#{itemsForSale.name}"/>-->
-                            <p:graphicImage rendered="#{itemsForSale.category eq 5}" styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}"/>
+                            <o:graphicImage styleClass="thumbnail img" rendered="#{itemsForSale.category eq 5}" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}" dataURI="true" />
                         </f:facet>
                     </p:panelGrid>
 
@@ -132,8 +132,7 @@
                                  value="#{movieController.loadMovieForSale(itemsForSale.movieSpecs)}"
                                  var="movieForsale">
                         <f:facet name="header">
-                            <!--<h:outputText value="#{itemsForSale.name}"/>-->
-                            <p:graphicImage styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}"/>
+                            <o:graphicImage styleClass="thumbnail img" rendered="#{itemsForSale.category eq 4}" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}" dataURI="true" />
                         </f:facet>
 
 
@@ -175,8 +174,7 @@
                                  var="computerForSale">
 
                         <f:facet name="header">
-                            <!--<h:outputText value="#{itemsForSale.name}"/>-->
-                            <p:graphicImage styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}"/>
+                            <o:graphicImage styleClass="thumbnail img" rendered="#{itemsForSale.category eq 3}" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}" dataURI="true" />
                         </f:facet>
 
 
@@ -242,8 +240,7 @@
                                  var="cellPhoneForSale">
 
                         <f:facet name="header">
-                            <!--<h:outputText value="#{itemsForSale.name}"/>-->
-                            <p:graphicImage styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}"/>
+                            <o:graphicImage styleClass="thumbnail img" rendered="#{itemsForSale.category eq 2}" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}" dataURI="true" />
                         </f:facet>
 
                         <h:column>
@@ -293,8 +290,7 @@
                                  value="#{bookController.loadBookForSale(itemsForSale.bookSpecs)}"
                                  var="bookForsale">
                         <f:facet name="header">
-                            <!--<h:outputText value="#{itemsForSale.name}"/>-->
-                            <p:graphicImage  styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}"/>
+                            <o:graphicImage styleClass="thumbnail img" rendered="#{itemsForSale.category eq 1}" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}" dataURI="true" />
                         </f:facet>
 
                         <h:column>

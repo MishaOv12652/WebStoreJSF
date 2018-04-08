@@ -5,6 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
       xmlns:p="http://primefaces.org/ui">
 
 <f:metadata>
@@ -36,7 +38,7 @@
             </div>
         </f:facet>
         <p:column>
-            <p:graphicImage  styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(wishListItem.id)}"/>
+            <o:graphicImage styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(wishListItem.id)}" dataURI="true" />
         </p:column>
         <p:column>
             <ul class="meta-search" style="margin-left: 15px">

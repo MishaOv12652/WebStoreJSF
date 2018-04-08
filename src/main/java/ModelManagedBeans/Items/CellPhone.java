@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.Part;
+import java.io.Serializable;
 import java.sql.Blob;
 import java.util.Hashtable;
 
@@ -20,7 +21,7 @@ import java.util.Hashtable;
 @SessionScoped
 @Getter
 @Setter
-public class CellPhone extends Item {
+public class CellPhone extends Item implements Serializable{
     private int id;
     private double screenSize;
     private int ram;

@@ -5,6 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
       xmlns:p="http://java.sun.com/jsf/html">
 <h:head>
     <title>Web Store - Checkout</title>
@@ -28,7 +30,7 @@
                             <h:outputText style="font-size: 15px" id="seller" value="#{session.getAttribute('sellerEmail')}"/>
                         </h:panelGrid>
                         <h:panelGrid columns="4">
-                            <p:graphicImage  styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(item.id)}"/>
+                            <o:graphicImage styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(item.id)}" dataURI="true" />
                             <h:panelGrid bodyrows="3" style="margin-left: 15px" columnClasses="name_column">
                                 <h:outputText style="font-size: 24px;" value="#{item.name}"/>
                                 <h:panelGrid columns="2">

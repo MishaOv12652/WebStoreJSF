@@ -6,9 +6,12 @@ import Utils.DBManager;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.io.FilenameUtils;
+import org.primefaces.model.StreamedContent;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -35,7 +38,7 @@ public class ItemDBUtils {
         return this.addItemForSale(item, idOfUser, this.dbManager.getConnection());
     }
 
-    public String loadImageOfItemByItemId(int itemId) throws SQLException {
+    public InputStream loadImageOfItemByItemId(int itemId) throws SQLException {
         String sql = "SELECT img FROM dreamdb.products WHERE id=?";
         this.dbManager.Connect();
         Connection connection = this.dbManager.getConnection();
@@ -43,7 +46,7 @@ public class ItemDBUtils {
         preparedStatement.setInt(1,itemId);
         ResultSet resultSet = preparedStatement.executeQuery();
         if(resultSet.next()){
-            return resultSet.getString("img");
+            return resultSet.getBlob("img").getBinaryStream();
         }
         return null;
 
@@ -137,8 +140,8 @@ public class ItemDBUtils {
     }
 
     protected int addItemForSale(Item item, int idOfUser, Connection con) throws SQLException {
-        String sql = "INSERT INTO dreamdb.products(name, price, item_desc, category, condition_id, seller_id,numOfItems,book_spec_id,cellphone_spec_id,computer_spec_id,movie_spec_id,shippingPrice)" +
-                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO dreamdb.products(name, price, item_desc, category, condition_id, seller_id,numOfItems,book_spec_id,cellphone_spec_id,computer_spec_id,movie_spec_id,shippingPrice,img)" +
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, item.getName());
@@ -154,24 +157,28 @@ public class ItemDBUtils {
             stmt.setObject(10, item.getCompSpecs());
             stmt.setObject(11, item.getMovieSpecs());
             stmt.setFloat(12, item.getShippingPrice());
+            stmt.setBlob(13,item.getImg().getInputStream());
             stmt.execute();
 
             ResultSet generatedKey = stmt.getGeneratedKeys();
             if (generatedKey.next()) {
                 int idOfItem = generatedKey.getInt(1);
-                sql = "UPDATE dreamdb.products SET img=? WHERE id=?";
-                String extension = FilenameUtils.getExtension(item.getImg().getSubmittedFileName());
-                stmt = con.prepareStatement(sql);
-                stmt.setString(1,"../resources/imageUploads/" + CommonUtils.getEmailByUserId(idOfUser) + "-" + idOfItem + "." + extension);
-                stmt.setInt(2,idOfItem);
-                stmt.execute();
+//                sql = "UPDATE dreamdb.products SET img=? WHERE id=?";
+//                String extension = FilenameUtils.getExtension(item.getImg().getSubmittedFileName());
+//                stmt = con.prepareStatement(sql);
+//                stmt.setString(1,"../resources/imageUploads/" + CommonUtils.getEmailByUserId(idOfUser) + "-" + idOfItem + "." + extension);
+//                stmt.setInt(2,idOfItem);
+//                stmt.execute();
                 return idOfItem;
             } else {
                 return -1;
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         } finally {
             this.dbManager.Disconnect();
         }
+        return -1;
     }
 
     protected void updateItemForSale(Item item, Connection connection) throws SQLException {

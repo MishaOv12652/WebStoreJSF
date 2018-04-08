@@ -10,6 +10,7 @@ import Utils.SessionUtils;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Hashtable;
 
 @Getter
@@ -19,7 +20,7 @@ import java.util.Hashtable;
  */
 @ManagedBean
 @SessionScoped
-public class User {
+public class User implements Serializable{
     private String firstName;
     private String lastName;
     private String email;
