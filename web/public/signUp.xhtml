@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 >
 <h:head>
     <title>Web Store - Sign Up</title>
@@ -139,7 +139,7 @@
                              requiredMessage="Enter Your Credit Card Number"
                              maxlength="12"
                              validatorMessage="Please Enter A valid Credit Card Number">
-                    <!--<f:validateRegex pattern="^(0|[1-9][0-9]*)$"/>-->
+                   <f:validateLongRange minimum="10000000" maximum="100000000000"/>
                 </h:inputText>
                 <p:growl for="creditNum" sticky="false" life="3000"/>
                 <br/><br/>

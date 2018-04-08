@@ -44,7 +44,6 @@
                         <h:selectOneMenu id="categories_item" value="#{item.category}">
                             <c:forEach items="#{item.categories.entrySet()}" var="category">
                                 <f:selectItem itemValue="#{category.key}" itemLabel="#{category.value}"/>
-                                <!--<f:ajax event="change" render="@form"/>-->
                                 <f:ajax event="change" render="form:product_specs form:buttons"/>
                             </c:forEach>
                         </h:selectOneMenu>
@@ -61,7 +60,7 @@
                                      required="true"
                                      requiredMessage="Please Enter The Products Name"
                         />
-                        <p:growl for="name" sticky="false" life="3000"/>
+                        <p:growl for="name" sticky="false" life="5000"/>
                     </h:outputLabel>
 
                 </h:panelGrid>
@@ -70,8 +69,11 @@
 
                     <h:outputLabel for="price" value="Price:">
 
-                        <h:inputText id="price" value="#{item.price}"/>
-
+                        <h:inputText id="price" value="#{item.price}"
+                                     required="true"
+                                     requiredMessage="Please Enter The Product's Price"
+                        />
+                        <p:growl for="price" sticky="false" life="5000"/>
                     </h:outputLabel>
 
                 </h:panelGrid>
@@ -80,7 +82,10 @@
 
                     <h:outputLabel for="shipPrice" value="Shipping Price:">
 
-                        <h:inputText id="shipPrice" value="#{item.shippingPrice}"/>
+                        <h:inputText id="shipPrice" value="#{item.shippingPrice}" required="true"
+                                     requiredMessage="Please Enter The Product's Shipping Price"
+                        />
+                        <p:growl for="shipPrice" sticky="false" life="5000"/>
 
                     </h:outputLabel>
 
@@ -106,7 +111,11 @@
 
                     <h:outputLabel for="photo" value="Photo:">
 
-                        <h:inputFile id="photo" styleClass="col-md-offset-2" value="#{item.img}" required="true"/>
+                        <h:inputFile id="photo" styleClass="col-md-offset-2" value="#{item.img}"
+                                     required="true"
+                                     requiredMessage="Please Upload a Photo For The Product"
+                        />
+                        <p:growl for="photo" sticky="false" life="5000"/>
 
                     </h:outputLabel>
 
@@ -116,7 +125,14 @@
 
                     <h:outputLabel for="numOfItems" value="Number Of Items You Want To Sell:">
 
-                        <h:inputText id="numOfItems" value="#{item.numOfItems}"/>
+                        <h:inputText id="numOfItems" value="#{item.numOfItems}"
+                                     required="true"
+                                     requiredMessage="Please Enter Number Of Items You Want To Sell"
+                        >
+                            <f:validateLongRange minimum="1"/>
+                        </h:inputText>
+
+                        <p:growl for="numOfItems" sticky="false" life="5000"/>
 
                     </h:outputLabel>
 
@@ -147,8 +163,12 @@
 
             <h2>Product Description:</h2>
 
-            <h:inputTextarea styleClass="col-md-offset-4" style="width: 600px;height: 250px"
-                             value="#{item.itemDesc}"/>
+            <h:inputTextarea id="itemDesc" styleClass="col-md-offset-4" style="width: 600px;height: 250px"
+                             value="#{item.itemDesc}" required="true"
+                             requiredMessage="Please Upload a Photo For The Product"
+            />
+            <p:growl for="itemDesc" sticky="false" life="5000"/>
+
             <h:panelGrid id="buttons" columns="2" class="row btn-group col-md-offset-5" style="margin-top: 100px;">
                 <h:button style="margin-top: 15px" styleClass="btn btn-danger pull-left" value="Back To Selling List"
                           outcome="profile-selling-items"/>
@@ -161,7 +181,7 @@
 
             </h:panelGrid>
 
-            <p:growl id="growl" showDetail="true" sticky="false" life="3000"/>
+            <p:growl id="growl" showDetail="true" sticky="false" life="5000"/>
         </h:form>
 
     </div>
