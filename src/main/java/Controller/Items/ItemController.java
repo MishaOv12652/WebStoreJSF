@@ -42,7 +42,7 @@ public class ItemController implements Serializable {
     private ItemDBUtils itemDBUtils;
 
     private ArrayList<Item> itemsForSale;
-    private ArrayList<Item> wishListItems;
+//    private ArrayList<Item> wishListItems;
 
     private String inputSearchString;
     private int category;
@@ -86,9 +86,7 @@ public class ItemController implements Serializable {
 
     public InputStream loadImageOfItemByItemId(int itemId){
         try {
-            //int id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("item_id"));
            return this.itemDBUtils.loadImageOfItemByItemId(itemId);
-            //return this.itemDBUtils.loadImageOfItemByItemId(itemId);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -169,14 +167,6 @@ public class ItemController implements Serializable {
         int idOfUser = CommonUtils.getUserIdByEmail(email);
 
         int idOfItem = itemDBUtils.addItemForSale(item, idOfUser);
-//        String extension = FilenameUtils.getExtension(item.getImg().getSubmittedFileName());
-//        String fileName = email + "-" + idOfItem + "." + extension;
-//        String uploadFolder = "C:\\Users\\Misha\\IdeaProjects\\DreamBuyAndSellProject\\web\\resources\\imageUploads\\";
-//
-//        try (InputStream inputStream = item.getImg().getInputStream()){
-//
-//            Files.copy(inputStream,new File(uploadFolder,fileName).toPath());
-//        }
         if (idOfItem == -1) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Item Wasn't Successfully added",
                     "The item " + item.getName() + " wasn't added for sale"));
@@ -265,30 +255,6 @@ public class ItemController implements Serializable {
         }
     }
 
-    public void loadWishList(String email) {
-        try {
-            this.wishListItems = this.itemDBUtils.loadWishList(email);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void addItemToWishList(String email, int itemId){
-        try {
-            this.itemDBUtils.addItemToWishList(email,itemId);
-            RedirectHelper.redirectToWishList();
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void removeItemFromWishList(int itemId){
-        try {
-            this.itemDBUtils.removeItemFromWishList(itemId);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     protected String checkIfEdit(boolean edit,Integer itemId){
         if(edit){

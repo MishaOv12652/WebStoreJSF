@@ -5,11 +5,9 @@ import Utils.CommonUtils;
 import Utils.DBManager;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.io.FilenameUtils;
-import org.primefaces.model.StreamedContent;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+import DAO.Lists.WishListDBUtils;
+import DAO.Lists.ShoppingCartDBUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
@@ -88,7 +86,6 @@ public class ItemDBUtils {
                     resultSet.getInt("condition_id"),
                     resultSet.getFloat("shippingPrice"),
                     null,
-//                    resultSet.getBlob("img"),
                     resultSet.getInt("numOfItems"),
                     resultSet.getInt("book_spec_id"),
                     resultSet.getInt("movie_spec_id"),
@@ -122,7 +119,6 @@ public class ItemDBUtils {
                     resultSet.getInt("condition_id"),
                     resultSet.getFloat("shippingPrice"),
                     null,
-//                    resultSet.getBlob("img"),
                     resultSet.getInt("numOfItems"),
                     resultSet.getInt("book_spec_id"),
                     resultSet.getInt("movie_spec_id"),
@@ -149,7 +145,6 @@ public class ItemDBUtils {
             stmt.setString(3, item.getItemDesc());
             stmt.setInt(4, item.getCategory());
             stmt.setInt(5, item.getCondition());
-            //stmt.setBlob(6, item.getUploadedFile());
             stmt.setInt(6, idOfUser);
             stmt.setInt(7, item.getNumOfItems());
             stmt.setObject(8, item.getBookSpecs());
@@ -162,14 +157,7 @@ public class ItemDBUtils {
 
             ResultSet generatedKey = stmt.getGeneratedKeys();
             if (generatedKey.next()) {
-                int idOfItem = generatedKey.getInt(1);
-//                sql = "UPDATE dreamdb.products SET img=? WHERE id=?";
-//                String extension = FilenameUtils.getExtension(item.getImg().getSubmittedFileName());
-//                stmt = con.prepareStatement(sql);
-//                stmt.setString(1,"../resources/imageUploads/" + CommonUtils.getEmailByUserId(idOfUser) + "-" + idOfItem + "." + extension);
-//                stmt.setInt(2,idOfItem);
-//                stmt.execute();
-                return idOfItem;
+                return generatedKey.getInt(1);
             } else {
                 return -1;
             }
@@ -203,6 +191,12 @@ public class ItemDBUtils {
     }
 
     public void deleteItemForSale(Integer id) throws SQLException {
+        ShoppingCartDBUtils shoppingCartDBUtils = new ShoppingCartDBUtils();
+        shoppingCartDBUtils.removeItemFromCart("danimo@gmail.com",id);
+
+        WishListDBUtils wishListDBUtils = new WishListDBUtils();
+        wishListDBUtils.removeItemFromWishList(id);
+
         String sql = "DELETE FROM dreamdb.products WHERE id=?";
         this.dbManager.Connect();
         Connection connection = this.dbManager.getConnection();
@@ -258,61 +252,4 @@ public class ItemDBUtils {
         this.dbManager.Disconnect();
     }
 
-    public ArrayList<Item> loadWishList(String email) throws SQLException {
-        ArrayList<Item> arrayOfItems = new ArrayList<>();
-//        String query = "SELECT * FROM dreamdb.wish_lists_products AS wishProducts" +
-//                " JOIN dreamdb.products AS allProducts WHERE allProducts.seller_id = ?" +
-//                " AND wishProducts.wish_list_id = ?";
-        String sql = "SELECT * FROM dreamdb.products AS allP INNER JOIN dreamdb.wish_list_products AS" +
-                " wishP ON allP.id=wishP.product_id WHERE wishP.wish_list_id=?";
-        this.dbManager.Connect();
-        Connection con = this.dbManager.getConnection();
-        PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        //preparedStatement.setInt(1, CommonUtils.getUserIdByEmail(email));
-        preparedStatement.setInt(1,CommonUtils.getWishListIdByBuyerId(CommonUtils.getUserIdByEmail(email)));
-        ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
-            arrayOfItems.add(new Item(
-                    resultSet.getInt("id"),
-                    resultSet.getString("name"),
-                    resultSet.getFloat("price"),
-                    resultSet.getString("item_desc"),
-                    resultSet.getInt("category"),
-                    resultSet.getInt("condition_id"),
-                    resultSet.getFloat("shippingPrice"),
-                    null,
-//                    resultSet.getBlob("img"),
-                    resultSet.getInt("numOfItems"),
-                    resultSet.getInt("book_spec_id"),
-                    resultSet.getInt("movie_spec_id"),
-                    resultSet.getInt("cellphone_spec_id"),
-                    resultSet.getInt("computer_spec_id"),
-                    CommonUtils.getConstLists("dreamdb.product_condition", "condition"),
-                    CommonUtils.getConstLists("dreamdb.categories", "category_name")
-            ));
-        }
-        return arrayOfItems;
-    }
-
-    public void addItemToWishList(String email,int itemId) throws SQLException {
-        String sql = "INSERT INTO dreamdb.wish_list_products SET wish_list_id=?,product_id=?";
-        this.dbManager.Connect();
-        Connection connection = this.dbManager.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1,CommonUtils.getWishListIdByBuyerId(CommonUtils.getUserIdByEmail(email)));
-        preparedStatement.setInt(2,itemId);
-        preparedStatement.execute();
-        this.dbManager.Disconnect();
-    }
-
-    public void removeItemFromWishList(int itemId) throws SQLException {
-        String sql = "DELETE FROM dreamdb.wish_list_products WHERE product_id=?";
-        this.dbManager.Connect();
-        Connection connection = this.dbManager.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1,itemId);
-        preparedStatement.execute();
-        this.dbManager.Disconnect();
-
-    }
 }

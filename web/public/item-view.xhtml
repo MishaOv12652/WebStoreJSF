@@ -70,7 +70,7 @@
                                                  action="#{shoppingCartController.addItemToCart(session.getAttribute('userEmail'),session.getAttribute('itemId'),item.numOfItemsToBuy)}"/>
                                 <h:commandButton disabled="#{!userController.checkIfUserLoggedIn()}"
                                                  styleClass="btn btn-default" value="Add To Watch List"
-                                                 action="#{itemController.addItemToWishList(session.getAttribute('userEmail'),session.getAttribute('itemId'))}"/>
+                                                 action="#{wishListController.addItemToWishList(session.getAttribute('userEmail'),session.getAttribute('itemId'))}"/>
                             </div>
                         </h:panelGrid>
                     </h:panelGrid>

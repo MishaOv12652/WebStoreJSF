@@ -11,7 +11,7 @@
 
 <f:metadata>
     <f:event type="preRenderView" listener="#{profileController.loadProfileInfo}"/>
-    <f:event type="preRenderView" listener="#{itemController.loadWishList(user.email)}"/>
+    <f:event type="preRenderView" listener="#{wishListController.loadWishList(user.email)}"/>
 </f:metadata>
 
 <h:head>
@@ -31,7 +31,7 @@
 
 
 
-    <p:dataTable value="#{itemController.wishListItems}" var="wishListItem" >
+    <p:dataTable value="#{wishListController.wishListItems}" var="wishListItem" >
         <f:facet name="header">
             <div style="margin-top: 50px">
                 <h2 style="text-decoration: underline">Wish List</h2>
@@ -80,7 +80,7 @@
         </p:column>
         <p:column>
             <h:form>
-                <h:commandButton styleClass="btn btn-danger" value="Remove" actionListener="#{itemController.removeItemFromWishList(wishListItem.id)}"/>
+                <h:commandButton styleClass="btn btn-danger" value="Remove" actionListener="#{wishListController.removeItemFromWishList(wishListItem.id)}"/>
             </h:form>
         </p:column>
     </p:dataTable>

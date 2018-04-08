@@ -29,11 +29,6 @@ import java.util.Set;
 public class ShoppingCartController implements Serializable{
     private static DecimalFormat df2 = new DecimalFormat(".##");
 
-//    private static final String SHOPPING_CART_REDIRECT =
-//            "/NewSadna_war_exploded/secured/shoppingCart.xhtml";
-//
-//    private static final String CHECKOUT_PAGE_REDIRECT =
-//            "/NewSadna_war_exploded/secured/checkOutCart.xhtml";
 
     private ShoppingCartDBUtils shoppingCartDBUtils;
     @ManagedProperty(value = "#{shoppingCart}")
