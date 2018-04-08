@@ -41,7 +41,7 @@ public class UserDBUtils {
             prepStmt.setLong(7, user.getCreditCardNumber());
             prepStmt.setInt(8, user.getCreditCardComp());
             prepStmt.setString(9, Integer.toString(user.getCreditCardExpMonth()) + '/' + Integer.toString(user.getCreditCardExpYear()));
-            prepStmt.setString(10, '0' + Integer.toString(user.getPhoneStart()) + Integer.toString(user.getPhoneNum()));
+            prepStmt.setString(10, Integer.toString(user.getPhoneStart()) + Integer.toString(user.getPhoneNum()));
             prepStmt.setInt(11, user.getZip());
             prepStmt.execute();
             ResultSet generatedKey = prepStmt.getGeneratedKeys();
