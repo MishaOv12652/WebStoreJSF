@@ -29,7 +29,7 @@
                 </h:panelGrid>
                 <h:panelGrid columns="2" style="padding-left: 10px;padding-right: 10px">
                     <h:outputLabel style="font-size: 17px;color: grey;padding-left: 10px" for="categories"
-                                   value="Categorie:"/>
+                                   value="Category:"/>
                     <h:selectOneMenu id="categories" value="#{itemController.category}">
                         <c:forEach items="#{item.categories.entrySet()}" var="category">
                             <f:selectItem itemValue="#{category.key}" itemLabel="#{category.value}"/>
