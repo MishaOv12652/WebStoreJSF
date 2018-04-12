@@ -8,6 +8,7 @@ import org.primefaces.model.UploadedFile;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.Part;
 import java.io.Serializable;
 import java.util.Hashtable;
 
@@ -27,7 +28,7 @@ public class Movie extends Item implements Serializable {
     private int ageLvl;
     private int genre;
 
-    //const lists
+    //const Lists
     private Hashtable<Integer, String> directors;
     private Hashtable<Integer, String> knownActors;
     private Hashtable<Integer, String> ageLvls;
@@ -61,9 +62,9 @@ public class Movie extends Item implements Serializable {
         this.genres = genres;
     }
 
-    public Movie(String name, float price, String itemDesc, int category, int condition, UploadedFile uploadedFile, int numOfItems,
+    public Movie(String name, float price, String itemDesc, int category, int condition, float shippingPrice, int numOfItemsToBuy, Part uploadedFile, int numOfItems,
                  int director, int length, int year, int ageLvl, int knownActor, int genre) {
-        super(name, price, itemDesc, category, condition, uploadedFile, numOfItems);
+        super(name, price, itemDesc, category, condition, shippingPrice, uploadedFile, numOfItems,numOfItemsToBuy);
         this.director = director;
         this.length = length;
         this.year = year;
@@ -75,13 +76,13 @@ public class Movie extends Item implements Serializable {
     @PostConstruct
     public void init() {
         //get directors hash from db
-        this.directors = CommonUtils.getConstLists("dreambuy.directors", "name");
+        this.directors = CommonUtils.getConstLists("dreamdb.directors", "name");
         //get knownActor hash from
-        this.knownActors = CommonUtils.getConstLists("dreambuy.actors", "name");
+        this.knownActors = CommonUtils.getConstLists("dreamdb.actors", "name");
         //get ageLvl hash from db
-        this.ageLvls = CommonUtils.getConstLists("dreambuy.age_lvl", "age_lvl");
+        this.ageLvls = CommonUtils.getConstLists("dreamdb.age_lvl", "age_lvl");
         //get genres hash from db
-        this.genres = CommonUtils.getConstLists("dreambuy.genres", "genre");
+        this.genres = CommonUtils.getConstLists("dreamdb.genres", "genre");
     }
 
     @Override

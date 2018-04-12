@@ -3,11 +3,14 @@ package ModelManagedBeans;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.HttpSession;
 
 import Utils.CommonUtils;
+import Utils.SessionUtils;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Hashtable;
 
 @Getter
@@ -17,7 +20,7 @@ import java.util.Hashtable;
  */
 @ManagedBean
 @SessionScoped
-public class User {
+public class User implements Serializable{
     private String firstName;
     private String lastName;
     private String email;
@@ -33,19 +36,39 @@ public class User {
     private int creditCardExpMonth;
     private int creditCardExpYear;
 
-    //const lists
+    //const Lists
     private Hashtable<Integer, String> cities;
     private Hashtable<Integer, String> creditCardCompanies;
 
     @PostConstruct
     public void init() {
-        this.cities = CommonUtils.getConstLists("dreambuy.city", "name");
-        this.creditCardCompanies = CommonUtils.getConstLists("dreambuy.credit_companies", "name");
+        this.cities = CommonUtils.getConstLists("dreamdb.city", "name");
+        this.creditCardCompanies = CommonUtils.getConstLists("dreamdb.credit_companies", "name");
+        if(SessionUtils.getSession().getAttribute("userName")!=null){
+            this.firstName = (String) SessionUtils.getSession().getAttribute("userName");
+        }
     }
 
     public User() {
     }
 
+    /**
+     * constructor for sign up
+     * @param firstName
+     * @param lastName
+     * @param email
+     * @param password
+     * @param phoneStart
+     * @param phoneNum
+     * @param city
+     * @param street
+     * @param streetNum
+     * @param zip
+     * @param creditCardNumber
+     * @param creditCardComp
+     * @param creditCardExpMonth
+     * @param creditCardExpYear
+     */
     public User(String firstName, String lastName, String email, String password, int phoneStart, int phoneNum, int city, String street, int streetNum, int zip, long creditCardNumber, int creditCardComp, int creditCardExpMonth, int creditCardExpYear) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -63,6 +86,11 @@ public class User {
         this.creditCardExpYear = creditCardExpYear;
     }
 
+    /**
+     * constructor for login
+     * @param email
+     * @param password
+     */
     public User(String email, String password) {
         this.email = email;
         this.password = password;

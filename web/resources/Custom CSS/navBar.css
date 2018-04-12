@@ -7,6 +7,14 @@
     margin-right: 245px;
 }
 
-.imageLogo{
-    height: 51px;
+/*.imageLogo{*/
+    /*height: 51px;*/
+/*}*/
+
+.imageLogo {
+    max-height: 40px;
+    max-width: 30%;
+    overflow: visible;
+    padding-top: 0;
+    padding-bottom: 0;
 }

@@ -9,6 +9,8 @@ import org.primefaces.model.UploadedFile;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.Part;
+import java.io.Serializable;
 import java.sql.Blob;
 import java.util.Hashtable;
 
@@ -19,7 +21,7 @@ import java.util.Hashtable;
 @SessionScoped
 @Getter
 @Setter
-public class CellPhone extends Item {
+public class CellPhone extends Item implements Serializable{
     private int id;
     private double screenSize;
     private int ram;
@@ -31,7 +33,7 @@ public class CellPhone extends Item {
     private int storage;
     private int batteryCapacity;
 
-    //const lists
+    //const Lists
     private Hashtable<Integer, String> brands;
     private Hashtable<Integer, String> colours;
     private Hashtable<Integer, String> osSys;
@@ -73,9 +75,9 @@ public class CellPhone extends Item {
         this.storageCaps = storageCaps;
     }
 
-    public CellPhone(String name, float price, String itemDesc, int category, int condition, UploadedFile uploadedFile, int numOfItems,
+    public CellPhone(String name, float price, String itemDesc, int category, int condition, float shippingPrice, int numOfItemsToBuy, Part uploadedFile, int numOfItems,
                      double screenSize, int ram, int brand, String model, int memoryCardType, int os, int storage, int batteryCapacity) {
-        super(name, price, itemDesc, category, condition, uploadedFile, numOfItems);
+        super(name, price, itemDesc, category, condition,shippingPrice, uploadedFile, numOfItems,numOfItemsToBuy);
         this.screenSize = screenSize;
         this.ram = ram;
         this.brand = brand;
@@ -89,15 +91,15 @@ public class CellPhone extends Item {
     @PostConstruct
     public void init() {
         //get hash of brands options
-        this.brands = CommonUtils.getConstLists("dreambuy.cellphone_brands", "brand");
+        this.brands = CommonUtils.getConstLists("dreamdb.cellphone_brands", "brand");
         //get hash of colours options
-        this.colours = CommonUtils.getConstLists("dreambuy.colours", "colour");
+        this.colours = CommonUtils.getConstLists("dreamdb.colours", "colour");
         //get has of os options
-        this.osSys = CommonUtils.getConstLists("dreambuy.os_systems", "os");
+        this.osSys = CommonUtils.getConstLists("dreamdb.os_systems", "os");
         //get storage type - memory card type
-        this.storageTypes = CommonUtils.getConstLists("dreambuy.storage_type", "storage_type");
+        this.storageTypes = CommonUtils.getConstLists("dreamdb.storage_type", "storage_type");
         //get hash of storage capacity options
-        this.storageCaps = CommonUtils.getConstLists("dreambuy.storage_capacity", "capacity");
+        this.storageCaps = CommonUtils.getConstLists("dreamdb.storage_capacity", "capacity");
     }
 
     @Override

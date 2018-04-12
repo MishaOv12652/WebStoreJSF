@@ -5,6 +5,8 @@ import ModelManagedBeans.Items.Book;
 import ModelManagedBeans.Items.Computer;
 import ModelManagedBeans.Items.Item;
 import Utils.CommonUtils;
+import Utils.RedirectHelper;
+import Utils.SessionUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,17 +33,19 @@ public class ComputerController extends ItemController implements Serializable{
     private Item itemBean;
 
     private ComputerDBUtils computerDBUtils;
-    private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
-            "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";
-    private static final String EDIT_ITEM_PAGE = "/secured/edit-item";
 
     public ComputerController(){
         this.computerDBUtils = new ComputerDBUtils();
     }
 
+    /**
+     * adds computer specs for sale
+     * @param computer - computer to insert
+     * @param email - email of the seller to get the id
+     */
     public void addComputerForSale(Computer computer, String email){
         Computer computerWithItemSpecs = new Computer(this.itemBean.getName(),this.itemBean.getPrice(),this.itemBean.getItemDesc()
-                ,this.itemBean.getCategory(),this.itemBean.getCondition(),this.itemBean.getImg(),this.itemBean.getNumOfItems()
+                ,this.itemBean.getCategory(),this.itemBean.getCondition(),this.itemBean.getShippingPrice(),this.itemBean.getNumOfItemsToBuy(),this.itemBean.getImg(),this.itemBean.getNumOfItems()
                 ,computer.getType(),computer.getModel(),computer.getOs(),computer.getCpu(),computer.getCpuSpeed()
                 ,computer.getMemory(),computer.getGpu(),computer.getBrand(),computer.getScreenSize(),computer.getReleaseYear()
                 ,computer.getHdd(),computer.getSsd());
@@ -56,6 +60,11 @@ public class ComputerController extends ItemController implements Serializable{
         }
     }
 
+    /**
+     * loads computer specs for the selling list
+     * @param id - computer specs id
+     * @return returns the computer found
+     */
     public Computer loadComputerForSale(Integer id){
         if(id != null){
             try {
@@ -67,7 +76,14 @@ public class ComputerController extends ItemController implements Serializable{
         return null;
     }
 
-    public String loadComputerForUpdate(Integer id, Integer itemId) {
+    /**
+     * loads item specs and computer specs for update or view page
+     * @param id - computer specs id
+     * @param itemId - item id
+     * @param edit - edit or view page bool
+     * @return return a string of the url to populate data to
+     */
+    public String loadComputerForUpdate(Integer id, Integer itemId, boolean edit) {
         if (itemId != null) {
             try {
                 ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
@@ -78,9 +94,14 @@ public class ComputerController extends ItemController implements Serializable{
                 e.printStackTrace();
             }
         }
-        return EDIT_ITEM_PAGE;
+        return this.checkIfEdit(edit,itemId);
     }
 
+    /**
+     * updates a item of the category computer
+     * @param item - item object - for specs like name and ec.
+     * @param computer - computer object - for computer specs
+     */
     public void updateComputerForSale(Item item, Computer computer) {
         try {
             this.computerDBUtils.updateCOmputerSpecs(computer);
@@ -90,6 +111,11 @@ public class ComputerController extends ItemController implements Serializable{
         }
     }
 
+    /**
+     * deletes a computer that was for sale
+     * @param compId - computer specs id
+     * @param itemId - item id
+     */
     public void deleteComputerForSale(Integer compId,Integer itemId){
         try {
             this.deleteItemForSale(itemId);

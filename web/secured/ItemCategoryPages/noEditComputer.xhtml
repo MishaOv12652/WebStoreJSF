@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <link rel="shortcut icon" type="image/x-icon" href="../../resources/imgs/dollar.png"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <link rel="stylesheet" href="../../resources/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" href="../../resources/Custom%20CSS/addItem.css"/>
+</h:head>
+<h:body>
+    <ui:composition>
+        <h:inputHidden value="#{computer.id}"/>
+        <h:panelGrid columns="2" border="1">
+            <h:panelGrid bodyrows="6">
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="type" value="Type:">
+                        <h:outputText id="type" value="#{computer.type}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="comp_model" value="Model:">
+                        <h:outputText id="comp_model" value="#{computer.model}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="comp_os" value="OS:">
+                        <h:outputText id="comp_os" value="#{computer.getConstValueByKey(computer.osSys,computer.os)}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="cpu_type" value="CPU Type:">
+                        <h:outputText id="cpu_type" value="#{computer.getConstValueByKey(computer.cpuList,computer.cpu)}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="comp_ram" value="RAM:">
+                        <h:outputText id="comp_ram" value="#{computer.memory}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="hdd" value="HDD Capacity:">
+                        <h:outputText id="hdd" value="#{computer.getConstValueByKey(computer.storageCaps,computer.hdd)}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+            </h:panelGrid>
+
+            <h:panelGrid bodyrows="6" style="margin-left: 10px">
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="comp_brand" value="Brand:">
+                        <h:outputText id="comp_brand" value="#{computer.getConstValueByKey(computer.brandList,computer.brand)}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="comp_screen_size" value="Screen Size:">
+                        <h:outputText id="comp_screen_size" value="#{computer.screenSize}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="comp_screen_size" value="Realse Year:">
+                        <h:outputText id="comp_releas_year" value="#{computer.releaseYear}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="cpu_speed" value="CPU Speed:">
+                        <h:outputText id="cpu_speed" value="#{computer.cpuSpeed}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="comp_gpu" value="GPU:">
+                        <h:outputText id="comp_gpu" value="#{computer.getConstValueByKey(computer.gpuList,computer.gpu)}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="sdd" value="SSD Capacity:">
+                        <h:outputText id="sdd" value="#{computer.getConstValueByKey(computer.storageCaps,computer.ssd)}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+            </h:panelGrid>
+        </h:panelGrid>
+    </ui:composition>
+
+</h:body>
+</html>

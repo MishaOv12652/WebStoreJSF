@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
     <title>Web Store</title>
     <link rel="shortcut icon" type="image/x-icon" href="../resources/imgs/dollar.png"/>
@@ -15,28 +16,47 @@
     <link rel="stylesheet" href="../resources/Custom%20CSS/navBar.css"/>
 </h:head>
 <h:body>
-    <b:navBar brandImg="https://png.icons8.com/office/30/000000/tea.png" brandImgStyle="padding-right: 10px;"
-              brandAlign="left" brand="Dreaming Buy And Sell" inverse="true" brandHref="#" fixed="top">
-        <h:form style="padding-top: 10px" styleClass="pull-left">
+    <!--brandImg="https://png.icons8.com/office/30/000000/tea.png" brandImgStyle="padding-right: 10px;"-->
+    <b:navBar brandImg="http://funkyimg.com/i/2Ernt.png" brandImgStyleClass="imageLogo"
+              brandAlign="left" brand="Dreaming Buy &amp; Sell" inverse="true"
+              brandHref="/NewSadna_war_exploded/index.xhtml" fixed="top">
+        <h:form style="padding-top: 10px" styleClass="col-md-pull-1 pull-left">
             <h:panelGrid columns="5">
                 <h:panelGrid columns="2">
                     <h:outputLabel style="font-size: 17px;color: grey" for="searchInput" value="Search:"/>
-                    <h:inputText style="padding-left: 10px" id="searchInput" value="#{item}"/>
+                    <h:inputText style="padding-left: 10px" id="searchInput"
+                                 value="#{itemController.inputSearchString}"/>
                 </h:panelGrid>
                 <h:panelGrid columns="2" style="padding-left: 10px;padding-right: 10px">
                     <h:outputLabel style="font-size: 17px;color: grey;padding-left: 10px" for="categories"
-                                   value="Categorie:"/>
-                    <h:inputText id="categories" value="#{item}"/>
+                                   value="Category:"/>
+                    <h:selectOneMenu id="categories" value="#{itemController.category}">
+                        <c:forEach items="#{item.categories.entrySet()}" var="category">
+                            <f:selectItem itemValue="#{category.key}" itemLabel="#{category.value}"/>
+                        </c:forEach>
+                    </h:selectOneMenu>
                 </h:panelGrid>
-                <h:commandButton style="padding-left: 10px" styleClass="btn btn-primary" value="Search"
-                                 actionListener="#{search}"/>
+                <h:commandButton style="margin-left: 10px" styleClass="btn btn-primary" value="Search"
+                                 actionListener="#{itemController.searchForItemsToBuy}"/>
             </h:panelGrid>
         </h:form>
-        <b:navbarLinks styleClass="pull-right">
-            <b:navLink value="home" iconAwesome="home" href="index.xhtml"/>
-            <b:navLink value="Sign Up" iconAwesome="user-plus" href="public/signUp.xhtml"/>
-            <b:navLink value="Login" iconAwesome="user" href="public/login.xhtml"/>
+        <b:navbarLinks rendered="#{!userController.checkIfUserLoggedIn()}" styleClass="pull-right">
+            <b:navLink value="Sign Up" iconAwesome="user-plus" href="/NewSadna_war_exploded/public/signUp.xhtml"/>
+            <b:navLink value="Login" iconAwesome="user" href="/NewSadna_war_exploded/public/login.xhtml"/>
         </b:navbarLinks>
+        <h:form styleClass="col-md-pull-2 pull-right">
+            <b:navbarLinks rendered="#{userController.checkIfUserLoggedIn()}" >
+                <b:dropMenu iconAwesome="fa-dashboard" value="Hi, #{session.getAttribute('userName')}">
+                    <b:navLink iconAwesome="fa-user" value="Personal Info" href="/NewSadna_war_exploded/secured/profile-personal-info.xhtml"/>
+                    <b:navLink iconAwesome="fa-dollar" value="Selling List" href="/NewSadna_war_exploded/secured/profile-selling-items.xhtml"/>
+                    <b:navLink iconAwesome="fa-suitcase" value="Wish List" href="/NewSadna_war_exploded/secured/wishlist.xhtml"/>
+                    <b:navLink iconAwesome="fa-shopping-cart" value="Shopping Cart" href="/NewSadna_war_exploded/secured/shoppingCart.xhtml"/>
+                </b:dropMenu>
+
+                <b:navCommandLink iconAwesome="fa-user-times" value="Log Out" action="#{userController.logOut()}"/>
+
+            </b:navbarLinks>
+        </h:form>
     </b:navBar>
 
 </h:body>

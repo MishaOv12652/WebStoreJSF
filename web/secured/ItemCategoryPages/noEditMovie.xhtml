@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <link rel="shortcut icon" type="image/x-icon" href="../../resources/imgs/dollar.png"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <link rel="stylesheet" href="../../resources/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" href="../../resources/Custom%20CSS/addItem.css"/>
+</h:head>
+<h:body>
+    <ui:composition>
+        <h:inputHidden value="#{movie.id}"/>
+        <h:panelGrid columns="2" border="1">
+            <h:panelGrid bodyrows="3">
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="director" value="Director:">
+                        <h:outputText id="director" value="#{movie.getConstValueByKey(movie.directors,movie.director)}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="movie_genre" value="Genre:">
+                        <h:outputText id="movie_genre" value="#{movie.getConstValueByKey(movie.genres,movie.genre)}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="actor" value="Actor:">
+                        <h:outputText id="actor" value="#{movie.getConstValueByKey(movie.knownActors,movie.knownActor)}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+            </h:panelGrid>
+
+            <h:panelGrid bodyrows="3" style="margin-left: 15px">
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="movie_age_lvl" value="Age Level:">
+                        <h:outputText id="movie_age_lvl" value="#{movie.getConstValueByKey(movie.ageLvls,movie.ageLvl)}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="length" value="Length Of The Movie:">
+                        <h:outputText id="length" value="#{movie.length}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="year" value="Year Of The Movie:">
+                        <h:outputText id="year" value="#{movie.year}"/>
+                    </h:outputLabel>
+                </h:panelGrid>
+            </h:panelGrid>
+        </h:panelGrid>
+
+    </ui:composition>
+
+</h:body>
+</html>

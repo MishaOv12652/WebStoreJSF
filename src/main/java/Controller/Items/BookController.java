@@ -4,6 +4,8 @@ import DAO.Items.BookDBUtils;
 import ModelManagedBeans.Items.Book;
 import ModelManagedBeans.Items.Item;
 import Utils.CommonUtils;
+import Utils.RedirectHelper;
+import Utils.SessionUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,7 +24,7 @@ import java.util.Map;
  */
 @ManagedBean
 @ViewScoped
-//@RequestScoped
+@SessionScoped
 @Getter
 @Setter
 public class BookController extends ItemController implements Serializable {
@@ -31,17 +33,19 @@ public class BookController extends ItemController implements Serializable {
 
     private Book book;
     private BookDBUtils bookDBUtils;
-    private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
-            "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";
-    private static final String EDIT_ITEM_PAGE = "/secured/edit-item";
 
     public BookController() {
         this.bookDBUtils = new BookDBUtils();
     }
 
+    /**
+     * adds book specs for sale
+     * @param book - book to insert
+     * @param email - email of the seller to get the id
+     */
     public void addBookForSale(Book book, String email) {
         Book bookWithItemSpecs = new Book(this.itemBean.getName(), this.itemBean.getPrice(), this.itemBean.getItemDesc()
-                , this.itemBean.getCategory(), this.itemBean.getCondition(), this.itemBean.getImg(), this.itemBean.getNumOfItems()
+                , this.itemBean.getCategory(), this.itemBean.getCondition(), this.itemBean.getImg(), this.itemBean.getNumOfItems(),this.itemBean.getShippingPrice(),this.itemBean.getNumOfItemsToBuy()
                 , book.getAuthor(), book.getGenre(), book.getSeries(), book.getAgeLvl());
         try {
             this.addItemForSale(bookWithItemSpecs, email, this.bookDBUtils);
@@ -54,6 +58,11 @@ public class BookController extends ItemController implements Serializable {
         }
     }
 
+    /**
+     * loads book specs for the selling list
+     * @param id - books specs id
+     * @return returns the book found
+     */
     public Book loadBookForSale(Integer id) {
         if (id != null) {
             try {
@@ -65,7 +74,14 @@ public class BookController extends ItemController implements Serializable {
         return null;
     }
 
-    public String loadBookForUpdate(Integer id, Integer itemId) {
+    /**
+     * loads item specs and book specs for update or view page
+     * @param id - book specs id
+     * @param itemId - item id
+     * @param edit - edit or view page bool
+     * @return return a string of the url to populate data to
+     */
+    public String loadBookForUpdate(Integer id, Integer itemId,boolean edit) {
         if (itemId != null) {
             try {
                 ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
@@ -76,9 +92,14 @@ public class BookController extends ItemController implements Serializable {
                 e.printStackTrace();
             }
         }
-        return EDIT_ITEM_PAGE;
+        return this.checkIfEdit(edit,itemId);
     }
 
+    /**
+     * updates a item of the category book
+     * @param item - item object - for specs like name and ec.
+     * @param book - book object - for book specs
+     */
     public void updateBookForSale(Item item, Book book) {
         try {
             this.bookDBUtils.updateBookSpecs(book);
@@ -88,6 +109,11 @@ public class BookController extends ItemController implements Serializable {
         }
     }
 
+    /**
+     * deletes a book that was for sale
+     * @param bookId - book specs id
+     * @param itemId - item id
+     */
     public void deleteBookForSale(Integer bookId,Integer itemId){
         try {
             this.deleteItemForSale(itemId);

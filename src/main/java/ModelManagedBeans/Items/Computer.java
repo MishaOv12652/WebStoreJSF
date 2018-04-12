@@ -8,6 +8,7 @@ import org.primefaces.model.UploadedFile;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.Part;
 import java.io.Serializable;
 import java.util.Hashtable;
 
@@ -33,7 +34,7 @@ public class Computer extends Item implements Serializable {
     private int hdd;
     private int ssd;
 
-    //const lists
+    //const Lists
     private Hashtable<Integer, String> osSys;
     private Hashtable<Integer, String> cpuList;
     private Hashtable<Integer, String> gpuList;
@@ -84,9 +85,9 @@ public class Computer extends Item implements Serializable {
         this.brandList = brandList;
     }
 
-    public Computer(String name, float price, String itemDesc, int category, int condition, UploadedFile uploadedFile, int numOfItems,
+    public Computer(String name, float price, String itemDesc, int category, int condition, float shippingPrice, int numOfItemsToBuy, Part uploadedFile, int numOfItems,
                     String type, String model, int os, int cpu, double cpuSpeed, int memory, int gpu, int brand, double screenSize, int releaseYear, int hdd, int ssd) {
-        super(name, price, itemDesc, category, condition, uploadedFile, numOfItems);
+        super(name, price, itemDesc, category, condition, shippingPrice,uploadedFile, numOfItems,numOfItemsToBuy);
         this.type = type;
         this.model = model;
         this.os = os;
@@ -104,15 +105,15 @@ public class Computer extends Item implements Serializable {
     @PostConstruct
     public void init() {
         //get os const list
-        this.osSys = CommonUtils.getConstLists("dreambuy.os_systems", "os");
+        this.osSys = CommonUtils.getConstLists("dreamdb.os_systems", "os");
         //get cpu const list
-        this.cpuList = CommonUtils.getConstLists("dreambuy.cpu_list", "cpu");
+        this.cpuList = CommonUtils.getConstLists("dreamdb.cpu_list", "cpu");
         //get gpu const list
-        this.gpuList = CommonUtils.getConstLists("dreambuy.gpu_list", "gpu");
+        this.gpuList = CommonUtils.getConstLists("dreamdb.gpu_list", "gpu");
         //get storage capacity  const list
-        this.storageCaps = CommonUtils.getConstLists("dreambuy.storage_capacity", "capacity");
+        this.storageCaps = CommonUtils.getConstLists("dreamdb.storage_capacity", "capacity");
         //get brand cont list
-        this.brandList = CommonUtils.getConstLists("dreambuy.cellphone_brands", "brand");
+        this.brandList = CommonUtils.getConstLists("dreamdb.cellphone_brands", "brand");
     }
 
     @Override

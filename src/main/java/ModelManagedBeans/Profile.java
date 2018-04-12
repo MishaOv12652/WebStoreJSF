@@ -3,6 +3,7 @@ package ModelManagedBeans;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import java.io.Serializable;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ManagedBean
+@SessionScoped
 public class Profile implements Serializable {
     private User currentUser;
 

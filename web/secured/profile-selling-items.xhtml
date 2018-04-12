@@ -6,8 +6,10 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
 >
 <f:metadata>
     <f:event type="preRenderView" listener="#{profileController.loadProfileInfo}"/>
@@ -22,34 +24,10 @@
     <link rel="stylesheet" href="../resources/Custom%20CSS/navBar.css"/>
 </h:head>
 <h:body>
-    <b:navBar brandImg="https://png.icons8.com/office/30/000000/tea.png" brandImgStyle="padding-right: 10px;"
-              brandAlign="left" brand="Dreaming Buy And Sell" inverse="true" brandHref="#" fixed="top">
 
-        <h:form style="padding-top: 10px" styleClass="pull-left">
-            <h:panelGrid columns="5">
-                <h:panelGrid columns="2">
-                    <h:outputLabel style="font-size: 17px;color: grey" for="searchInput" value="Search:"/>
-                    <h:inputText style="padding-left: 10px" id="searchInput" value="#{item}"/>
-                </h:panelGrid>
-                <h:panelGrid columns="2" style="padding-left: 10px;padding-right: 10px">
-                    <h:outputLabel style="font-size: 17px;color: grey;padding-left: 10px" for="categories"
-                                   value="Categorie:"/>
-                    <h:inputText id="categories" value="#{item}"/>
-                </h:panelGrid>
-                <h:commandButton style="padding-left: 10px" styleClass="btn btn-primary" value="Search"
-                                 actionListener="#{search}"/>
-            </h:panelGrid>
-        </h:form>
-
-        <b:navbarLinks styleClass="pull-right">
-            <b:navLink value="home" iconAwesome="home" href="../index.xhtml"/>
-            <b:dropMenu value="Hi #{user.firstName}">
-                <b:navLink value="Personal Info" href="profile-personal-info.xhtml"/>
-                <b:navLink value="Selling List" href="profile-selling-items.xhtml"/>
-                <b:navLink value="Wish List" href="#"/>
-            </b:dropMenu>
-        </b:navbarLinks>
-    </b:navBar>
+    <ui:insert name="navBar">
+        <ui:include src="../public/navBar.xhtml"/>
+    </ui:insert>
 
     <h:panelGrid rowClasses="2" style="margin-top: 50px">
         <h:form id="data">
@@ -66,6 +44,10 @@
 
                 <p:column headerText="Price" style="width:100px;text-align: center">
                     <h:outputText value="#{itemsForSale.price}"/>
+                </p:column>
+
+                <p:column headerText="Shipping Price" style="width:100px;text-align: center">
+                    <h:outputText value="#{itemsForSale.shippingPrice}"/>
                 </p:column>
 
                 <p:column headerText="Condition" style="width:150px;text-align: center">
@@ -88,20 +70,50 @@
 
                 <p:column headerText="Actions" style="width: 275px">
                     <h:panelGrid columns="2" id="buttons" style="border: none">
-                        <h:commandButton styleClass="btn btn-success pull-left btn-group" rendered="#{itemsForSale.category eq 1}" action="#{bookController.loadBookForUpdate(itemsForSale.bookSpecs,itemsForSale.id)}" value="Update Book"/>
-                        <h:commandButton styleClass="btn btn-danger pull-right btn-group" rendered="#{itemsForSale.category eq 1}"  action="#{bookController.deleteBookForSale(itemsForSale.bookSpecs,itemsForSale.id)}" value="Delete Book"/>
+                        <h:commandButton styleClass="btn btn-success pull-left btn-group"
+                                         rendered="#{itemsForSale.category eq 1}"
+                                         action="#{bookController.loadBookForUpdate(itemsForSale.bookSpecs,itemsForSale.id,true)}"
+                                         value="Update Book"/>
+                        <h:commandButton styleClass="btn btn-danger pull-right btn-group"
+                                         rendered="#{itemsForSale.category eq 1}"
+                                         action="#{bookController.deleteBookForSale(itemsForSale.bookSpecs,itemsForSale.id)}"
+                                         value="Delete Book"/>
 
-                        <h:commandButton styleClass="btn btn-success pull-left btn-group" rendered="#{itemsForSale.category eq 2}" action="#{cellPhoneController.loadCellPhoneForUpdate(itemsForSale.cellSpecs,itemsForSale.id)}" value="Update Cellphone"/>
-                        <h:commandButton styleClass="btn btn-danger pull-right btn-group" rendered="#{itemsForSale.category eq 2}"  action="#{cellPhoneController.deleteCellPhoneForSale(itemsForSale.cellSpecs,itemsForSale.id)}" value="Delete Cellphone"/>
+                        <h:commandButton styleClass="btn btn-success pull-left btn-group"
+                                         rendered="#{itemsForSale.category eq 2}"
+                                         action="#{cellPhoneController.loadCellPhoneForUpdate(itemsForSale.cellSpecs,itemsForSale.id,true)}"
+                                         value="Update Cellphone"/>
+                        <h:commandButton styleClass="btn btn-danger pull-right btn-group"
+                                         rendered="#{itemsForSale.category eq 2}"
+                                         action="#{cellPhoneController.deleteCellPhoneForSale(itemsForSale.cellSpecs,itemsForSale.id)}"
+                                         value="Delete Cellphone"/>
 
-                        <h:commandButton styleClass="btn btn-success pull-left btn-group" rendered="#{itemsForSale.category eq 3}" action="#{computerController.loadComputerForUpdate(itemsForSale.compSpecs,itemsForSale.id)}" value="Update Computer"/>
-                        <h:commandButton styleClass="btn btn-danger pull-right btn-group" rendered="#{itemsForSale.category eq 3}"  action="#{computerController.deleteComputerForSale(itemsForSale.compSpecs,itemsForSale.id)}" value="Delete Computer"/>
+                        <h:commandButton styleClass="btn btn-success pull-left btn-group"
+                                         rendered="#{itemsForSale.category eq 3}"
+                                         action="#{computerController.loadComputerForUpdate(itemsForSale.compSpecs,itemsForSale.id,true)}"
+                                         value="Update Computer"/>
+                        <h:commandButton styleClass="btn btn-danger pull-right btn-group"
+                                         rendered="#{itemsForSale.category eq 3}"
+                                         action="#{computerController.deleteComputerForSale(itemsForSale.compSpecs,itemsForSale.id)}"
+                                         value="Delete Computer"/>
 
-                        <h:commandButton styleClass="btn btn-success pull-left btn-group" rendered="#{itemsForSale.category eq 4}" action="#{movieController.loadMovieForUpdate(itemsForSale.movieSpecs,itemsForSale.id)}" value="Update Movie"/>
-                        <h:commandButton styleClass="btn btn-danger pull-right btn-group" rendered="#{itemsForSale.category eq 4}"  action="#{movieController.deleteMovieForSale(itemsForSale.movieSpecs,itemsForSale.id)}" value="Delete Movie"/>
+                        <h:commandButton styleClass="btn btn-success pull-left btn-group"
+                                         rendered="#{itemsForSale.category eq 4}"
+                                         action="#{movieController.loadMovieForUpdate(itemsForSale.movieSpecs,itemsForSale.id,true)}"
+                                         value="Update Movie"/>
+                        <h:commandButton styleClass="btn btn-danger pull-right btn-group"
+                                         rendered="#{itemsForSale.category eq 4}"
+                                         action="#{movieController.deleteMovieForSale(itemsForSale.movieSpecs,itemsForSale.id)}"
+                                         value="Delete Movie"/>
 
-                        <h:commandButton styleClass="btn btn-success pull-left btn-group" rendered="#{itemsForSale.category eq 5}" action="#{itemController.loadItemForSale(itemsForSale.id)}" value="Update Item"/>
-                        <h:commandButton styleClass="btn btn-danger pull-right btn-group" rendered="#{itemsForSale.category eq 5}"  action="#{itemController.deleteItemForSale(itemsForSale.id)}" value="Delete Item"/>
+                        <h:commandButton styleClass="btn btn-success pull-left btn-group"
+                                         rendered="#{itemsForSale.category eq 5}"
+                                         action="#{itemController.loadItemForSale(itemsForSale.id,true)}"
+                                         value="Update Item"/>
+                        <h:commandButton styleClass="btn btn-danger pull-right btn-group"
+                                         rendered="#{itemsForSale.category eq 5}"
+                                         action="#{itemController.deleteItemForSale(itemsForSale.id)}"
+                                         value="Delete Item"/>
                     </h:panelGrid>
 
                 </p:column>
@@ -111,8 +123,7 @@
                     <p:panelGrid id="other" columns="2" columnClasses="label,value" style="width:300px"
                                  rendered="#{itemsForSale.category eq 5}">
                         <f:facet name="header">
-                            <h:outputText value="#{itemsForSale.name}"/>
-                            <!--<p:graphicImage name="demo/images/car/#{item.img}-big.gif"/>-->
+                            <o:graphicImage styleClass="thumbnail img" rendered="#{itemsForSale.category eq 5}" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}" dataURI="true" />
                         </f:facet>
                     </p:panelGrid>
 
@@ -121,8 +132,7 @@
                                  value="#{movieController.loadMovieForSale(itemsForSale.movieSpecs)}"
                                  var="movieForsale">
                         <f:facet name="header">
-                            <h:outputText value="#{itemsForSale.name}"/>
-                            <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
+                            <o:graphicImage styleClass="thumbnail img" rendered="#{itemsForSale.category eq 4}" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}" dataURI="true" />
                         </f:facet>
 
 
@@ -164,8 +174,7 @@
                                  var="computerForSale">
 
                         <f:facet name="header">
-                            <h:outputText value="#{itemsForSale.name}"/>
-                            <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
+                            <o:graphicImage styleClass="thumbnail img" rendered="#{itemsForSale.category eq 3}" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}" dataURI="true" />
                         </f:facet>
 
 
@@ -231,8 +240,7 @@
                                  var="cellPhoneForSale">
 
                         <f:facet name="header">
-                            <h:outputText value="#{itemsForSale.name}"/>
-                            <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
+                            <o:graphicImage styleClass="thumbnail img" rendered="#{itemsForSale.category eq 2}" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}" dataURI="true" />
                         </f:facet>
 
                         <h:column>
@@ -282,8 +290,7 @@
                                  value="#{bookController.loadBookForSale(itemsForSale.bookSpecs)}"
                                  var="bookForsale">
                         <f:facet name="header">
-                            <h:outputText value="#{itemsForSale.name}"/>
-                            <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif"/>-->
+                            <o:graphicImage styleClass="thumbnail img" rendered="#{itemsForSale.category eq 1}" value="#{itemController.loadImageOfItemByItemId(itemsForSale.id)}" dataURI="true" />
                         </f:facet>
 
                         <h:column>
@@ -316,7 +323,7 @@
             </p:dataTable>
         </h:form>
 
-        <h:button value="Add An Item For Sale" styleClass="btn-lg btn-primary pull-right" outcome="add-edit-item"/>
+        <h:button value="Add An Item For Sale" styleClass="btn-lg btn-primary pull-right" outcome="add-item"/>
     </h:panelGrid>
 </h:body>
 </html>

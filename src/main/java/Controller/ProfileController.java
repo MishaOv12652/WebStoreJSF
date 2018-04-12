@@ -11,6 +11,7 @@ import lombok.Setter;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -41,10 +42,17 @@ public class ProfileController implements Serializable {
 
     }
 
+    /**
+     * loads consts of the profile - for getting the string value
+     */
     public void loadConsts(){
-        this.cities = CommonUtils.getConstLists("dreambuy.city", "name");
-        this.creditCardCompanies = CommonUtils.getConstLists("dreambuy.credit_companies", "name");
+        this.cities = CommonUtils.getConstLists("dreamdb.city", "name");
+        this.creditCardCompanies = CommonUtils.getConstLists("dreamdb.credit_companies", "name");
     }
+
+    /**
+     * loads user info
+     */
     public void loadProfileInfo() {
         HttpSession session = SessionUtils.getSession();
         try {
@@ -52,20 +60,31 @@ public class ProfileController implements Serializable {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
             Map<String, Object> requestMap = externalContext.getRequestMap();
             requestMap.put("user", this.currentProfile);
+            SessionUtils.getSession().setAttribute("userName",this.currentProfile.getFirstName());
         } catch (SQLException e) {
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Loading Profile Error", e.getMessage()));
         }
     }
 
+    /**
+     * toggles edit mode mode on and off
+     */
     public void toggleEditMode() {
         this.editMode = !this.editMode;
     }
 
+    /**
+     * cancels edit mode
+     */
     public void cancelEditMode() {
         this.editMode = false;
     }
 
+    /**
+     * updates the profile info
+     * @param currentProfile - profile user object with the data to update
+     */
     public void updateProfile(User currentProfile) {
         try {
             this.profileDBUtils.updateProfileInfo(currentProfile);
@@ -76,6 +95,12 @@ public class ProfileController implements Serializable {
         }
     }
 
+    /**
+     * gets string value by key toshow the actual value
+     * @param hashtable - hash table of const values
+     * @param key - key of the value
+     * @return - the actual value
+     */
     public String getConstValueByKey(Hashtable<Integer,String> hashtable, String key){
         return CommonUtils.getValueByKeyFromHash(hashtable,key);
     }

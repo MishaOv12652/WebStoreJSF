@@ -31,7 +31,7 @@ public class MovieDBUtils extends ItemDBUtils {
 
     private int addMovieSpecs(Movie movie) throws SQLException {
         this.getDbManager().Connect();
-        String sql = "INSERT INTO dreambuy.movie_specs(director, length, year,actor,age_lvl,genre) " +
+        String sql = "INSERT INTO dreamdb.movie_specs(director, length, year,actor,age_lvl,genre) " +
                 "VALUES (?,?,?,?,?,?)";
 
             Connection connection = this.getDbManager().getConnection();
@@ -56,7 +56,7 @@ public class MovieDBUtils extends ItemDBUtils {
 
     public Movie loadMovieForSale(Integer id) throws SQLException {
         this.getDbManager().Connect();
-        String sql = "SELECT * FROM dreambuy.movie_specs WHERE id = ?";
+        String sql = "SELECT * FROM dreamdb.movie_specs WHERE id = ?";
         Connection connection = this.getDbManager().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1,id);
@@ -70,10 +70,10 @@ public class MovieDBUtils extends ItemDBUtils {
                     resultSet.getInt("age_lvl"),//age_lvl
                     resultSet.getInt("actor"),//actor
                     resultSet.getInt("genre"),//genre
-                    CommonUtils.getConstLists("dreambuy.directors", "name"),
-                    CommonUtils.getConstLists("dreambuy.actors", "name"),
-                    CommonUtils.getConstLists("dreambuy.age_lvl", "age_lvl"),
-                    CommonUtils.getConstLists("dreambuy.genres", "genre")
+                    CommonUtils.getConstLists("dreamdb.directors", "name"),
+                    CommonUtils.getConstLists("dreamdb.actors", "name"),
+                    CommonUtils.getConstLists("dreamdb.age_lvl", "age_lvl"),
+                    CommonUtils.getConstLists("dreamdb.genres", "genre")
             );
             this.getDbManager().Disconnect();
             return movie;
@@ -84,7 +84,7 @@ public class MovieDBUtils extends ItemDBUtils {
 
     public void updateMovieSpecs(Movie movie) throws SQLException {
         this.getDbManager().Connect();
-        String sql = "UPDATE dreambuy.movie_specs SET director=?, length=?, year=?,actor=?,age_lvl=?,genre=?" +
+        String sql = "UPDATE dreamdb.movie_specs SET director=?, length=?, year=?,actor=?,age_lvl=?,genre=?" +
                 " WHERE id=?";
         Connection connection = this.getDbManager().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -101,7 +101,7 @@ public class MovieDBUtils extends ItemDBUtils {
 
     public void deleteMovieForSale(Integer id) throws SQLException {
         this.getDbManager().Connect();
-        String sql = "DELETE FROM dreambuy.movie_specs WHERE id=?";
+        String sql = "DELETE FROM dreamdb.movie_specs WHERE id=?";
         Connection connection = this.getDbManager().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1,id);

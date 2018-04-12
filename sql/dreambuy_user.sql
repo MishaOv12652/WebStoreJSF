@@ -1,1 +1,0 @@
-INSERT INTO dreambuy.user (f_name, l_name, email, password, city, address, credit_card_number, credit_card_comp, credit_card_exp, phone_number, zip) VALUES ('Michael', 'Ovodenko', 'MishaOvodenko@gmail.com', '123456', 1, 'Ha Carmel 4', '102310231023', 1, '1/2018', '0546262472', 4240716);

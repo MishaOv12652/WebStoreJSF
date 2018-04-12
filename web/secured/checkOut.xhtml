@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:p="http://java.sun.com/jsf/html">
+<h:head>
+    <title>Web Store - Checkout</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../resources/imgs/dollar.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" href="../resources/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../resources/Custom%20CSS/shoppingCart.css"/>
+</h:head>
+<h:body>
+    <ui:insert name="navBar">
+        <ui:include src="../public/navBar.xhtml"/>
+    </ui:insert>
+    <div class="jumbotron">
+        <h:form>
+            <h2 style="text-decoration: underline">Dreaming Buy &amp; Sell Checkout </h2>
+            <h:panelGrid style="margin-top: 15px" columns="2">
+                <h:panelGrid bodyrows="2" styleClass="col-md-offset-2" border="1">
+                    <h:panelGrid bodyrows="2" styleClass="item">
+                        <h:panelGrid columns="2">
+                            <h:outputLabel for="seller">Seller: </h:outputLabel>
+                            <h:outputText style="font-size: 15px" id="seller" value="#{session.getAttribute('sellerEmail')}"/>
+                        </h:panelGrid>
+                        <h:panelGrid columns="4">
+                            <o:graphicImage styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(item.id)}" dataURI="true" />
+                            <h:panelGrid bodyrows="3" style="margin-left: 15px" columnClasses="name_column">
+                                <h:outputText style="font-size: 24px;" value="#{item.name}"/>
+                                <h:panelGrid columns="2">
+                                    <h:outputLabel style="font-size: 17px" for="cat" value="Categorie:"/>
+                                    <h:outputText style="font-size: 17px" id="cat" value="#{item.getConstValueByKey(item.categories,item.category)}"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <h:outputLabel style="font-size: 17px" for="con" value="Condition"/>
+                                    <h:outputText style="font-size: 17px" id="con" value="#{item.getConstValueByKey(item.conditions,item.condition)}"/>
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2">
+                                <h:outputLabel for="qunt"
+                                               style="margin-left: 7px;color: #0f0f0f">Quantity: </h:outputLabel>
+                                <h:outputText id="qunt" style="font-size: 17px" value="#{item.numOfItemsToBuy}"/>
+                            </h:panelGrid>
+                            <h:panelGrid bodyrows="2" style="margin-left: 15px;text-align: center">
+                                <h:panelGrid columns="2">
+                                    <h:outputLabel for="price" value="Price:"/>
+                                    <h:panelGrid columns="2">
+                                        <h:outputText id="price" style="font-size: 20px" value="#{item.price*item.numOfItemsToBuy}"/>
+                                        <i class="glyphicon glyphicon-usd"/>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                                <h:panelGrid columns="2">
+                                    <h:outputLabel for="shipping" value="Shipping:"/>
+                                    <h:panelGrid columns="2">
+                                        <h:outputText id="shipping" style="font-size: 20px" value="#{item.shippingPrice}" />
+                                        <i class="glyphicon glyphicon-usd"/>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+
+
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:panelGrid>
+
+                <h:panelGrid styleClass="col-md-offset-4" bodyrows="4" id="confirmPay">
+                    <h:outputLabel for="numOfItemsInCart" value="Items(#{item.numOfItemsToBuy})">
+                        <h:outputText style="margin-left: 15px" id="numOfItemsInCart" value="#{item.price*item.numOfItemsToBuy}$US"/>
+                    </h:outputLabel>
+
+                    <h:outputLabel for="shippingValue" value="Shipping">
+                        <h:outputText style="margin-left: 15px" id="shippingValue" value="#{item.shippingPrice}$US"/>
+                    </h:outputLabel>
+
+                    <h:outputLabel for="orderTotal" value="Order Total">
+                        <h:outputText style="margin-left: 15px" id="orderTotal" value="#{item.price*item.numOfItemsToBuy+item.shippingPrice}$US"/>
+                    </h:outputLabel>
+
+                    <h:commandButton styleClass="btn btn-primary" value="Confirm Payment" actionListener="#{itemController.confirmPayment(item.numOfItemsToBuy)}"/>
+                </h:panelGrid>
+            </h:panelGrid>
+
+        </h:form>
+
+    </div>
+
+</h:body>
+</html>

@@ -7,10 +7,7 @@ import Utils.SessionUtils;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Created by Misha on 3/21/2018.
@@ -24,17 +21,17 @@ public class UserDBUtils {
     }
 
     /**
-     *
+     * inserts data of the signning user to db
      * @param user - user Object of the signed person
-     * @throws SQLException
+     * @throws SQLException -
      */
     public void signUp(User user) throws SQLException {
         this.dbManager.Connect();
         Connection con = this.dbManager.getConnection();
         try {
-            String sql = "INSERT INTO dreambuy.user(f_name, l_name, email, password, city, address, credit_card_number, credit_card_comp, credit_card_exp, phone_number, zip) " +
+            String sql = "INSERT INTO dreamdb.account(f_name, l_name, email, password, city, address, credit_card_number, credit_card_comp, credit_card_exp, phone_number, zip) " +
                     "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-            PreparedStatement prepStmt = con.prepareStatement(sql);
+            PreparedStatement prepStmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             prepStmt.setString(1, user.getFirstName());
             prepStmt.setString(2, user.getLastName());
             prepStmt.setString(3, user.getEmail());
@@ -44,9 +41,29 @@ public class UserDBUtils {
             prepStmt.setLong(7, user.getCreditCardNumber());
             prepStmt.setInt(8, user.getCreditCardComp());
             prepStmt.setString(9, Integer.toString(user.getCreditCardExpMonth()) + '/' + Integer.toString(user.getCreditCardExpYear()));
-            prepStmt.setString(10, '0' + Integer.toString(user.getPhoneStart()) + Integer.toString(user.getPhoneNum()));
+            prepStmt.setString(10, Integer.toString(user.getPhoneStart()) + Integer.toString(user.getPhoneNum()));
             prepStmt.setInt(11, user.getZip());
             prepStmt.execute();
+            ResultSet generatedKey = prepStmt.getGeneratedKeys();
+            if(generatedKey.next()){
+                int buyerId = generatedKey.getInt(1);//also seller id
+                String sqlToAddBuyerId ="UPDATE dreamdb.account SET buyer_id=? WHERE id=?";
+                PreparedStatement preparedStatement = con.prepareStatement(sqlToAddBuyerId);
+                preparedStatement.setInt(1,buyerId);
+                preparedStatement.setInt(2,buyerId);
+                preparedStatement.execute();
+
+                String wishList = "INSERT INTO dreamdb.wish_lists SET buyer_id=?";
+                PreparedStatement prepStmtWishList = con.prepareStatement(wishList);
+                prepStmtWishList.setInt(1,buyerId);
+                prepStmtWishList.execute();
+
+                 wishList = "INSERT INTO dreamdb.shopping_carts SET buyer_id=?";
+                 prepStmtWishList = con.prepareStatement(wishList);
+                prepStmtWishList.setInt(1,buyerId);
+                prepStmtWishList.execute();
+            }
+
             this.dbManager.Disconnect();
 
         } finally {
@@ -54,11 +71,17 @@ public class UserDBUtils {
         }
     }
 
+    /**
+     * checks if the user is allowed to enter the site
+     * @param user - user object for login
+     * @return true on successful login else false
+     * @throws SQLException
+     */
     public boolean login(User user) throws SQLException{
         this.dbManager.Connect();
         Connection con = this.dbManager.getConnection();
         try{
-            String query = "SELECT password,f_name FROM dreambuy.user WHERE email=?";
+            String query = "SELECT password,f_name FROM dreamdb.account WHERE email=?";
             PreparedStatement stmt = con.prepareStatement(query);
             stmt.setString(1, user.getEmail());
             ResultSet res = stmt.executeQuery();

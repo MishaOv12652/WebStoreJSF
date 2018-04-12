@@ -9,18 +9,12 @@ import java.util.*;
 public class CommonUtils {
 
 
-    public static int getKeyByValue(Hashtable<Integer, String> hash, String value) {
-        Set set = hash.entrySet();
-
-        for (Object aSet : set) {
-            Map.Entry entry = (Map.Entry) aSet;
-            if (Objects.equals(entry.getValue(), value)) {
-                return (Integer) entry.getKey();
-            }
-        }
-        return -1;
-    }
-
+    /**
+     * get Const list values by table name and column name
+     * @param tableName
+     * @param columnName
+     * @return - a hastable of key and value of const
+     */
     public static Hashtable<Integer, String> getConstLists(String tableName, String columnName) {
         DBManager manager = new DBManager();
         manager.Connect();
@@ -43,13 +37,18 @@ public class CommonUtils {
         return map;
     }
 
+    /**
+     * gets user id by his eamil
+     * @param email - email of the user
+     * @return - the id of the user
+     */
     public static int getUserIdByEmail(String email) {
         DBManager manager = new DBManager();
         manager.Connect();
         try {
             Connection con = manager.getConnection();
             Statement stmt = con.createStatement();
-            String query = "SELECT id FROM dreambuy.user WHERE email='" + email + "'";
+            String query = "SELECT id FROM dreamdb.account WHERE email='" + email + "'";
             ResultSet rs = stmt.executeQuery(query);
             if (rs.next()) {
                 return rs.getInt("id");
@@ -64,8 +63,93 @@ public class CommonUtils {
         return -1;
     }
 
+    /**
+     * gets Email of the user by its id
+     * @param id - id of the user
+     * @return - email of the user
+     */
+    public static String getEmailByUserId(Integer id) {
+        DBManager manager = new DBManager();
+        manager.Connect();
+        try {
+            Connection con = manager.getConnection();
+            Statement stmt = con.createStatement();
+            String query = "SELECT email FROM dreamdb.account WHERE id='" + id + "'";
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                return rs.getString("email");
+            }
+            manager.Disconnect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            manager.Disconnect();
+            return null;
+        }
+        manager.Disconnect();
+        return null;
+    }
+
+    /**
+     * gets seller if by item id his selling
+     * @param id - item id the seller sells
+     * @return - return the seller id
+     */
+    public static int getSellerIdByItemId(int id){
+        DBManager manager = new DBManager();
+        manager.Connect();
+        try {
+            Connection con = manager.getConnection();
+            Statement stmt = con.createStatement();
+            String query = "SELECT seller_id FROM dreamdb.products WHERE id='" + id+ "'";
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                return rs.getInt("seller_id");
+            }
+            manager.Disconnect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            manager.Disconnect();
+            return -1;
+        }
+        manager.Disconnect();
+        return -1;
+    }
+
+    /**
+     * get the value from hash table by key
+     * @param hashtable - hash table
+     * @param key - key of the value
+     * @return - the value
+     */
     public static String getValueByKeyFromHash(Hashtable<Integer,String>hashtable,String key){
         return hashtable.get(Integer.parseInt(key));
+    }
+
+    /**
+     * return a wish list id by buyer id
+     * @param buyerId - id of the buyer that owns the wish list
+     * @return - id of wish list
+     */
+    // TODO: 4/7/2018 move to wish list classes
+    public static int getWishListIdByBuyerId(int buyerId){
+        DBManager manager = new DBManager();
+        manager.Connect();
+        try {
+            Connection con = manager.getConnection();
+            Statement stmt = con.createStatement();
+            String query = "SELECT id FROM dreamdb.wish_lists WHERE buyer_id='" + buyerId+ "'";
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+            manager.Disconnect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            manager.Disconnect();
+            return -1;
+        }
+        manager.Disconnect();
+        return -1;
     }
 
 }

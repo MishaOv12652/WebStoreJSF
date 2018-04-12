@@ -29,7 +29,8 @@ public class Item implements Serializable {
     private String itemDesc;
     private int category;
     private int condition;
-    private UploadedFile img;
+    private Part img;
+    private float shippingPrice;
 
     private Integer bookSpecs;
     private Integer movieSpecs;
@@ -38,6 +39,7 @@ public class Item implements Serializable {
 
     private int sellerId;
     private int numOfItems;
+    private int numOfItemsToBuy;
 
     private Hashtable<Integer, String> categories;
     private Hashtable<Integer, String> conditions;
@@ -45,7 +47,7 @@ public class Item implements Serializable {
     public Item() {
     }
 
-    public Item(String name, float price, String itemDesc, int category, int condition, UploadedFile uploadedFile, int numOfItems) {
+    public Item(String name, float price, String itemDesc, int category, int condition, float shippingPrice, Part uploadedFile, int numOfItems,int numOfItemsToBuy) {
         this.name = name;
         this.price = price;
         this.itemDesc = itemDesc;
@@ -53,10 +55,12 @@ public class Item implements Serializable {
         this.condition = condition;
         this.img = uploadedFile;
         this.numOfItems = numOfItems;
+        this.shippingPrice = shippingPrice;
+        this.numOfItemsToBuy = numOfItemsToBuy;
     }
 
 
-    public Item(int id, String name, float price, String itemDesc, int category, int condition, UploadedFile uploadedFile, int numOfItems, Integer bookSpecs, Integer movieSpecs, Integer cellSpecs, Integer compSpecs) {
+    public Item(int id, String name, float price, String itemDesc, int category, int condition, float shippingPrice, Part uploadedFile, int numOfItems, Integer bookSpecs, Integer movieSpecs, Integer cellSpecs, Integer compSpecs) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -65,13 +69,14 @@ public class Item implements Serializable {
         this.condition = condition;
         this.img = uploadedFile;
         this.numOfItems = numOfItems;
+        this.shippingPrice = shippingPrice;
         this.bookSpecs = bookSpecs;
         this.movieSpecs = movieSpecs;
         this.cellSpecs = cellSpecs;
         this.compSpecs = compSpecs;
     }
 
-    public Item(int id, String name, float price, String itemDesc, int category, int condition, UploadedFile uploadedFile, int numOfItems, Integer bookSpecs, Integer movieSpecs, Integer cellSpecs, Integer compSpecs, Hashtable<Integer, String> conditions, Hashtable<Integer, String> categories) {
+    public Item(int id, String name, float price, String itemDesc, int category, int condition, float shippingPrice, Part uploadedFile, int numOfItems, Integer bookSpecs, Integer movieSpecs, Integer cellSpecs, Integer compSpecs, Hashtable<Integer, String> conditions, Hashtable<Integer, String> categories) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -80,6 +85,7 @@ public class Item implements Serializable {
         this.condition = condition;
         this.img = uploadedFile;
         this.numOfItems = numOfItems;
+        this.shippingPrice = shippingPrice;
         this.bookSpecs = bookSpecs;
         this.movieSpecs = movieSpecs;
         this.cellSpecs = cellSpecs;
@@ -90,8 +96,8 @@ public class Item implements Serializable {
 
     @PostConstruct
     public void init() {
-        this.categories = CommonUtils.getConstLists("dreambuy.categories", "category_name");
-        this.conditions = CommonUtils.getConstLists("dreambuy.product_condition", "condition");
+        this.categories = CommonUtils.getConstLists("dreamdb.categories", "category_name");
+        this.conditions = CommonUtils.getConstLists("dreamdb.product_condition", "condition");
         this.category = 5;
     }
 

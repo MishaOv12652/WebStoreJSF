@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://java.sun.com/jsf/html"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions">
+<f:metadata>
+    <f:event type="preRenderView" listener="#{itemController.loadItemsToBuy(user.email)}"/>
+</f:metadata>
+<h:head>
+    <title>Web Store</title>
+    <title>Web Store - Search Results</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../resources/imgs/dollar.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" href="../resources/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../resources/Custom%20CSS/ItemSerachResult.css"/>
+</h:head>
+<h:body>
+    <ui:insert name="navBar">
+        <ui:include src="../public/navBar.xhtml"/>
+    </ui:insert>
+    <div class="container" style="margin-top: 50px">
+        <div>
+            <h1>Search Results</h1>
+            <h2 class="lead"><strong
+                    class="text-danger">#{itemController.searchResults.size()}</strong> results were found for the search for
+                <strong
+                        class="text-danger">#{itemController.inputSearchString}</strong></h2>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-12">
+            <h:dataTable value="#{itemController.searchResults}" var="searchResult" columns="3" columnClasses="">
+                <h:column>
+                    <o:graphicImage styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(searchResult.id)}" dataURI="true" />
+                </h:column>
+                <h:column>
+                    <ul class="meta-search" style="margin-left: 15px">
+                        <!--<li><i class="glyphicon glyphicon-calendar"/> <span>01/25/2018</span></li>-->
+                        <li><i class="glyphicon glyphicon-tags"/>
+                            <span>#{item.getConstValueByKey(searchResult.categories,searchResult.category)}</span>
+                        </li>
+                        <li><i class="glyphicon glyphicon-usd"/> <span>#{searchResult.price}</span></li>
+                        <li><i class="glyphicon glyphicon-envelope "/> <span>#{searchResult.shippingPrice}</span></li>
+                    </ul>
+                </h:column>
+                <h:column>
+                    <h:form>
+                        <div style="margin-left: 15px">
+                            <h:panelGrid columns="1">
+                                <h:commandLink rendered="#{searchResult.category eq 1}" styleClass="page-header"
+                                               style="font-size: 32px"
+                                               action="#{bookController.loadBookForUpdate(searchResult.bookSpecs,searchResult.id,false)}"
+                                               value="#{searchResult.name}"/>
+                                <h:commandLink rendered="#{searchResult.category eq 2}" styleClass="page-header"
+                                               style="font-size: 32px"
+                                               action="#{cellPhoneController.loadCellPhoneForUpdate(searchResult.cellSpecs,searchResult.id,false)}"
+                                               value="#{searchResult.name}"/>
+                                <h:commandLink rendered="#{searchResult.category eq 3}" styleClass="page-header"
+                                               style="font-size: 32px"
+                                               action="#{computerController.loadComputerForUpdate(searchResult.compSpecs,searchResult.id,false)}"
+                                               value="#{searchResult.name}"/>
+                                <h:commandLink rendered="#{searchResult.category eq 4}" styleClass="page-header"
+                                               style="font-size: 32px"
+                                               action="#{movieController.loadMovieForUpdate(searchResult.movieSpecs,searchResult.id,false)}"
+                                               value="#{searchResult.name}"/>
+                                <h:commandLink rendered="#{searchResult.category eq 5}" styleClass="page-header"
+                                               style="font-size: 32px"
+                                               action="#{itemController.loadItemForSale(searchResult.id,false)}"
+                                               value="#{searchResult.name}"/>
+                            </h:panelGrid>
+                            <p>#{searchResult.itemDesc}</p>
+                        </div>
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+        </div>
+    </div>
+</h:body>
+</html>

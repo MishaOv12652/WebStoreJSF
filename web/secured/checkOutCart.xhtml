@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:p="http://java.sun.com/jsf/html">
+
+<f:metadata>
+    <f:event type="preRenderView" listener="#{profileController.loadProfileInfo}"/>
+    <f:event type="preRenderView" listener="#{profileController.loadConsts}"/>
+</f:metadata>
+
+<h:head>
+    <title>Web Store - Check Out</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../resources/imgs/dollar.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" href="../resources/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../resources/Custom%20CSS/shoppingCart.css"/>
+</h:head>
+<h:body>
+    <ui:insert name="navBar">
+        <ui:include src="../public/navBar.xhtml"/>
+    </ui:insert>
+    <div class="jumbotron">
+        <h2 style="text-decoration: underline">Dream Buy &amp; Sell - Check Out</h2>
+        <h:panelGrid columns="3">
+            <p:dataTable var="shopItems" value="#{session.getAttribute('cart').entrySet().toArray()}">
+                <p:column>
+                    <o:graphicImage styleClass="thumbnail img" value="#{itemController.loadImageOfItemByItemId(shopItems.key.id)}" dataURI="true" />
+                </p:column>
+                <p:column>
+                    <h:outputText style="font-size: 17px;" value="#{shopItems.key.name}"/>
+                    <h:panelGrid columns="2" style="margin-left: 15px">
+                        <h:outputLabel style="font-size: 17px" for="cat" value="Category:"/>
+                        <h:outputText style="font-size: 17px" id="cat"
+                                      value="#{shopItems.key.getConstValueByKey(shopItems.key.categories,shopItems.key.category)}"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" style="margin-left: 15px">
+                        <h:outputLabel style="font-size: 17px" for="con" value="Condition:"/>
+                        <h:outputText style="font-size: 17px" id="con"
+                                      value="#{shopItems.key.getConstValueByKey(shopItems.key.conditions,shopItems.key.condition)}"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" style="margin-left: 15px">
+                        <h:outputLabel for="qunt"
+                                       style="margin-left: 15px;color: #0f0f0f">Quantity: </h:outputLabel>
+                        <h:outputText id="qunt" style="font-size: 17px" value="#{shopItems.value}"/>
+                    </h:panelGrid>
+                </p:column>
+                <p:column>
+                    <h:panelGrid columns="2" style="margin-left: 15px">
+                        <h:outputLabel for="price" value="Price:"/>
+                        <h:panelGrid columns="2">
+                            <h:outputText id="price" style="font-size: 20px" value="#{shopItems.key.price}"/>
+                            <i class="glyphicon glyphicon-usd"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" style="margin-left: 15px">
+                        <h:outputLabel for="shipping" value="Shipping:"/>
+                        <h:panelGrid columns="2">
+                            <h:outputText id="shipping" style="font-size: 20px" value="#{shopItems.key.shippingPrice}"/>
+                            <i class="glyphicon glyphicon-usd"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </p:column>
+            </p:dataTable>
+
+            <p:dataTable var="userInfo" value="">
+                <f:facet name="header">
+                    Information - to edit please go to profile
+                </f:facet>
+                <p:column headerText="Shipping Information">
+                    <h:panelGrid columns="2" bodyrows="4">
+                        <h:outputLabel for="city" value="City:"/>
+                        <h:outputText id="city"
+                                      value="#{profileController.getConstValueByKey(profileController.cities,user.city)}"/>
+
+                        <h:outputLabel for="street" value="Address: "/>
+                        <h:panelGrid columns="2" id="street">
+                            <h:outputText value="#{user.street}"/>
+                            <h:outputText style="margin-left: 10px" value="#{user.streetNum}"/>
+                        </h:panelGrid>
+
+                        <h:outputLabel for="zip" value="Zip:"/>
+                        <h:outputText id="zip" value="#{user.zip}"/>
+
+                    </h:panelGrid>
+                </p:column>
+                <p:column headerText="Payment Information">
+                    <h:panelGrid columns="2" bodyrows="5">
+                        <h:outputLabel for="creditComp" value="Credit Card Company:"/>
+                        <h:outputText id="creditComp"
+                                      value="#{profileController.getConstValueByKey(profileController.creditCardCompanies,user.creditCardComp)}"/>
+
+                        <h:outputLabel for="creditNum" value="Credit Card Number:"/>
+                        <h:outputText id="creditNum" value="#{user.creditCardNumber}"/>
+
+                        <h:outputLabel for="creditExp" value="Credit Card Experation Date"/>
+                        <h:panelGrid columns="3" id="creditExp">
+                            <h:outputText value="#{user.creditCardExpMonth}"/>
+                            /
+                            <h:outputText value="#{user.creditCardExpYear}"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </p:column>
+            </p:dataTable>
+
+            <h:panelGrid bodyrows="2" style="margin-left: 20px" styleClass="pull-right text-center">
+                <h2>Cart Summery</h2>
+                <h:form>
+                    <h:panelGrid bodyrows="5" border="1">
+                        <h:panelGrid columns="2">
+                            <h:outputLabel for="sub_total" value="Subtotal:"/>
+
+                            <h:panelGrid columns="2">
+                                <h:outputText id="sub_total"
+                                              value="#{checkOutController.calculatePriceWithoutShipping(session.getAttribute('cart'))}"/>
+                                <i class="glyphicon glyphicon-usd"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel for="sub_ship" value="Shipping:"/>
+
+                            <h:panelGrid columns="2">
+                                <h:outputText id="sub_ship"
+                                              value="#{checkOutController.calculateShippingPrice(session.getAttribute('cart'))}"/>
+                                <i class="glyphicon glyphicon-usd"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel for="total" value="Total:"/>
+
+                            <h:panelGrid columns="2">
+                                <h:outputText id="total"
+                                              value="#{checkOutController.calculateTotal(session.getAttribute('cart'))}"/>
+                                <i class="glyphicon glyphicon-usd"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <h:commandButton styleClass="btn btn-primary" value="Confirm Payment"
+                                             actionListener="#{checkOutController.confirmPayment(session.getAttribute('cart'),session.getAttribute('userEmail'))}"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:form>
+
+            </h:panelGrid>
+
+        </h:panelGrid>
+    </div>
+
+</h:body>
+</html>
