@@ -20,14 +20,19 @@ import java.util.ArrayList;
 @Setter
 @ManagedBean
 @SessionScoped
-public class WishListController implements Serializable{
+public class WishListController implements Serializable {
     private WishListDBUtils wishListDBUtils;
     private ArrayList<Item> wishListItems;
 
-    public WishListController(){
+    public WishListController() {
         this.wishListDBUtils = new WishListDBUtils();
     }
 
+    /**
+     * loads items that user has in his wish list by his email
+     *
+     * @param email - email of the user
+     */
     public void loadWishList(String email) {
         try {
             this.wishListItems = this.wishListDBUtils.loadWishList(email);
@@ -36,16 +41,25 @@ public class WishListController implements Serializable{
         }
     }
 
-    public void addItemToWishList(String email, int itemId){
+    /**
+     * handles adding item to a wish list
+     * @param email - email of the user that owns the wish list
+     * @param itemId - id of the item to add to the wish list
+     */
+    public void addItemToWishList(String email, int itemId) {
         try {
-            this.wishListDBUtils.addItemToWishList(email,itemId);
+            this.wishListDBUtils.addItemToWishList(email, itemId);
             RedirectHelper.redirectToWishList();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void removeItemFromWishList(int itemId){
+    /**
+     * removes an item from the wish list
+     * @param itemId - id of the item in the wish list
+     */
+    public void removeItemFromWishList(int itemId) {
         try {
             this.wishListDBUtils.removeItemFromWishList(itemId);
         } catch (SQLException e) {

@@ -26,7 +26,7 @@ import java.util.Set;
 @Setter
 @ManagedBean
 @SessionScoped
-public class ShoppingCartController implements Serializable{
+public class ShoppingCartController implements Serializable {
     private static DecimalFormat df2 = new DecimalFormat(".##");
 
 
@@ -39,6 +39,14 @@ public class ShoppingCartController implements Serializable{
     }
 
     //add item to cart
+
+    /**
+     * handles adding an item to the shopping cart
+     *
+     * @param email      - email of the user that owns the shopping cart
+     * @param itemId     - id of the item to add to the shopping cart
+     * @param numOfItems - quantity of the item to add
+     */
     public void addItemToCart(String email, int itemId, int numOfItems) {
         try {
             this.shoppingCartDBUtils.addItemToCart(email, itemId, numOfItems);
@@ -48,8 +56,14 @@ public class ShoppingCartController implements Serializable{
         }
     }
 
-    //update item in cart
     //remove item from cart
+
+    /**
+     * handles removing an item from a shopping cart
+     *
+     * @param email - email of the user that owns the shopping cart
+     * @param item  - the item to remove
+     */
     public void removeItemFromCart(String email, Item item) {
         try {
             this.shoppingCartDBUtils.removeItemFromCart(email, item.getId());
@@ -60,6 +74,12 @@ public class ShoppingCartController implements Serializable{
     }
 
     //load cart
+
+    /**
+     * loads the cart and its content by email of the user
+     *
+     * @param email - email of the user that owns the shopping cart
+     */
     public void loadCart(String email) {
         try {
             this.shoppingCart.setShoppingCartItems(this.shoppingCartDBUtils.loadShoppingCart(email));
@@ -68,8 +88,11 @@ public class ShoppingCartController implements Serializable{
         }
     }
 
-    public void proceedToCheckOut(){
-        SessionUtils.getSession().setAttribute("cart",this.shoppingCart.getShoppingCartItems());
+    /**
+     * handles proceeding to check out action
+     */
+    public void proceedToCheckOut() {
+        SessionUtils.getSession().setAttribute("cart", this.shoppingCart.getShoppingCartItems());
         try {
             RedirectHelper.redirectToCheckOut();
         } catch (IOException e) {
@@ -77,26 +100,34 @@ public class ShoppingCartController implements Serializable{
         }
     }
 
-    //calculate price without shipping
+    /**
+     * calculates price without shipping for all items in the checkout
+     */
     public void calculatePriceWithoutShipping() {
         double sum = 0;
         Set<Item> keys = this.shoppingCart.getShoppingCartItems().keySet();
         for (Item key : keys) {
-            sum+= key.getPrice()*this.shoppingCart.getShoppingCartItems().get(key);
+            sum += key.getPrice() * this.shoppingCart.getShoppingCartItems().get(key);
         }
         this.shoppingCart.setPriceWithoutShipping(Double.parseDouble(df2.format(sum)));
     }
-    //calculate price of shipping
+
+    /**
+     * calculate price of shipping for all items in the checkout
+     */
     public void calculateShippingPrice() {
         double sum = 0;
         Set<Item> keys = this.shoppingCart.getShoppingCartItems().keySet();
         for (Item key : keys) {
-            sum+= key.getShippingPrice();
+            sum += key.getShippingPrice();
         }
         this.shoppingCart.setPriceOfShipping(Double.parseDouble(df2.format(sum)));
     }
-    //calculate subtotal
-    public void calculateTotal(){
+
+    /**
+     * calculates the total price of items in checkout
+     */
+    public void calculateTotal() {
         this.shoppingCart.setTotal(Double.parseDouble(df2.format(this.shoppingCart.getPriceOfShipping() + this.shoppingCart.getPriceWithoutShipping())));
     }
 

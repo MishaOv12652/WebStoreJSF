@@ -33,10 +33,6 @@ public class MovieController extends ItemController implements Serializable{
     private Item itemBean;
 
     private MovieDBUtils movieDBUtils;
-//    private static final String PROFILE_PAGE_REDIRECT_SELLING_LIST =
-//            "/NewSadna_war_exploded/secured/profile-selling-items.xhtml";
-//    private static final String VIEW_ITEM_PAGE = "/public/item-view";
-//    private static final String EDIT_ITEM_PAGE = "/secured/edit-item";
 
 
     public MovieController(){

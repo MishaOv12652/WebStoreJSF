@@ -84,6 +84,11 @@ public class ItemController implements Serializable {
         }
     }
 
+    /**
+     * loads image of an item by its id
+     * @param itemId - id of the item
+     * @return - blob of the image in db
+     */
     public InputStream loadImageOfItemByItemId(int itemId){
         try {
            return this.itemDBUtils.loadImageOfItemByItemId(itemId);
@@ -227,6 +232,12 @@ public class ItemController implements Serializable {
 
     }
 
+    /**
+     * handles buy it now action on any item
+     * @param id - id of the item
+     * @param numOfItemsToBuy - num of items the user wants to buy
+     * @return - string of the page to checkout
+     */
     public String buyItemNow(Integer id, int numOfItemsToBuy) {
         try {
             this.item = this.getItemDBUtils().loadItemForSale(id);
@@ -245,6 +256,10 @@ public class ItemController implements Serializable {
         return RedirectHelper.CHECKOUT_PAGE;
     }
 
+    /**
+     * confirms payment of buy it now action
+     * @param numOfItemsBought - num of items bought
+     */
     public void confirmPayment(int numOfItemsBought) {
         String sellerEmail = (String) SessionUtils.getSession().getAttribute("sellerEmail");
         try {
@@ -255,7 +270,13 @@ public class ItemController implements Serializable {
         }
     }
 
-
+    /**
+     * checks if a user wants to go and see items specs
+     * or edit them
+     * @param edit - flag to edit or not
+     * @param itemId - id of the item to view/edit
+     * @return - string of the page with the item data populated
+     */
     protected String checkIfEdit(boolean edit,Integer itemId){
         if(edit){
             return RedirectHelper.EDIT_ITEM_PAGE;
