@@ -73,15 +73,11 @@ public class ProfileDBUtils {
             statement.setString(3, user.getEmail());
             statement.setString(4, Integer.toString(user.getPhoneStart()) + Integer.toString(user.getPhoneNum()));
             statement.setString(5, user.getPassword());
-//            this.setCity(comUtil.getKeyByValue(this.cities,this.cityName));
             statement.setString(6, user.getStreet() + Integer.toString(user.getStreetNum()));
             statement.setInt(7, user.getCity());
             statement.setInt(8, user.getZip());
-
             statement.setLong(9, user.getCreditCardNumber());
             statement.setString(10, Integer.toString(user.getCreditCardExpMonth()) + '/' + Integer.toString(user.getCreditCardExpYear()));
-//            CommonUtils comUtil = new CommonUtils();
-//            this.setCredit_card_comp(Integer.toString(comUtil.getKeyByValue(this.credit_companies,this.creditCompanyName)));
             statement.setInt(11, user.getCreditCardComp());
             statement.setString(12,user.getEmail());
             statement.execute();

@@ -26,9 +26,9 @@ public class ItemDBUtils {
     }
 
     /**
-     * @param item
-     * @param idOfUser
-     * @return
+     * @param item - item object with specs
+     * @param idOfUser - id of seller
+     * @return - item id
      * @throws SQLException
      */
     public int addItemForSale(Item item, int idOfUser) throws SQLException {
@@ -36,6 +36,12 @@ public class ItemDBUtils {
         return this.addItemForSale(item, idOfUser, this.dbManager.getConnection());
     }
 
+    /**
+     * loads image by item id
+     * @param itemId - item id
+     * @return - Input stream of the image
+     * @throws SQLException
+     */
     public InputStream loadImageOfItemByItemId(int itemId) throws SQLException {
         String sql = "SELECT img FROM dreamdb.products WHERE id=?";
         this.dbManager.Connect();
@@ -52,7 +58,7 @@ public class ItemDBUtils {
 
     /**
      * updates an item of the category other
-     * @param item
+     * @param item - item with new attributes
      * @throws SQLException
      */
     public void updateItemForSale(Item item) throws SQLException {
@@ -97,9 +103,9 @@ public class ItemDBUtils {
     }
 
     /**
-     * loads
-     * @param id
-     * @return
+     * loads item for sale
+     * @param id - id of item
+     * @return - Item object
      * @throws SQLException
      */
     public Item loadItemForSale(int id) throws SQLException {
@@ -135,6 +141,14 @@ public class ItemDBUtils {
 
     }
 
+    /**
+     * handles adding item with category specs
+     * @param item - item object
+     * @param idOfUser - id of seller
+     * @param con - connection to db
+     * @return - item id
+     * @throws SQLException
+     */
     protected int addItemForSale(Item item, int idOfUser, Connection con) throws SQLException {
         String sql = "INSERT INTO dreamdb.products(name, price, item_desc, category, condition_id, seller_id,numOfItems,book_spec_id,cellphone_spec_id,computer_spec_id,movie_spec_id,shippingPrice,img)" +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -190,6 +204,11 @@ public class ItemDBUtils {
         this.dbManager.Disconnect();
     }
 
+    /**
+     * deletes item for sale
+     * @param id - id of item
+     * @throws SQLException
+     */
     public void deleteItemForSale(Integer id) throws SQLException {
         ShoppingCartDBUtils shoppingCartDBUtils = new ShoppingCartDBUtils();
         shoppingCartDBUtils.removeItemFromCart("danimo@gmail.com",id);
@@ -206,6 +225,14 @@ public class ItemDBUtils {
         this.dbManager.Disconnect();
     }
 
+    /**
+     * handles finding items for buying
+     * @param inputSearchString - search string
+     * @param id - id of the searcher
+     * @param category - category of the item
+     * @return - array list of items found
+     * @throws SQLException
+     */
     public ArrayList<Item> searchForItemsToBuy(String inputSearchString, Integer id, int category) throws SQLException {
         ArrayList<Item> arrayList = new ArrayList<>();
         String sql = "SELECT * FROM dreamdb.products WHERE name LIKE ? AND seller_id <> ? AND category = ?";
@@ -226,7 +253,6 @@ public class ItemDBUtils {
                     resultSet.getInt("condition_id"),
                     resultSet.getFloat("shippingPrice"),
                     null,
-//                    resultSet.getBlob("img"),
                     resultSet.getInt("numOfItems"),
                     resultSet.getInt("book_spec_id"),
                     resultSet.getInt("movie_spec_id"),
@@ -240,6 +266,12 @@ public class ItemDBUtils {
         return arrayList;
     }
 
+    /**
+     * handles confirming payment for buy it now
+     * @param sellerEmail - seller email
+     * @param numOfItemsBought - num of items bought
+     * @throws SQLException
+     */
     public void confirmPayment(String sellerEmail,int numOfItemsBought) throws SQLException {
 
         String sql = "UPDATE dreamdb.products SET numOfItems=numOfItems-? WHERE seller_id=?";

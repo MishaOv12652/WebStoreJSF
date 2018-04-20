@@ -15,6 +15,13 @@ public class WishListDBUtils {
     public WishListDBUtils(){
         this.dbManager = new DBManager();
     }
+
+    /**
+     * loads wish list by email of buyer
+     * @param email - email of buyer
+     * @return - array list of items in wish list of the buyer
+     * @throws SQLException
+     */
     public ArrayList<Item> loadWishList(String email) throws SQLException {
         ArrayList<Item> arrayOfItems = new ArrayList<>();
         String sql = "SELECT * FROM dreamdb.products AS allP INNER JOIN dreamdb.wish_list_products AS" +
@@ -34,7 +41,6 @@ public class WishListDBUtils {
                     resultSet.getInt("condition_id"),
                     resultSet.getFloat("shippingPrice"),
                     null,
-//                    resultSet.getBlob("img"),
                     resultSet.getInt("numOfItems"),
                     resultSet.getInt("book_spec_id"),
                     resultSet.getInt("movie_spec_id"),
@@ -48,6 +54,12 @@ public class WishListDBUtils {
         return arrayOfItems;
     }
 
+    /**
+     * handles adding item to wish list
+     * @param email - email of buyer
+     * @param itemId - item id to add to wish list
+     * @throws SQLException
+     */
     public void addItemToWishList(String email,int itemId) throws SQLException {
         String sql = "INSERT INTO dreamdb.wish_list_products SET wish_list_id=?,product_id=?";
         this.dbManager.Connect();
@@ -59,6 +71,11 @@ public class WishListDBUtils {
         this.dbManager.Disconnect();
     }
 
+    /**
+     * handles removing item from wish list by id
+     * @param itemId - item id
+     * @throws SQLException
+     */
     public void removeItemFromWishList(int itemId) throws SQLException {
         String sql = "DELETE FROM dreamdb.wish_list_products WHERE product_id=?";
         this.dbManager.Connect();

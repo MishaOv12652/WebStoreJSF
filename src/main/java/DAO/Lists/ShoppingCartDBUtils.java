@@ -18,7 +18,13 @@ public class ShoppingCartDBUtils {
         this.dbManager = new DBManager();
     }
 
-    //add item to cart
+    /**
+     * handles adding item to shopping cart
+     * @param email - email of the buyer
+     * @param itemId - item id to add
+     * @param numOfItemsToBuy - num of items to add
+     * @throws SQLException
+     */
     public void addItemToCart(String email,int itemId,int numOfItemsToBuy) throws SQLException {
         String sql = "INSERT INTO dreamdb.shopping_cart_products SET product_id=?,shopping_cart_id=?,buyAmount=?";
         this.dbManager.Connect();
@@ -30,9 +36,13 @@ public class ShoppingCartDBUtils {
         preparedStatement.execute();
         this.dbManager.Disconnect();
     }
-    //update item in cart
 
-    //remove item from cart
+    /**
+     * handles removing item from shopping cart
+     * @param email - email of buyer
+     * @param itemId - item id
+     * @throws SQLException
+     */
     public void removeItemFromCart(String email,int itemId) throws SQLException {
         String sql = "DELETE FROM dreamdb.shopping_cart_products WHERE product_id=? AND shopping_cart_id=?";
         this.dbManager.Connect();
@@ -43,7 +53,13 @@ public class ShoppingCartDBUtils {
         preparedStatement.execute();
         this.dbManager.Disconnect();
     }
-    //load cart
+
+    /**
+     * handles looding the shopping cart by email
+     * @param email - email of buyer
+     * @return - hashtable of item and num of items of each item
+     * @throws SQLException
+     */
     public Hashtable<Item,Integer> loadShoppingCart(String email) throws SQLException {
         Hashtable<Item,Integer> itemsInCart = new Hashtable<>();
         String sql = "SELECT * FROM dreamdb.products AS allP INNER JOIN dreamdb.shopping_cart_products AS" +
@@ -77,6 +93,12 @@ public class ShoppingCartDBUtils {
         return itemsInCart;
     }
 
+    /**
+     * handles getting shopping cart id
+     * @param buyerId - buyer id
+     * @param connection - connection to db
+     * @return
+     */
     protected int getShoppingCartIdByBuyerId(int buyerId,Connection connection){
         try {
             Statement stmt = connection.createStatement();

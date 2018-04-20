@@ -20,7 +20,12 @@ public class BookDBUtils extends ItemDBUtils {
         super();
     }
 
-
+    /**
+     * loads book specs for sale by its id
+     * @param id - id of book specs
+     * @return - a book object
+     * @throws SQLException
+     */
     public Book loadBooksForSale(Integer id) throws SQLException {
         this.getDbManager().Connect();
         String sql = "SELECT * FROM dreamdb.books_specs WHERE id = ?";
@@ -46,6 +51,13 @@ public class BookDBUtils extends ItemDBUtils {
         return null;
     }
 
+    /**
+     *  handles adding a book for sale
+     * @param item - item specs - without book specs id
+     * @param sellerId - ther seller id
+     * @return - item id
+     * @throws SQLException
+     */
     @Override
     public int addItemForSale(Item item, int sellerId) throws SQLException {
         this.getDbManager().Connect();
@@ -53,7 +65,11 @@ public class BookDBUtils extends ItemDBUtils {
         return this.addItemForSale(item, sellerId, this.getDbManager().getConnection());
     }
 
-
+    /**
+     * handles updating book specs
+     * @param book - book object with attributes to update
+     * @throws SQLException
+     */
     public void updateBookSpecs(Book book) throws SQLException {
         this.getDbManager().Connect();
         String sql = "UPDATE dreamdb.books_specs SET genre=?, series=?, age_lvl=?, author=? WHERE id=?";
@@ -68,6 +84,11 @@ public class BookDBUtils extends ItemDBUtils {
         this.getDbManager().Disconnect();
     }
 
+    /**
+     * handles deleting book specs
+     * @param id - id of the book specs
+     * @throws SQLException
+     */
     public void deleteBookForSale(Integer id) throws SQLException {
         this.getDbManager().Connect();
         String sql = "DELETE FROM dreamdb.books_specs WHERE id=?";
@@ -78,6 +99,12 @@ public class BookDBUtils extends ItemDBUtils {
         this.getDbManager().Disconnect();
     }
 
+    /**
+     * handels adding book specs - for add item
+     * @param book - book object to add
+     * @return - book specs id
+     * @throws SQLException
+     */
     private int addBookSpecs(Book book) throws SQLException {
         this.getDbManager().Connect();
         String sql = "INSERT INTO dreamdb.books_specs(genre, series, age_lvl, author) " +

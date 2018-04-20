@@ -19,7 +19,12 @@ public class CheckOutDBUtils {
         this.dbManager = new DBManager();
     }
 
-    //confirm payment
+    /**
+     * confirms payment fom shopping cart
+     * @param items - hash table of items and number of items to buy
+     * @param userId - buyer id
+     * @throws SQLException
+     */
     public void confirmPayment(Hashtable<Item,Integer> items,int userId) throws SQLException {
         // TODO: 4/7/2018 need to handle when numof items is less then num of items to buy
         String sql = "UPDATE dreamdb.products SET numOfItems = numOfItems - ? WHERE id=?";

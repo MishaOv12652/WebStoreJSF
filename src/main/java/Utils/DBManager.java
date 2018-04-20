@@ -20,6 +20,9 @@ public class DBManager {
 
     private Connection connection = null;
 
+    /**
+     * handles connecting to database
+     */
     public void Connect(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -36,6 +39,9 @@ public class DBManager {
         }
     }
 
+    /**
+     * handles disconnecting from database
+     */
     public void Disconnect()
     {
         try
@@ -48,6 +54,10 @@ public class DBManager {
         }
     }
 
+    /**
+     * get connection to db
+     * @return - connection
+     */
     public Connection getConnection() {
         return connection;
     }

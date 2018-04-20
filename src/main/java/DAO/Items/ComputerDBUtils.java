@@ -22,6 +22,13 @@ public class ComputerDBUtils extends ItemDBUtils {
         super();
     }
 
+    /**
+     * handels adding a computer item
+     * @param item - item specs - without computer specs id
+     * @param sellerId - the seller id
+     * @return - computer item id
+     * @throws SQLException
+     */
     @Override
     public int addItemForSale(Item item, int sellerId) throws SQLException {
         this.getDbManager().Connect();
@@ -29,6 +36,12 @@ public class ComputerDBUtils extends ItemDBUtils {
         return this.addItemForSale(item, sellerId, this.getDbManager().getConnection());
     }
 
+    /**
+     * handles adding computer specs
+     * @param computer - computer object
+     * @return - computer specs id
+     * @throws SQLException
+     */
     private int addComputerSpecs(Computer computer) throws SQLException {
         Connection con = this.getDbManager().getConnection();
         String sql = "INSERT INTO dreamdb.computer_specs(type, os, cpu,cpu_speed," +

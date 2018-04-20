@@ -22,6 +22,13 @@ public class CellPhoneDBUtils extends ItemDBUtils {
         super();
     }
 
+    /**
+     * handels adding cellphone
+     * @param item - item specs - without cellphone specs id
+     * @param sellerId - seller id
+     * @return - item id
+     * @throws SQLException
+     */
     @Override
     public int addItemForSale(Item item, int sellerId) throws SQLException {
         this.getDbManager().Connect();
@@ -29,6 +36,12 @@ public class CellPhoneDBUtils extends ItemDBUtils {
         return this.addItemForSale(item, sellerId,this.getDbManager().getConnection());
     }
 
+    /**
+     * handels adding cellphone specs - for add item
+     * @param cellPhone - cellphone object to add
+     * @return - id of cellphone specs
+     * @throws SQLException
+     */
     private int addCellPhoneSpecs(CellPhone cellPhone) throws SQLException {
         this.getDbManager().Connect();
 
@@ -55,6 +68,12 @@ public class CellPhoneDBUtils extends ItemDBUtils {
             }
     }
 
+    /**
+     * loads a cellphone for sale
+     * @param id  - cellphone id
+     * @return - cellphone object
+     * @throws SQLException
+     */
     public CellPhone loadCellPhoneForSale(Integer id) throws SQLException {
         this.getDbManager().Connect();
         String sql = "SELECT * FROM dreamdb.cellphone_specs where id = ?";
@@ -85,6 +104,11 @@ public class CellPhoneDBUtils extends ItemDBUtils {
         return null;
     }
 
+    /**
+     * updates cellphone specs
+     * @param cellPhone - cellphone object with new attributes
+     * @throws SQLException
+     */
     public void updateCellPhoneSpecs(CellPhone cellPhone) throws SQLException {
         this.getDbManager().Connect();
         String sql = "UPDATE dreamdb.cellphone_specs SET screen_size=?, model=?, ram=?,brand=?," +
@@ -104,6 +128,11 @@ public class CellPhoneDBUtils extends ItemDBUtils {
         this.getDbManager().Disconnect();
     }
 
+    /**
+     * deletes cellphonespecs
+     * @param id - cellphone specs id
+     * @throws SQLException
+     */
     public void deleteCellPhoneForSale(Integer id) throws SQLException {
         this.getDbManager().Connect();
         String sql = "DELETE FROM dreamdb.cellphone_specs WHERE id=?";

@@ -22,6 +22,13 @@ public class MovieDBUtils extends ItemDBUtils {
         super();
     }
 
+    /**
+     * handels adding movie for sale
+     * @param item - item specs - without movie specs id
+     * @param sellerId - seller id
+     * @return - item id
+     * @throws SQLException
+     */
     @Override
     public int addItemForSale(Item item, int sellerId) throws SQLException {
         this.getDbManager().Connect();
@@ -29,6 +36,12 @@ public class MovieDBUtils extends ItemDBUtils {
         return this.addItemForSale(item, sellerId,this.getDbManager().getConnection());
     }
 
+    /**
+     * handles adding movie specs
+     * @param movie - movie object
+     * @return - movie specs id
+     * @throws SQLException
+     */
     private int addMovieSpecs(Movie movie) throws SQLException {
         this.getDbManager().Connect();
         String sql = "INSERT INTO dreamdb.movie_specs(director, length, year,actor,age_lvl,genre) " +
@@ -46,14 +59,18 @@ public class MovieDBUtils extends ItemDBUtils {
 
             ResultSet generatedKey = prpStmt.getGeneratedKeys();
             if (generatedKey.next()) {
-                // generatedKey.next();
                 return generatedKey.getInt(1);
             } else {
-                //throw new SQLException("add book failed");
                 return -1;
             }
     }
 
+    /**
+     * loads movie for sale
+     * @param id - id of the movie specs
+     * @return - movie object
+     * @throws SQLException
+     */
     public Movie loadMovieForSale(Integer id) throws SQLException {
         this.getDbManager().Connect();
         String sql = "SELECT * FROM dreamdb.movie_specs WHERE id = ?";
@@ -82,6 +99,11 @@ public class MovieDBUtils extends ItemDBUtils {
         return null;
     }
 
+    /**
+     * handles updating movie specs
+     * @param movie - movie object with new attributes
+     * @throws SQLException
+     */
     public void updateMovieSpecs(Movie movie) throws SQLException {
         this.getDbManager().Connect();
         String sql = "UPDATE dreamdb.movie_specs SET director=?, length=?, year=?,actor=?,age_lvl=?,genre=?" +
@@ -99,6 +121,11 @@ public class MovieDBUtils extends ItemDBUtils {
         this.getDbManager().Disconnect();
     }
 
+    /**
+     * handles deleting movie specs
+     * @param id - id of movie specs
+     * @throws SQLException
+     */
     public void deleteMovieForSale(Integer id) throws SQLException {
         this.getDbManager().Connect();
         String sql = "DELETE FROM dreamdb.movie_specs WHERE id=?";
