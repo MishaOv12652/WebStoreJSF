@@ -26,7 +26,6 @@ public class CheckOutDBUtils {
      * @throws SQLException
      */
     public void confirmPayment(Hashtable<Item,Integer> items,int userId) throws SQLException {
-        // TODO: 4/7/2018 need to handle when numof items is less then num of items to buy
         String sql = "UPDATE dreamdb.products SET numOfItems = numOfItems - ? WHERE id=?";
         ShoppingCartDBUtils shoppingCartDBUtils = new ShoppingCartDBUtils();
         this.dbManager.Connect();
@@ -47,6 +46,5 @@ public class CheckOutDBUtils {
         this.dbManager.Disconnect();
 
     }
-    //load checkout
 
 }

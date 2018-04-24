@@ -29,7 +29,7 @@ public class WishListDBUtils {
         this.dbManager.Connect();
         Connection con = this.dbManager.getConnection();
         PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        preparedStatement.setInt(1, CommonUtils.getWishListIdByBuyerId(CommonUtils.getUserIdByEmail(email)));
+        preparedStatement.setInt(1, this.getWishListIdByBuyerId(CommonUtils.getUserIdByEmail(email)));
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             arrayOfItems.add(new Item(
@@ -65,7 +65,7 @@ public class WishListDBUtils {
         this.dbManager.Connect();
         Connection connection = this.dbManager.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1,CommonUtils.getWishListIdByBuyerId(CommonUtils.getUserIdByEmail(email)));
+        preparedStatement.setInt(1,this.getWishListIdByBuyerId(CommonUtils.getUserIdByEmail(email)));
         preparedStatement.setInt(2,itemId);
         preparedStatement.execute();
         this.dbManager.Disconnect();
@@ -85,5 +85,31 @@ public class WishListDBUtils {
         preparedStatement.execute();
         this.dbManager.Disconnect();
 
+    }
+
+    /**
+     * return a wish list id by buyer id
+     * @param buyerId - id of the buyer that owns the wish list
+     * @return - id of wish list
+     */
+    private  int getWishListIdByBuyerId(int buyerId){
+        DBManager manager = new DBManager();
+        manager.Connect();
+        try {
+            Connection con = manager.getConnection();
+            Statement stmt = con.createStatement();
+            String query = "SELECT id FROM dreamdb.wish_lists WHERE buyer_id='" + buyerId+ "'";
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+            manager.Disconnect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            manager.Disconnect();
+            return -1;
+        }
+        manager.Disconnect();
+        return -1;
     }
 }

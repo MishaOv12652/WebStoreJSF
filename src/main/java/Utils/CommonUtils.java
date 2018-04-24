@@ -125,31 +125,5 @@ public class CommonUtils {
         return hashtable.get(Integer.parseInt(key));
     }
 
-    /**
-     * return a wish list id by buyer id
-     * @param buyerId - id of the buyer that owns the wish list
-     * @return - id of wish list
-     */
-    // TODO: 4/7/2018 move to wish list classes
-    public static int getWishListIdByBuyerId(int buyerId){
-        DBManager manager = new DBManager();
-        manager.Connect();
-        try {
-            Connection con = manager.getConnection();
-            Statement stmt = con.createStatement();
-            String query = "SELECT id FROM dreamdb.wish_lists WHERE buyer_id='" + buyerId+ "'";
-            ResultSet rs = stmt.executeQuery(query);
-            if (rs.next()) {
-                return rs.getInt("id");
-            }
-            manager.Disconnect();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            manager.Disconnect();
-            return -1;
-        }
-        manager.Disconnect();
-        return -1;
-    }
 
 }

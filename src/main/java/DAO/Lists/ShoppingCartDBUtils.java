@@ -79,7 +79,6 @@ public class ShoppingCartDBUtils {
                     resultSet.getInt("condition_id"),
                     resultSet.getFloat("shippingPrice"),
                     null,
-//                    resultSet.getBlob("img"),
                     resultSet.getInt("numOfItems"),
                     resultSet.getInt("book_spec_id"),
                     resultSet.getInt("movie_spec_id"),
